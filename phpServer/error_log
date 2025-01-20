@@ -1,0 +1,1378 @@
+[17-Dec-2024 21:12:51 UTC] ID de cotización encontrado en la sesión: 4
+[17-Dec-2024 21:12:51 UTC] ID insertado: 1
+[17-Dec-2024 21:12:51 UTC] ID insertado: 2
+[17-Dec-2024 21:12:51 UTC] ID insertado: 3
+[17-Dec-2024 21:12:51 UTC] ID insertado: 4
+[17-Dec-2024 22:01:48 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:01:48 UTC] ID insertado: 5
+[17-Dec-2024 22:01:48 UTC] ID insertado: 6
+[17-Dec-2024 22:01:48 UTC] ID insertado: 7
+[17-Dec-2024 22:01:48 UTC] ID insertado: 8
+[17-Dec-2024 22:01:48 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:01:48 UTC] ID insertado: 1
+[17-Dec-2024 22:01:48 UTC] ID insertado: 2
+[17-Dec-2024 22:01:48 UTC] ID insertado: 3
+[17-Dec-2024 22:01:48 UTC] ID insertado: 4
+[17-Dec-2024 22:14:55 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:14:55 UTC] ID insertado: 1
+[17-Dec-2024 22:14:55 UTC] ID insertado: 2
+[17-Dec-2024 22:14:55 UTC] ID insertado: 3
+[17-Dec-2024 22:14:55 UTC] ID insertado: 4
+[17-Dec-2024 22:14:55 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:14:55 UTC] ID insertado: 1
+[17-Dec-2024 22:14:55 UTC] ID insertado: 2
+[17-Dec-2024 22:14:55 UTC] ID insertado: 3
+[17-Dec-2024 22:14:55 UTC] ID insertado: 4
+[17-Dec-2024 22:19:16 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:19:16 UTC] ID insertado: 9
+[17-Dec-2024 22:19:16 UTC] ID insertado: 10
+[17-Dec-2024 22:19:16 UTC] ID insertado: 11
+[17-Dec-2024 22:19:16 UTC] ID insertado: 12
+[17-Dec-2024 22:19:17 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:19:17 UTC] ID insertado: 5
+[17-Dec-2024 22:19:17 UTC] ID insertado: 6
+[17-Dec-2024 22:19:17 UTC] ID insertado: 7
+[17-Dec-2024 22:19:17 UTC] ID insertado: 8
+[17-Dec-2024 22:25:27 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:25:27 UTC] ID insertado: 1
+[17-Dec-2024 22:25:27 UTC] ID insertado: 2
+[17-Dec-2024 22:25:27 UTC] ID insertado: 3
+[17-Dec-2024 22:25:27 UTC] ID insertado: 4
+[17-Dec-2024 22:37:14 UTC] ID de cotización encontrado en la sesión: 7
+[17-Dec-2024 22:37:14 UTC] ID insertado: 5
+[17-Dec-2024 22:37:14 UTC] ID insertado: 6
+[17-Dec-2024 22:37:14 UTC] ID insertado: 7
+[17-Dec-2024 22:37:14 UTC] ID insertado: 8
+[17-Dec-2024 22:37:15 UTC] Array
+(
+    [cantidad] => 145
+    [unidad] => 
+    [abreviaturaLinea] => 
+    [descripcionBreve] => 
+    [descripcionPersonal] => 
+    [cantidadPersonas] => 0
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 0
+    [costoTotalDiasKamati] => 0
+    [valorDiaUtilidad] => 0
+    [valorTotalUtilidad] => 0
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[17-Dec-2024 22:38:28 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:38:28 UTC] ID insertado: 9
+[17-Dec-2024 22:38:28 UTC] ID insertado: 10
+[17-Dec-2024 22:38:28 UTC] ID insertado: 11
+[17-Dec-2024 22:38:28 UTC] ID insertado: 12
+[17-Dec-2024 22:38:29 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => 
+    [cantidadPersonas] => 0
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 0
+    [costoTotalDiasKamati] => 0
+    [valorDiaUtilidad] => 0
+    [valorTotalUtilidad] => 0
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[17-Dec-2024 22:40:03 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:40:03 UTC] ID insertado: 13
+[17-Dec-2024 22:40:03 UTC] ID insertado: 14
+[17-Dec-2024 22:40:03 UTC] ID insertado: 15
+[17-Dec-2024 22:40:03 UTC] ID insertado: 16
+[17-Dec-2024 22:42:39 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:42:39 UTC] ID insertado: 17
+[17-Dec-2024 22:42:39 UTC] ID insertado: 18
+[17-Dec-2024 22:42:39 UTC] ID insertado: 19
+[17-Dec-2024 22:42:39 UTC] ID insertado: 20
+[17-Dec-2024 22:42:39 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:42:39 UTC] ID insertado: 9
+[17-Dec-2024 22:42:39 UTC] ID insertado: 10
+[17-Dec-2024 22:42:39 UTC] ID insertado: 11
+[17-Dec-2024 22:42:39 UTC] ID insertado: 12
+[17-Dec-2024 22:44:26 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:44:26 UTC] ID insertado: 21
+[17-Dec-2024 22:44:26 UTC] ID insertado: 22
+[17-Dec-2024 22:44:26 UTC] ID insertado: 23
+[17-Dec-2024 22:44:26 UTC] ID insertado: 24
+[17-Dec-2024 22:44:26 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:44:26 UTC] ID insertado: 13
+[17-Dec-2024 22:44:26 UTC] ID insertado: 14
+[17-Dec-2024 22:44:26 UTC] ID insertado: 15
+[17-Dec-2024 22:44:26 UTC] ID insertado: 16
+[17-Dec-2024 22:46:36 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:46:36 UTC] ID insertado: 5
+[17-Dec-2024 22:46:36 UTC] ID insertado: 6
+[17-Dec-2024 22:46:36 UTC] ID insertado: 7
+[17-Dec-2024 22:46:36 UTC] ID insertado: 8
+[17-Dec-2024 22:46:36 UTC] ID de cotización encontrado en la sesión: 8
+[17-Dec-2024 22:46:36 UTC] ID insertado: 5
+[17-Dec-2024 22:46:36 UTC] ID insertado: 6
+[17-Dec-2024 22:46:36 UTC] ID insertado: 7
+[17-Dec-2024 22:46:36 UTC] ID insertado: 8
+[18-Dec-2024 12:52:30 UTC] ID de cotización encontrado en la sesión: 1
+[18-Dec-2024 12:52:30 UTC] ID insertado: 1
+[18-Dec-2024 12:52:30 UTC] ID insertado: 2
+[18-Dec-2024 12:52:30 UTC] ID insertado: 3
+[18-Dec-2024 12:52:30 UTC] ID insertado: 4
+[18-Dec-2024 22:54:49 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 22:54:49 UTC] ID insertado: 5
+[18-Dec-2024 22:54:49 UTC] ID insertado: 6
+[18-Dec-2024 22:54:49 UTC] ID insertado: 7
+[18-Dec-2024 22:54:49 UTC] ID insertado: 8
+[18-Dec-2024 22:58:48 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 22:58:48 UTC] ID insertado: 9
+[18-Dec-2024 22:58:48 UTC] ID insertado: 10
+[18-Dec-2024 22:58:48 UTC] ID insertado: 11
+[18-Dec-2024 22:58:48 UTC] ID insertado: 12
+[18-Dec-2024 22:58:48 UTC] ID de cotización encontrado en la sesión: 3
+[18-Dec-2024 22:58:48 UTC] ID insertado: 13
+[18-Dec-2024 22:58:48 UTC] ID insertado: 14
+[18-Dec-2024 22:58:48 UTC] ID insertado: 15
+[18-Dec-2024 22:58:48 UTC] ID insertado: 16
+[18-Dec-2024 22:58:49 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => actividad 1
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 600429
+    [costoTotalDiasKamati] => 600429
+    [valorDiaUtilidad] => 836251
+    [valorTotalUtilidad] => 836251
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 22:58:49 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => actividad 2
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 600429
+    [costoTotalDiasKamati] => 600429
+    [valorDiaUtilidad] => 836251
+    [valorTotalUtilidad] => 836251
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 22:58:49 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => actividad 3
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 600429
+    [costoTotalDiasKamati] => 600429
+    [valorDiaUtilidad] => 836251
+    [valorTotalUtilidad] => 836251
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 22:58:49 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 4
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 1676000
+    [costoTotalDiasKamati] => 1676000
+    [valorDiaUtilidad] => 2329000
+    [valorTotalUtilidad] => 2329000
+    [rep] => Lista
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:05:20 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 23:05:20 UTC] ID insertado: 17
+[18-Dec-2024 23:05:20 UTC] ID insertado: 18
+[18-Dec-2024 23:05:20 UTC] ID insertado: 19
+[18-Dec-2024 23:05:20 UTC] ID insertado: 20
+[18-Dec-2024 23:05:20 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => actividad 1
+    [descripcionPersonal] => Pareja Electrica
+    [cantidadPersonas] => 2
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 618000
+    [costoTotalDiasKamati] => 618000
+    [valorDiaUtilidad] => 856500
+    [valorTotalUtilidad] => 856500
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:05:20 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => actividad 2
+    [descripcionPersonal] => Pareja Electrica
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 309000
+    [costoTotalDiasKamati] => 309000
+    [valorDiaUtilidad] => 428250
+    [valorTotalUtilidad] => 428250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:07:22 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 23:07:22 UTC] ID insertado: 1
+[18-Dec-2024 23:07:22 UTC] ID insertado: 2
+[18-Dec-2024 23:07:22 UTC] ID insertado: 3
+[18-Dec-2024 23:07:22 UTC] ID insertado: 4
+[18-Dec-2024 23:07:23 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 23:07:23 UTC] ID insertado: 1
+[18-Dec-2024 23:07:23 UTC] ID insertado: 2
+[18-Dec-2024 23:07:23 UTC] ID insertado: 3
+[18-Dec-2024 23:07:23 UTC] ID insertado: 4
+[18-Dec-2024 23:07:58 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 23:07:58 UTC] ID insertado: 5
+[18-Dec-2024 23:07:58 UTC] ID insertado: 6
+[18-Dec-2024 23:07:58 UTC] ID insertado: 7
+[18-Dec-2024 23:07:58 UTC] ID insertado: 8
+[18-Dec-2024 23:07:59 UTC] ID de cotización encontrado en la sesión: 2
+[18-Dec-2024 23:07:59 UTC] ID insertado: 5
+[18-Dec-2024 23:07:59 UTC] ID insertado: 6
+[18-Dec-2024 23:07:59 UTC] ID insertado: 7
+[18-Dec-2024 23:07:59 UTC] ID insertado: 8
+[18-Dec-2024 23:15:57 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:15:57 UTC] ID insertado: 9
+[18-Dec-2024 23:15:57 UTC] ID insertado: 10
+[18-Dec-2024 23:15:57 UTC] ID insertado: 11
+[18-Dec-2024 23:15:57 UTC] ID insertado: 12
+[18-Dec-2024 23:15:58 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:15:58 UTC] ID insertado: 9
+[18-Dec-2024 23:15:58 UTC] ID insertado: 10
+[18-Dec-2024 23:15:58 UTC] ID insertado: 11
+[18-Dec-2024 23:15:58 UTC] ID insertado: 12
+[18-Dec-2024 23:17:32 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:17:32 UTC] ID insertado: 13
+[18-Dec-2024 23:17:32 UTC] ID insertado: 14
+[18-Dec-2024 23:17:32 UTC] ID insertado: 15
+[18-Dec-2024 23:17:32 UTC] ID insertado: 16
+[18-Dec-2024 23:17:33 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:17:33 UTC] ID insertado: 13
+[18-Dec-2024 23:17:33 UTC] ID insertado: 14
+[18-Dec-2024 23:17:33 UTC] ID insertado: 15
+[18-Dec-2024 23:17:33 UTC] ID insertado: 16
+[18-Dec-2024 23:24:50 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:24:50 UTC] ID insertado: 21
+[18-Dec-2024 23:24:50 UTC] ID insertado: 22
+[18-Dec-2024 23:24:50 UTC] ID insertado: 23
+[18-Dec-2024 23:24:50 UTC] ID insertado: 24
+[18-Dec-2024 23:24:51 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => JHGJHGJH
+    [descripcionPersonal] => Electricista
+    [cantidadPersonas] => 3
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 657000
+    [costoTotalDiasKamati] => 657000
+    [valorDiaUtilidad] => 906750
+    [valorTotalUtilidad] => 906750
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:24:51 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 14
+    [descripcionBreve] => JHKJHKJH
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 419000
+    [costoTotalDiasKamati] => 419000
+    [valorDiaUtilidad] => 582250
+    [valorTotalUtilidad] => 582250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:24:51 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 17
+    [descripcionBreve] => KJHKJHKJHKJH
+    [descripcionPersonal] => Siso
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 209000
+    [costoTotalDiasKamati] => 209000
+    [valorDiaUtilidad] => 288250
+    [valorTotalUtilidad] => 288250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:26:35 UTC] ID de cotización encontrado en la sesión: 4
+[18-Dec-2024 23:26:35 UTC] ID insertado: 25
+[18-Dec-2024 23:26:35 UTC] ID insertado: 26
+[18-Dec-2024 23:26:35 UTC] ID insertado: 27
+[18-Dec-2024 23:26:35 UTC] ID insertado: 28
+[18-Dec-2024 23:26:36 UTC] Array
+(
+    [cantidad] => 5
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => OIUIUYUYTUY
+    [descripcionPersonal] => Ingeniero Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 714715
+    [costoTotalDiasKamati] => 3573575
+    [valorDiaUtilidad] => 996251
+    [valorTotalUtilidad] => 4981255
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[18-Dec-2024 23:26:36 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => OIUOIUOIU
+    [descripcionPersonal] => Ingeniero Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 1229001
+    [costoTotalDiasKamati] => 1229001
+    [valorDiaUtilidad] => 1716252
+    [valorTotalUtilidad] => 1716252
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 01:13:55 UTC] ID de cotización encontrado en la sesión: 4
+[19-Dec-2024 01:13:55 UTC] ID insertado: 1
+[19-Dec-2024 01:13:55 UTC] ID insertado: 2
+[19-Dec-2024 01:13:55 UTC] ID insertado: 3
+[19-Dec-2024 01:13:55 UTC] ID insertado: 4
+[19-Dec-2024 01:13:55 UTC] ID de cotización encontrado en la sesión: 4
+[19-Dec-2024 01:13:55 UTC] ID insertado: 1
+[19-Dec-2024 01:13:55 UTC] ID insertado: 2
+[19-Dec-2024 01:13:55 UTC] ID insertado: 3
+[19-Dec-2024 01:13:55 UTC] ID insertado: 4
+[19-Dec-2024 01:14:36 UTC] ID de cotización encontrado en la sesión: 4
+[19-Dec-2024 01:14:36 UTC] ID insertado: 17
+[19-Dec-2024 01:14:36 UTC] ID insertado: 18
+[19-Dec-2024 01:14:36 UTC] ID insertado: 19
+[19-Dec-2024 01:14:36 UTC] ID insertado: 20
+[19-Dec-2024 01:14:36 UTC] ID de cotización encontrado en la sesión: 4
+[19-Dec-2024 01:14:36 UTC] ID insertado: 17
+[19-Dec-2024 01:14:36 UTC] ID insertado: 18
+[19-Dec-2024 01:14:36 UTC] ID insertado: 19
+[19-Dec-2024 01:14:36 UTC] ID insertado: 20
+[19-Dec-2024 01:15:58 UTC] ID de cotización encontrado en la sesión: 4
+[19-Dec-2024 01:15:58 UTC] ID insertado: 29
+[19-Dec-2024 01:15:58 UTC] ID insertado: 30
+[19-Dec-2024 01:15:58 UTC] ID insertado: 31
+[19-Dec-2024 01:15:58 UTC] ID insertado: 32
+[19-Dec-2024 01:15:59 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 2
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 838000
+    [costoTotalDiasKamati] => 838000
+    [valorDiaUtilidad] => 1164500
+    [valorTotalUtilidad] => 1164500
+    [rep] => Lista
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 01:15:59 UTC] Array
+(
+    [cantidad] => 2
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Electromecánico
+    [cantidadPersonas] => 3
+    [nota] => 
+    [costoExternoUnitario] => 450000
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 1437000
+    [costoTotalDiasKamati] => 2874000
+    [valorDiaUtilidad] => 1998750
+    [valorTotalUtilidad] => 3997500
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => true
+)
+
+[19-Dec-2024 16:15:49 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:15:49 UTC] ID insertado: 21
+[19-Dec-2024 16:15:49 UTC] ID insertado: 22
+[19-Dec-2024 16:15:49 UTC] ID insertado: 23
+[19-Dec-2024 16:15:49 UTC] ID insertado: 24
+[19-Dec-2024 16:15:49 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:15:49 UTC] ID insertado: 21
+[19-Dec-2024 16:15:49 UTC] ID insertado: 22
+[19-Dec-2024 16:15:49 UTC] ID insertado: 23
+[19-Dec-2024 16:15:49 UTC] ID insertado: 24
+[19-Dec-2024 16:30:36 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:30:36 UTC] ID insertado: 25
+[19-Dec-2024 16:30:36 UTC] ID insertado: 26
+[19-Dec-2024 16:30:36 UTC] ID insertado: 27
+[19-Dec-2024 16:30:36 UTC] ID insertado: 28
+[19-Dec-2024 16:30:36 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:30:36 UTC] ID insertado: 25
+[19-Dec-2024 16:30:36 UTC] ID insertado: 26
+[19-Dec-2024 16:30:36 UTC] ID insertado: 27
+[19-Dec-2024 16:30:36 UTC] ID insertado: 28
+[19-Dec-2024 16:35:56 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:35:56 UTC] ID insertado: 33
+[19-Dec-2024 16:35:56 UTC] ID insertado: 34
+[19-Dec-2024 16:35:56 UTC] ID insertado: 35
+[19-Dec-2024 16:35:56 UTC] ID insertado: 36
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 14
+    [descripcionBreve] => LEVANTAMIENTO INFORMACIÓN
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 419000
+    [costoTotalDiasKamati] => 419000
+    [valorDiaUtilidad] => 582250
+    [valorTotalUtilidad] => 582250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 17
+    [descripcionBreve] => LEVANTAMIENTO INFORMACIÓN
+    [descripcionPersonal] => Siso
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 209000
+    [costoTotalDiasKamati] => 209000
+    [valorDiaUtilidad] => 288250
+    [valorTotalUtilidad] => 288250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 14
+    [descripcionBreve] => DESMONTAJE EQUIPOS
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 419000
+    [costoTotalDiasKamati] => 419000
+    [valorDiaUtilidad] => 582250
+    [valorTotalUtilidad] => 582250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 17
+    [descripcionBreve] => DESMONTAJE EQUIPOS
+    [descripcionPersonal] => Siso
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 209000
+    [costoTotalDiasKamati] => 209000
+    [valorDiaUtilidad] => 288250
+    [valorTotalUtilidad] => 288250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => DESMONTAJE EQUIPOS
+    [descripcionPersonal] => Pareja Electrica
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 309000
+    [costoTotalDiasKamati] => 309000
+    [valorDiaUtilidad] => 428250
+    [valorTotalUtilidad] => 428250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 14
+    [descripcionBreve] => MONTAJE EQUIPOS NUEVOS
+    [descripcionPersonal] => Supervisor Senior
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 419000
+    [costoTotalDiasKamati] => 419000
+    [valorDiaUtilidad] => 582250
+    [valorTotalUtilidad] => 582250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 17
+    [descripcionBreve] => MONTAJE EQUIPOS NUEVOS
+    [descripcionPersonal] => Siso
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 209000
+    [costoTotalDiasKamati] => 209000
+    [valorDiaUtilidad] => 288250
+    [valorTotalUtilidad] => 288250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:35:57 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => MONTAJE EQUIPOS NUEVOS
+    [descripcionPersonal] => Pareja Electrica
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 309000
+    [costoTotalDiasKamati] => 309000
+    [valorDiaUtilidad] => 428250
+    [valorTotalUtilidad] => 428250
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:38:24 UTC] ID de cotización encontrado en la sesión: 6
+[19-Dec-2024 16:38:24 UTC] ID insertado: 37
+[19-Dec-2024 16:38:24 UTC] ID insertado: 38
+[19-Dec-2024 16:38:24 UTC] ID insertado: 39
+[19-Dec-2024 16:38:24 UTC] ID insertado: 40
+[19-Dec-2024 16:38:25 UTC] Array
+(
+    [cantidad] => 2
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => LEVANTAMIENTO INFORMACIÓN
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 0
+    [costoTotalDiasKamati] => 0
+    [valorDiaUtilidad] => 0
+    [valorTotalUtilidad] => 0
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:38:25 UTC] Array
+(
+    [cantidad] => 5
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => MIGRACIÓN PROGRAMA EN OFICINA
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 0
+    [costoTotalDiasKamati] => 0
+    [valorDiaUtilidad] => 0
+    [valorTotalUtilidad] => 0
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 0
+    [estadoButtonTransporte] => 0
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:38:25 UTC] Array
+(
+    [cantidad] => 2
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => PRUEBAS Y PUESTA EN MARCHA EN PLANTA
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 0
+    [costoTotalDiasKamati] => 0
+    [valorDiaUtilidad] => 0
+    [valorTotalUtilidad] => 0
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[19-Dec-2024 16:54:43 UTC] ID de cotización encontrado en la sesión: 7
+[19-Dec-2024 16:54:43 UTC] ID insertado: 5
+[19-Dec-2024 16:54:43 UTC] ID insertado: 6
+[19-Dec-2024 16:54:43 UTC] ID insertado: 7
+[19-Dec-2024 16:54:43 UTC] ID insertado: 8
+[19-Dec-2024 16:54:44 UTC] ID de cotización encontrado en la sesión: 7
+[19-Dec-2024 16:54:44 UTC] ID insertado: 5
+[19-Dec-2024 16:54:44 UTC] ID insertado: 6
+[19-Dec-2024 16:54:44 UTC] ID insertado: 7
+[19-Dec-2024 16:54:44 UTC] ID insertado: 8
+[21-Dec-2024 02:55:58 UTC] ID de cotización encontrado en la sesión: 10
+[21-Dec-2024 02:55:58 UTC] ID insertado: 37
+[21-Dec-2024 02:55:58 UTC] ID insertado: 38
+[21-Dec-2024 02:55:58 UTC] ID insertado: 39
+[21-Dec-2024 02:55:58 UTC] ID insertado: 40
+[21-Dec-2024 02:55:59 UTC] ID de cotización encontrado en la sesión: 10
+[21-Dec-2024 02:55:59 UTC] ID insertado: 37
+[21-Dec-2024 02:55:59 UTC] ID insertado: 38
+[21-Dec-2024 02:55:59 UTC] ID insertado: 39
+[21-Dec-2024 02:55:59 UTC] ID insertado: 40
+[21-Dec-2024 02:57:07 UTC] ID de cotización encontrado en la sesión: 10
+[21-Dec-2024 02:57:07 UTC] ID insertado: 41
+[21-Dec-2024 02:57:07 UTC] ID insertado: 42
+[21-Dec-2024 02:57:07 UTC] ID insertado: 43
+[21-Dec-2024 02:57:07 UTC] ID insertado: 44
+[21-Dec-2024 02:57:07 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Electricista
+    [cantidadPersonas] => 3
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 657000
+    [costoTotalDiasKamati] => 657000
+    [valorDiaUtilidad] => 906750
+    [valorTotalUtilidad] => 906750
+    [rep] => Revisar
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[21-Dec-2024 02:58:50 UTC] ID de cotización encontrado en la sesión: 10
+[21-Dec-2024 02:58:50 UTC] ID insertado: 9
+[21-Dec-2024 02:58:50 UTC] ID insertado: 10
+[21-Dec-2024 02:58:50 UTC] ID insertado: 11
+[21-Dec-2024 02:58:50 UTC] ID insertado: 12
+[21-Dec-2024 02:58:50 UTC] ID de cotización encontrado en la sesión: 10
+[21-Dec-2024 02:58:50 UTC] ID insertado: 9
+[21-Dec-2024 02:58:50 UTC] ID insertado: 10
+[21-Dec-2024 02:58:50 UTC] ID insertado: 11
+[21-Dec-2024 02:58:50 UTC] ID insertado: 12
+[26-Dec-2024 13:53:03 UTC] ID de cotización encontrado en la sesión: 12
+[26-Dec-2024 13:53:03 UTC] ID insertado: 41
+[26-Dec-2024 13:53:03 UTC] ID insertado: 42
+[26-Dec-2024 13:53:03 UTC] ID insertado: 43
+[26-Dec-2024 13:53:03 UTC] ID insertado: 44
+[26-Dec-2024 13:53:03 UTC] ID de cotización encontrado en la sesión: 12
+[26-Dec-2024 13:53:03 UTC] ID insertado: 41
+[26-Dec-2024 13:53:03 UTC] ID insertado: 42
+[26-Dec-2024 13:53:03 UTC] ID insertado: 43
+[26-Dec-2024 13:53:03 UTC] ID insertado: 44
+[26-Dec-2024 14:56:52 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:56:53 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:56:57 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:01 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:01 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:02 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:06 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:06 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:07 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:12 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:12 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:13 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:16 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:16 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 14:57:17 UTC] PHP Warning:  Undefined array key "id_cotizacion" in /home/kamajgwb/intranet.kamati.co/modelo/dao/MaterialesDao.php on line 355
+[26-Dec-2024 15:52:58 UTC] ID de cotización no encontrado en la sesión.
+[26-Dec-2024 15:52:58 UTC] ID de cotización no encontrado en la sesión.
+[26-Dec-2024 16:20:17 UTC] ID de cotización encontrado en la sesión: 12
+[26-Dec-2024 16:20:17 UTC] ID insertado: 45
+[26-Dec-2024 16:20:17 UTC] ID insertado: 46
+[26-Dec-2024 16:20:17 UTC] ID insertado: 47
+[26-Dec-2024 16:20:17 UTC] ID insertado: 48
+[26-Dec-2024 16:20:17 UTC] ID de cotización encontrado en la sesión: 12
+[26-Dec-2024 16:20:17 UTC] ID insertado: 45
+[26-Dec-2024 16:20:17 UTC] ID insertado: 46
+[26-Dec-2024 16:20:17 UTC] ID insertado: 47
+[26-Dec-2024 16:20:17 UTC] ID insertado: 48
+[26-Dec-2024 16:39:00 UTC] ID de cotización no encontrado en la sesión.
+[26-Dec-2024 16:39:00 UTC] ID de cotización no encontrado en la sesión.
+[26-Dec-2024 16:51:35 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 16:51:35 UTC] ID insertado: 49
+[26-Dec-2024 16:51:35 UTC] ID insertado: 50
+[26-Dec-2024 16:51:35 UTC] ID insertado: 51
+[26-Dec-2024 16:51:35 UTC] ID insertado: 52
+[26-Dec-2024 16:51:35 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 16:51:35 UTC] ID insertado: 49
+[26-Dec-2024 16:51:35 UTC] ID insertado: 50
+[26-Dec-2024 16:51:35 UTC] ID insertado: 51
+[26-Dec-2024 16:51:35 UTC] ID insertado: 52
+[26-Dec-2024 16:56:37 UTC] ID de cotización encontrado en la sesión: 14
+[26-Dec-2024 16:56:37 UTC] ID insertado: 53
+[26-Dec-2024 16:56:37 UTC] ID insertado: 54
+[26-Dec-2024 16:56:37 UTC] ID insertado: 55
+[26-Dec-2024 16:56:37 UTC] ID insertado: 56
+[26-Dec-2024 16:56:37 UTC] ID de cotización encontrado en la sesión: 14
+[26-Dec-2024 16:56:37 UTC] ID insertado: 53
+[26-Dec-2024 16:56:37 UTC] ID insertado: 54
+[26-Dec-2024 16:56:37 UTC] ID insertado: 55
+[26-Dec-2024 16:56:37 UTC] ID insertado: 56
+[26-Dec-2024 17:03:34 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:03:34 UTC] ID insertado: 57
+[26-Dec-2024 17:03:34 UTC] ID insertado: 58
+[26-Dec-2024 17:03:34 UTC] ID insertado: 59
+[26-Dec-2024 17:03:34 UTC] ID insertado: 60
+[26-Dec-2024 17:03:34 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:03:34 UTC] ID insertado: 57
+[26-Dec-2024 17:03:34 UTC] ID insertado: 58
+[26-Dec-2024 17:03:34 UTC] ID insertado: 59
+[26-Dec-2024 17:03:34 UTC] ID insertado: 60
+[26-Dec-2024 17:06:28 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:06:28 UTC] ID insertado: 61
+[26-Dec-2024 17:06:28 UTC] ID insertado: 62
+[26-Dec-2024 17:06:28 UTC] ID insertado: 63
+[26-Dec-2024 17:06:28 UTC] ID insertado: 64
+[26-Dec-2024 17:06:28 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:06:28 UTC] ID insertado: 61
+[26-Dec-2024 17:06:28 UTC] ID insertado: 62
+[26-Dec-2024 17:06:28 UTC] ID insertado: 63
+[26-Dec-2024 17:06:28 UTC] ID insertado: 64
+[26-Dec-2024 17:07:27 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:07:27 UTC] ID insertado: 65
+[26-Dec-2024 17:07:27 UTC] ID insertado: 66
+[26-Dec-2024 17:07:27 UTC] ID insertado: 67
+[26-Dec-2024 17:07:27 UTC] ID insertado: 68
+[26-Dec-2024 17:07:27 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:07:27 UTC] ID insertado: 65
+[26-Dec-2024 17:07:27 UTC] ID insertado: 66
+[26-Dec-2024 17:07:27 UTC] ID insertado: 67
+[26-Dec-2024 17:07:27 UTC] ID insertado: 68
+[26-Dec-2024 17:10:28 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:10:28 UTC] ID insertado: 69
+[26-Dec-2024 17:10:28 UTC] ID insertado: 70
+[26-Dec-2024 17:10:28 UTC] ID insertado: 71
+[26-Dec-2024 17:10:28 UTC] ID insertado: 72
+[26-Dec-2024 17:10:28 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:10:28 UTC] ID insertado: 69
+[26-Dec-2024 17:10:28 UTC] ID insertado: 70
+[26-Dec-2024 17:10:28 UTC] ID insertado: 71
+[26-Dec-2024 17:10:28 UTC] ID insertado: 72
+[26-Dec-2024 17:12:00 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:12:00 UTC] ID insertado: 73
+[26-Dec-2024 17:12:00 UTC] ID insertado: 74
+[26-Dec-2024 17:12:00 UTC] ID insertado: 75
+[26-Dec-2024 17:12:00 UTC] ID insertado: 76
+[26-Dec-2024 17:12:00 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:12:00 UTC] ID insertado: 73
+[26-Dec-2024 17:12:00 UTC] ID insertado: 74
+[26-Dec-2024 17:12:00 UTC] ID insertado: 75
+[26-Dec-2024 17:12:00 UTC] ID insertado: 76
+[26-Dec-2024 17:23:23 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:23:23 UTC] ID insertado: 77
+[26-Dec-2024 17:23:23 UTC] ID insertado: 78
+[26-Dec-2024 17:23:23 UTC] ID insertado: 79
+[26-Dec-2024 17:23:23 UTC] ID insertado: 80
+[26-Dec-2024 17:23:23 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:23:23 UTC] ID insertado: 77
+[26-Dec-2024 17:23:23 UTC] ID insertado: 78
+[26-Dec-2024 17:23:23 UTC] ID insertado: 79
+[26-Dec-2024 17:23:23 UTC] ID insertado: 80
+[26-Dec-2024 17:29:44 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:29:44 UTC] ID insertado: 81
+[26-Dec-2024 17:29:44 UTC] ID insertado: 82
+[26-Dec-2024 17:29:44 UTC] ID insertado: 83
+[26-Dec-2024 17:29:44 UTC] ID insertado: 84
+[26-Dec-2024 17:29:44 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:29:44 UTC] ID insertado: 81
+[26-Dec-2024 17:29:44 UTC] ID insertado: 82
+[26-Dec-2024 17:29:44 UTC] ID insertado: 83
+[26-Dec-2024 17:29:44 UTC] ID insertado: 84
+[26-Dec-2024 17:30:18 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:30:18 UTC] ID insertado: 85
+[26-Dec-2024 17:30:18 UTC] ID insertado: 86
+[26-Dec-2024 17:30:18 UTC] ID insertado: 87
+[26-Dec-2024 17:30:18 UTC] ID insertado: 88
+[26-Dec-2024 17:30:19 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:30:19 UTC] ID insertado: 85
+[26-Dec-2024 17:30:19 UTC] ID insertado: 86
+[26-Dec-2024 17:30:19 UTC] ID insertado: 87
+[26-Dec-2024 17:30:19 UTC] ID insertado: 88
+[26-Dec-2024 17:31:11 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:31:11 UTC] ID insertado: 89
+[26-Dec-2024 17:31:11 UTC] ID insertado: 90
+[26-Dec-2024 17:31:11 UTC] ID insertado: 91
+[26-Dec-2024 17:31:11 UTC] ID insertado: 92
+[26-Dec-2024 17:31:11 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:31:11 UTC] ID insertado: 89
+[26-Dec-2024 17:31:11 UTC] ID insertado: 90
+[26-Dec-2024 17:31:11 UTC] ID insertado: 91
+[26-Dec-2024 17:31:11 UTC] ID insertado: 92
+[26-Dec-2024 17:35:09 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:35:09 UTC] ID insertado: 93
+[26-Dec-2024 17:35:09 UTC] ID insertado: 94
+[26-Dec-2024 17:35:09 UTC] ID insertado: 95
+[26-Dec-2024 17:35:09 UTC] ID insertado: 96
+[26-Dec-2024 17:35:09 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 17:35:09 UTC] ID insertado: 93
+[26-Dec-2024 17:35:09 UTC] ID insertado: 94
+[26-Dec-2024 17:35:09 UTC] ID insertado: 95
+[26-Dec-2024 17:35:09 UTC] ID insertado: 96
+[26-Dec-2024 18:12:18 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 18:12:18 UTC] ID insertado: 97
+[26-Dec-2024 18:12:18 UTC] ID insertado: 98
+[26-Dec-2024 18:12:18 UTC] ID insertado: 99
+[26-Dec-2024 18:12:18 UTC] ID insertado: 100
+[26-Dec-2024 18:12:18 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 18:12:18 UTC] ID insertado: 97
+[26-Dec-2024 18:12:18 UTC] ID insertado: 98
+[26-Dec-2024 18:12:18 UTC] ID insertado: 99
+[26-Dec-2024 18:12:18 UTC] ID insertado: 100
+[26-Dec-2024 18:16:30 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 18:16:30 UTC] ID insertado: 101
+[26-Dec-2024 18:16:30 UTC] ID insertado: 102
+[26-Dec-2024 18:16:30 UTC] ID insertado: 103
+[26-Dec-2024 18:16:30 UTC] ID insertado: 104
+[26-Dec-2024 18:16:30 UTC] ID de cotización encontrado en la sesión: 13
+[26-Dec-2024 18:16:30 UTC] ID insertado: 101
+[26-Dec-2024 18:16:30 UTC] ID insertado: 102
+[26-Dec-2024 18:16:30 UTC] ID insertado: 103
+[26-Dec-2024 18:16:30 UTC] ID insertado: 104
+[26-Dec-2024 18:19:06 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 18:19:06 UTC] ID insertado: 105
+[26-Dec-2024 18:19:06 UTC] ID insertado: 106
+[26-Dec-2024 18:19:06 UTC] ID insertado: 107
+[26-Dec-2024 18:19:06 UTC] ID insertado: 108
+[26-Dec-2024 18:19:06 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 18:19:06 UTC] ID insertado: 105
+[26-Dec-2024 18:19:06 UTC] ID insertado: 106
+[26-Dec-2024 18:19:06 UTC] ID insertado: 107
+[26-Dec-2024 18:19:06 UTC] ID insertado: 108
+[26-Dec-2024 19:06:58 UTC] ID de cotización encontrado en la sesión: 16
+[26-Dec-2024 19:06:58 UTC] ID insertado: 109
+[26-Dec-2024 19:06:58 UTC] ID insertado: 110
+[26-Dec-2024 19:06:58 UTC] ID insertado: 111
+[26-Dec-2024 19:06:58 UTC] ID insertado: 112
+[26-Dec-2024 19:06:58 UTC] ID de cotización encontrado en la sesión: 16
+[26-Dec-2024 19:06:58 UTC] ID insertado: 109
+[26-Dec-2024 19:06:58 UTC] ID insertado: 110
+[26-Dec-2024 19:06:58 UTC] ID insertado: 111
+[26-Dec-2024 19:06:58 UTC] ID insertado: 112
+[26-Dec-2024 19:15:35 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:15:35 UTC] ID insertado: 113
+[26-Dec-2024 19:15:35 UTC] ID insertado: 114
+[26-Dec-2024 19:15:35 UTC] ID insertado: 115
+[26-Dec-2024 19:15:35 UTC] ID insertado: 116
+[26-Dec-2024 19:15:36 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:15:36 UTC] ID insertado: 113
+[26-Dec-2024 19:15:36 UTC] ID insertado: 114
+[26-Dec-2024 19:15:36 UTC] ID insertado: 115
+[26-Dec-2024 19:15:36 UTC] ID insertado: 116
+[26-Dec-2024 19:17:50 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:17:50 UTC] ID insertado: 117
+[26-Dec-2024 19:17:50 UTC] ID insertado: 118
+[26-Dec-2024 19:17:50 UTC] ID insertado: 119
+[26-Dec-2024 19:17:50 UTC] ID insertado: 120
+[26-Dec-2024 19:17:50 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:17:50 UTC] ID insertado: 117
+[26-Dec-2024 19:17:50 UTC] ID insertado: 118
+[26-Dec-2024 19:17:50 UTC] ID insertado: 119
+[26-Dec-2024 19:17:50 UTC] ID insertado: 120
+[26-Dec-2024 19:18:48 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:18:48 UTC] ID insertado: 121
+[26-Dec-2024 19:18:48 UTC] ID insertado: 122
+[26-Dec-2024 19:18:48 UTC] ID insertado: 123
+[26-Dec-2024 19:18:48 UTC] ID insertado: 124
+[26-Dec-2024 19:18:48 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:18:48 UTC] ID insertado: 121
+[26-Dec-2024 19:18:48 UTC] ID insertado: 122
+[26-Dec-2024 19:18:48 UTC] ID insertado: 123
+[26-Dec-2024 19:18:48 UTC] ID insertado: 124
+[26-Dec-2024 19:42:33 UTC] ID de cotización encontrado en la sesión: 17
+[26-Dec-2024 19:42:33 UTC] ID insertado: 13
+[26-Dec-2024 19:42:33 UTC] ID insertado: 14
+[26-Dec-2024 19:42:33 UTC] ID insertado: 15
+[26-Dec-2024 19:42:33 UTC] ID insertado: 16
+[26-Dec-2024 19:42:34 UTC] ID de cotización encontrado en la sesión: 17
+[26-Dec-2024 19:42:34 UTC] ID insertado: 13
+[26-Dec-2024 19:42:34 UTC] ID insertado: 14
+[26-Dec-2024 19:42:34 UTC] ID insertado: 15
+[26-Dec-2024 19:42:34 UTC] ID insertado: 16
+[26-Dec-2024 19:43:09 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:43:09 UTC] ID insertado: 45
+[26-Dec-2024 19:43:09 UTC] ID insertado: 46
+[26-Dec-2024 19:43:09 UTC] ID insertado: 47
+[26-Dec-2024 19:43:09 UTC] ID insertado: 48
+[26-Dec-2024 19:43:10 UTC] Array
+(
+    [cantidad] => 3
+    [unidad] => Turn
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Electricista
+    [cantidadPersonas] => 3
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 657000
+    [costoTotalDiasKamati] => 1971000
+    [valorDiaUtilidad] => 915818
+    [valorTotalUtilidad] => 2747453
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[26-Dec-2024 19:43:10 UTC] Array
+(
+    [cantidad] => 4
+    [unidad] => Turn
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => 
+    [descripcionPersonal] => Electricista
+    [cantidadPersonas] => 3
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 657000
+    [costoTotalDiasKamati] => 2628000
+    [valorDiaUtilidad] => 915818
+    [valorTotalUtilidad] => 3663270
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[26-Dec-2024 19:54:53 UTC] ID de cotización encontrado en la sesión: 18
+[26-Dec-2024 19:54:53 UTC] ID insertado: 125
+[26-Dec-2024 19:54:53 UTC] ID insertado: 126
+[26-Dec-2024 19:54:53 UTC] ID insertado: 127
+[26-Dec-2024 19:54:53 UTC] ID insertado: 128
+[26-Dec-2024 19:54:53 UTC] ID de cotización encontrado en la sesión: 18
+[26-Dec-2024 19:54:53 UTC] ID insertado: 125
+[26-Dec-2024 19:54:53 UTC] ID insertado: 126
+[26-Dec-2024 19:54:53 UTC] ID insertado: 127
+[26-Dec-2024 19:54:53 UTC] ID insertado: 128
+[26-Dec-2024 19:58:36 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:58:36 UTC] ID insertado: 129
+[26-Dec-2024 19:58:36 UTC] ID insertado: 130
+[26-Dec-2024 19:58:36 UTC] ID insertado: 131
+[26-Dec-2024 19:58:36 UTC] ID insertado: 132
+[26-Dec-2024 19:58:36 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 19:58:36 UTC] ID insertado: 129
+[26-Dec-2024 19:58:36 UTC] ID insertado: 130
+[26-Dec-2024 19:58:36 UTC] ID insertado: 131
+[26-Dec-2024 19:58:36 UTC] ID insertado: 132
+[26-Dec-2024 20:00:47 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 20:00:47 UTC] ID insertado: 133
+[26-Dec-2024 20:00:47 UTC] ID insertado: 134
+[26-Dec-2024 20:00:47 UTC] ID insertado: 135
+[26-Dec-2024 20:00:47 UTC] ID insertado: 136
+[26-Dec-2024 20:00:47 UTC] ID de cotización encontrado en la sesión: 15
+[26-Dec-2024 20:00:47 UTC] ID insertado: 133
+[26-Dec-2024 20:00:47 UTC] ID insertado: 134
+[26-Dec-2024 20:00:47 UTC] ID insertado: 135
+[26-Dec-2024 20:00:47 UTC] ID insertado: 136
+[26-Dec-2024 20:01:52 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:01:52 UTC] ID insertado: 137
+[26-Dec-2024 20:01:52 UTC] ID insertado: 138
+[26-Dec-2024 20:01:52 UTC] ID insertado: 139
+[26-Dec-2024 20:01:52 UTC] ID insertado: 140
+[26-Dec-2024 20:01:52 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:01:52 UTC] ID insertado: 137
+[26-Dec-2024 20:01:52 UTC] ID insertado: 138
+[26-Dec-2024 20:01:52 UTC] ID insertado: 139
+[26-Dec-2024 20:01:52 UTC] ID insertado: 140
+[26-Dec-2024 20:27:37 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:27:37 UTC] ID insertado: 17
+[26-Dec-2024 20:27:37 UTC] ID insertado: 18
+[26-Dec-2024 20:27:37 UTC] ID insertado: 19
+[26-Dec-2024 20:27:37 UTC] ID insertado: 20
+[26-Dec-2024 20:27:37 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:27:37 UTC] ID insertado: 17
+[26-Dec-2024 20:27:37 UTC] ID insertado: 18
+[26-Dec-2024 20:27:37 UTC] ID insertado: 19
+[26-Dec-2024 20:27:37 UTC] ID insertado: 20
+[26-Dec-2024 20:30:29 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:30:29 UTC] ID insertado: 141
+[26-Dec-2024 20:30:29 UTC] ID insertado: 142
+[26-Dec-2024 20:30:29 UTC] ID insertado: 143
+[26-Dec-2024 20:30:29 UTC] ID insertado: 144
+[26-Dec-2024 20:30:29 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:30:29 UTC] ID insertado: 141
+[26-Dec-2024 20:30:29 UTC] ID insertado: 142
+[26-Dec-2024 20:30:29 UTC] ID insertado: 143
+[26-Dec-2024 20:30:29 UTC] ID insertado: 144
+[26-Dec-2024 20:34:42 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:34:42 UTC] ID insertado: 145
+[26-Dec-2024 20:34:42 UTC] ID insertado: 146
+[26-Dec-2024 20:34:42 UTC] ID insertado: 147
+[26-Dec-2024 20:34:42 UTC] ID insertado: 148
+[26-Dec-2024 20:34:42 UTC] ID de cotización encontrado en la sesión: 19
+[26-Dec-2024 20:34:42 UTC] ID insertado: 145
+[26-Dec-2024 20:34:42 UTC] ID insertado: 146
+[26-Dec-2024 20:34:42 UTC] ID insertado: 147
+[26-Dec-2024 20:34:42 UTC] ID insertado: 148
+[26-Dec-2024 20:53:55 UTC] ID de cotización encontrado en la sesión: 20
+[26-Dec-2024 20:53:55 UTC] ID insertado: 149
+[26-Dec-2024 20:53:55 UTC] ID insertado: 150
+[26-Dec-2024 20:53:55 UTC] ID insertado: 151
+[26-Dec-2024 20:53:55 UTC] ID insertado: 152
+[26-Dec-2024 20:53:55 UTC] ID de cotización encontrado en la sesión: 20
+[26-Dec-2024 20:53:55 UTC] ID insertado: 149
+[26-Dec-2024 20:53:55 UTC] ID insertado: 150
+[26-Dec-2024 20:53:55 UTC] ID insertado: 151
+[26-Dec-2024 20:53:55 UTC] ID insertado: 152
+[26-Dec-2024 21:36:01 UTC] ID de cotización encontrado en la sesión: 20
+[26-Dec-2024 21:36:01 UTC] ID insertado: 49
+[26-Dec-2024 21:36:01 UTC] ID insertado: 50
+[26-Dec-2024 21:36:01 UTC] ID insertado: 51
+[26-Dec-2024 21:36:01 UTC] ID insertado: 52
+[26-Dec-2024 21:36:01 UTC] Array
+(
+    [cantidad] => 2
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => Modificación de planos eléctricos
+    [descripcionPersonal] => Electricista
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 190000
+    [costoTotalDiasKamati] => 380000
+    [valorDiaUtilidad] => 456446
+    [valorTotalUtilidad] => 912893
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 0
+    [estadoButtonTransporte] => 0
+    [estadoButtonPersonal] => false
+)
+
+[26-Dec-2024 21:36:01 UTC] Array
+(
+    [cantidad] => 1
+    [unidad] => Dias
+    [abreviaturaLinea] => 13
+    [descripcionBreve] => Modificación de planos eléctricos
+    [descripcionPersonal] => Supervisor JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12000
+    [costoDiaKamati] => 270000
+    [costoTotalDiasKamati] => 270000
+    [valorDiaUtilidad] => 648635
+    [valorTotalUtilidad] => 648635
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 0
+    [estadoButtonTransporte] => 0
+    [estadoButtonPersonal] => false
+)
+
+[26-Dec-2024 22:16:00 UTC] ID de cotización encontrado en la sesión: 20
+[26-Dec-2024 22:16:00 UTC] ID insertado: 53
+[26-Dec-2024 22:16:00 UTC] ID insertado: 54
+[26-Dec-2024 22:16:00 UTC] ID insertado: 55
+[26-Dec-2024 22:16:00 UTC] ID insertado: 56
+[26-Dec-2024 22:16:00 UTC] Array
+(
+    [cantidad] => 3
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => OFICINA
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12500
+    [costoDiaKamati] => 571429
+    [costoTotalDiasKamati] => 1714287
+    [valorDiaUtilidad] => 1373430
+    [valorTotalUtilidad] => 4120289
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 0
+    [estadoButtonTransporte] => 0
+    [estadoButtonPersonal] => false
+)
+
+[26-Dec-2024 22:16:00 UTC] Array
+(
+    [cantidad] => 3
+    [unidad] => Dias
+    [abreviaturaLinea] => 15
+    [descripcionBreve] => CAMPO
+    [descripcionPersonal] => Ingeniero JR
+    [cantidadPersonas] => 1
+    [nota] => 
+    [costoExternoUnitario] => 0
+    [costoAlimentacion] => 17000
+    [costoTransporte] => 12500
+    [costoDiaKamati] => 600929
+    [costoTotalDiasKamati] => 1802787
+    [valorDiaUtilidad] => 1436734
+    [valorTotalUtilidad] => 4310201
+    [rep] => 
+    [checkActividades] => 0
+    [factorAdicional] => 0
+    [estadoButtonAlimentacion] => 1
+    [estadoButtonTransporte] => 1
+    [estadoButtonPersonal] => false
+)
+
+[27-Dec-2024 16:30:33 UTC] ID de cotización no encontrado en la sesión.
+[27-Dec-2024 16:30:33 UTC] ID de cotización no encontrado en la sesión.

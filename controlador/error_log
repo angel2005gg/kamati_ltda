@@ -1,0 +1,274 @@
+[21-Jun-2024 13:54:57 UTC] PHP Warning:  Undefined variable $statement in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 106
+[21-Jun-2024 13:54:57 UTC] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:106
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login()
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 106
+[21-Jun-2024 13:55:23 UTC] PHP Warning:  Undefined variable $statement in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 106
+[21-Jun-2024 13:55:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:106
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login()
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 106
+[21-Jun-2024 15:45:46 UTC] PHP Warning:  Undefined array key "correo_jefe_permiso_user" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailGestionHumanaNo.php on line 41
+[21-Jun-2024 15:49:00 UTC] PHP Warning:  Undefined array key "correo_jefe_permiso_user" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailGestionHumana.php on line 41
+[21-Jun-2024 16:22:36 UTC] PHP Warning:  Undefined array key "correo_jefe_permiso_user" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailGestionHumana.php on line 41
+[24-Jun-2024 16:51:58 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php on line 111
+[24-Jun-2024 22:16:45 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminL.php on line 269
+[25-Jun-2024 13:26:36 UTC] PHP Warning:  Undefined variable $campo in /home/kamajgwb/intranet.kamati.co/controlador/ServletCargosJefeAdminL.php on line 65
+[26-Jun-2024 19:08:40 UTC] PHP Notice:  Undefined variable: result in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[26-Jun-2024 19:08:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::get_result() in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:31
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+
+Next Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:107
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[26-Jun-2024 19:08:46 UTC] PHP Notice:  Undefined variable: result in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[26-Jun-2024 19:08:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::get_result() in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:31
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+
+Next Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:107
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[26-Jun-2024 19:30:09 UTC] PHP Notice:  Undefined variable: result in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[26-Jun-2024 19:30:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::get_result() in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:31
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+
+Next Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:107
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales('1110363887', 'Vyruxar072617##')
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(78): Login->login('1110363887', 'Vyruxar072617##')
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 107
+[04-Jul-2024 01:37:19 UTC] Error en la inserción del cargo: Duplicate entry 'Practicante de Ingeniería' for key 'nombre_cargo'
+[04-Jul-2024 13:14:13 UTC] PHP Warning:  Undefined variable $campo in /home/kamajgwb/intranet.kamati.co/controlador/ServletCargosJefeAdminL.php on line 65
+[04-Jul-2024 13:14:22 UTC] PHP Warning:  Undefined variable $campo in /home/kamajgwb/intranet.kamati.co/controlador/ServletCargosJefeAdminL.php on line 65
+[17-Jul-2024 13:23:51 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminLin.php on line 252
+[18-Jul-2024 20:29:08 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[19-Jul-2024 13:22:31 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[19-Jul-2024 15:56:01 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 15:57:29 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 15:59:07 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:01:32 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:02:31 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:31:42 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:31:52 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:33:29 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:36:40 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:37:43 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:40:13 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[19-Jul-2024 16:40:18 UTC] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php:596
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php(596): mysqli_stmt->bind_param()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/ControladorPermisos.php(84): PermisosDao->actualizarPermisoPendiente()
+#2 /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefe.php(256): ControladorPermisos->controlUpdatePermisosJefe()
+#3 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/dao/PermisosDao.php on line 596
+[22-Jul-2024 21:01:37 UTC] PHP Warning:  Undefined array key "correo_persona" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 35
+[22-Jul-2024 21:01:37 UTC] PHP Warning:  Undefined array key "correo_user_inicio_sesion" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 36
+[22-Jul-2024 21:01:37 UTC] PHP Warning:  Undefined array key "nombre_persona_completo" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 40
+[23-Jul-2024 15:52:59 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminL.php on line 521
+[23-Jul-2024 15:53:09 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminL.php on line 438
+[23-Jul-2024 15:54:21 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminL.php on line 438
+[23-Jul-2024 15:54:32 UTC] PHP Warning:  Undefined array key "select_tipoNovedad" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminL.php on line 438
+[14-Dec-2024 21:35:35 UTC] Error en la actualizacion de la variable 
+[14-Dec-2024 21:36:19 UTC] Error en la actualizacion de la variable 
+[14-Dec-2024 21:39:57 UTC] Error en la actualizacion de la variable 
+[17-Dec-2024 20:58:55 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 20:58:55 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 20:58:55 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 20:58:55 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 20:59:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 20:59:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 20:59:09 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 20:59:09 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 21:03:32 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:03:32 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:03:32 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 21:03:32 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 21:09:25 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:09:25 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:09:25 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 21:09:25 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 21:14:15 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:14:15 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:14:15 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 21:14:15 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 21:46:11 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:46:11 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:46:11 UTC] No se ha podido consultar los factores: Table 'kamajgwb_intranet_Kamati_LTDA.factoresComercial' doesn't exist
+[17-Dec-2024 21:46:11 UTC] No se encontraron factores para registrar.
+[17-Dec-2024 21:49:50 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 21:49:50 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 22:38:11 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[17-Dec-2024 22:38:11 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 12:45:34 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 12:45:34 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 22:44:30 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 22:44:30 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 22:58:17 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 22:58:17 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 23:11:16 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[18-Dec-2024 23:11:16 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 01:04:33 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 01:04:33 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 16:13:56 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 16:13:56 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 16:53:19 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[19-Dec-2024 16:53:19 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[21-Dec-2024 02:54:53 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[21-Dec-2024 02:54:53 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[24-Dec-2024 14:23:32 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[24-Dec-2024 14:23:32 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 13:19:29 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 13:19:29 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 16:46:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 16:46:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 16:52:07 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 16:52:07 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 18:17:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 18:17:09 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 18:47:06 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 18:47:06 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 19:17:00 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 19:17:00 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 19:51:24 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 19:51:24 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 20:01:35 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 20:01:35 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 20:38:29 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[26-Dec-2024 20:38:29 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:09:50 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:09:50 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:09:53 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:09:53 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:11:49 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:11:49 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:11:49 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:11:49 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:12:15 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 14:12:15 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[27-Dec-2024 17:02:25 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[30-Dec-2024 14:40:29 UTC] PHP Warning:  Undefined array key "idUser" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminLin.php on line 247
+[30-Dec-2024 16:20:47 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[30-Dec-2024 16:20:49 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[07-Jan-2025 18:36:33 UTC] PHP Warning:  Undefined array key "diascompensados" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 111
+[07-Jan-2025 18:36:33 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[07-Jan-2025 21:17:55 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[07-Jan-2025 21:17:55 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in /home/kamajgwb/intranet.kamati.co/modelo/dao/ViaticosCotizacionesDao.php on line 17
+[08-Jan-2025 20:17:25 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[09-Jan-2025 14:50:14 UTC] PHP Warning:  Undefined variable $statement in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 109
+[09-Jan-2025 14:50:14 UTC] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php:109
+Stack trace:
+#0 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(22): IngresoSistema->verificarCredenciales()
+#1 /home/kamajgwb/intranet.kamati.co/controlador/procesarFormulario.php(110): Login->login()
+#2 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/modelo/IngresoSistema.php on line 109
+[10-Jan-2025 21:41:48 UTC] PHP Warning:  Undefined array key "idUser" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 125
+[10-Jan-2025 21:41:48 UTC] PHP Warning:  Undefined array key "id_jefe_usuario_jefe" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 130
+[10-Jan-2025 21:41:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getId_Jefe_Usuario() on bool in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php:132
+Stack trace:
+#0 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 132
+[10-Jan-2025 21:41:58 UTC] PHP Warning:  Undefined array key "idUser" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 125
+[10-Jan-2025 21:41:58 UTC] PHP Warning:  Undefined array key "id_jefe_usuario_jefe" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 130
+[10-Jan-2025 21:41:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getId_Jefe_Usuario() on bool in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php:132
+Stack trace:
+#0 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 132
+[10-Jan-2025 21:42:01 UTC] PHP Warning:  Undefined array key "idUser" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 125
+[10-Jan-2025 21:42:01 UTC] PHP Warning:  Undefined array key "id_jefe_usuario_jefe" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 130
+[10-Jan-2025 21:42:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getId_Jefe_Usuario() on bool in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php:132
+Stack trace:
+#0 {main}
+  thrown in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 132
+[14-Jan-2025 23:20:57 UTC] PHP Warning:  Undefined array key "correo_user_inicio_sesion" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 36
+[15-Jan-2025 13:42:02 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosTrabajador.php on line 112
+[16-Jan-2025 16:44:42 UTC] PHP Warning:  Undefined array key "cantidad_dias" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdmin.php on line 111
+[16-Jan-2025 19:05:52 UTC] PHP Warning:  Undefined array key "correo_persona" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 35
+[16-Jan-2025 19:05:52 UTC] PHP Warning:  Undefined array key "correo_user_inicio_sesion" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 36
+[16-Jan-2025 19:05:52 UTC] PHP Warning:  Undefined array key "nombre_persona_completo" in /home/kamajgwb/intranet.kamati.co/modelo/email/envioEmailJefeInmediato.php on line 40
+[17-Jan-2025 15:04:31 UTC] PHP Warning:  Undefined array key "idUser" in /home/kamajgwb/intranet.kamati.co/controlador/ServletPermisosJefeAdminLin.php on line 321

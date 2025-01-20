@@ -1,0 +1,55 @@
+Con lo que se tenía antes de las adiciones de hoy y de los cambios, que cabe aclarar, afectan 3 pero ayudaría en otros 3 procesos en código
+de lo que se tiene hasta hoy se entregaría en dos semanas por que falta lo siguiente:
+
+1. Las dos tablas de cálculo en abreviaturas para cálculos de precios con utilidad y preciosa sin utilidad para kamati 
+
+2. Falta acomodar cálculos para tablas guardadas -> afecta positivamente 
+
+3. Falta trabajo simultáneo (Trabajo Extenso)
+
+4. Reporte en Excel (Trabajo extenso) 
+
+5. Vistas de jefe para actualizar algunos precios de los campos de las tablas de tarifas y factores.
+
+6. Acomodar funciones para tablas guardadas.
+
+En tiempo serían dos semanas para entrega el viernes 30 de agosto o jueves 29 de agosto
+
+
+Adicionando lo que a continuación se muestra:
+
+1. Adcionar check box para todas las tablas en cada línea para hacer que cuando se seleccione este tome el valor 
+del nuevo input que será el factor para esa linea en específico FALTA AGREGARLE FUNCIÓN PARA QUE SE ACTIVE EL INPUT DONDE VA EL NUEVO FACTOR
+
+2. Adicionar que los factores y tarifas sean globales para todas las tablas.
+
+3. Adicionar un check box que abarque toda la tabla guardada y cuando este se seleccione, muestre los datos de las tablas 
+como lo son (Viaticos y Cargos) ,es decir, las tarifas y también que se visualicen los campos de los factores para
+cambiarlos.
+
+4. Adicionar dos columnas de día con utilidad y días con utilidad para el cliente LISTO XXXXXXXXXX
+
+
+CAMBIOS
+
+1. Hacer que las tablas de las tarifas y cargos junto a los factores no se vean en las tablas guardadas ni en las 
+originales.
+
+2. Quitar columna "Precio unitario Utilidad". LISTO XXXXXXXXXX
+
+3. Hacer que en las columnas de viaticos "Costo Alimentacion" y "Costo Transporte" no se vean los valores de con
+utilidad sino los valores normales es decir que tome los de las tablas globales
+4. Realizar que los calculos de una forma diferente en las dos columnas "Valor día Kam" y "Valor día utilidad" 
+realizando cambios en valor día utilidad como el nombre "Valor días kamati unitario"
+5. Que los campos de las columnas "Costo alimentación" y "Costo Transporte" sean editables.
+
+Afectaría 3 procesos y ayudaría e 3 procesos 
+
+semana y 2 días para entregar el 10 de septiembre martes
+
+
+
+
+
+
+
