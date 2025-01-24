@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'ConexionBD.php'; // Asegúrate de que esta ruta sea correcta
+require_once '../configuracion/ConexionBD.php';
 
 $conexion = new ConexionBD();
 $conn = $conexion->conectarBD();
