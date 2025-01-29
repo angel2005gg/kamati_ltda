@@ -1,21 +1,21 @@
 <?php
-ob_start(); // Inicia el buffer de salida
+ob_start();
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 
-// Captura cualquier output no deseado
 $output = ob_get_clean();
 if (!empty($output)) {
     error_log('Output no deseado: ' . $output);
 }
-// Instanciar controladores
+
 $controladorCurso = new ControladorCursoEmpresa();
 $controladorUsuario = new ControladorCursoUsuario();
 $controladorEmpresa = new ControladorEmpresaCliente();
-// Obtener datos para los selectores
+
 $usuarios = $controladorUsuario->obtenerTodos();
 $empresas = $controladorEmpresa->obtenerTodos();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_POST['id_usuario'] ?? null;
     $id_empresa = $_POST['id_empresa'] ?? null;
@@ -27,13 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id_usuario && $id_empresa && $fecha_realizacion && $fecha_vencimiento && $nombre_curso) {
         try {
+            $estado = determinarEstado($fecha_vencimiento);
             $controladorCurso->crear(
                 $id_empresa,
                 $id_usuario,
                 $fecha_realizacion,
                 $nombre_curso,
                 $fecha_vencimiento,
-                'Activo'
+                $estado
             );
             header('Location: ListaCursos.php');
             exit();
@@ -44,13 +45,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Por favor, complete todos los campos obligatorios.');</script>";
     }
 }
+
+function determinarEstado($fecha_vencimiento) {
+    $fecha_actual = new DateTime();
+    $fecha_venc = new DateTime($fecha_vencimiento);
+    $diferencia = $fecha_actual->diff($fecha_venc);
+    $dias = $diferencia->invert ? -$diferencia->days : $diferencia->days;
+
+    if ($dias < 0) {
+        return 'Vencido';
+    } elseif ($dias <= 15) {
+        return 'Por vencer';
+    } else {
+        return 'Vigente';
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Asignación de Empresa</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-container {
             max-width: 800px;
@@ -60,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         #dias_notificacion_container {
             display: none;
         }
+        .select2-container {
+            width: 100% !important;
+        }
     </style>
 </head>
 <body>
@@ -68,10 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" action="" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="id_usuario" class="form-label">Nombre:</label>
-                <select class="form-select" id="id_usuario" name="id_usuario" required>
-                    <option value="">Seleccione un usuario</option>
+                <select class="form-select select2" id="id_usuario" name="id_usuario" required>
+                    <option value="">Buscar usuario...</option>
                     <?php foreach ($usuarios as $usuario): ?>
-                        <option value="<?php echo htmlspecialchars($usuario['id_curso_usuario']); ?>">
+                        <option value="<?php echo htmlspecialchars($usuario['id_curso_usuario']); ?>"
+                                data-area="<?php echo htmlspecialchars($usuario['area']); ?>">
                             <?php echo htmlspecialchars(trim($usuario['usuario'])); ?>
                         </option>
                     <?php endforeach; ?>
@@ -112,6 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado" name="estado" readonly>
+            </div>
+
+            <div class="mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="notificacion" name="notificacion">
                     <label class="form-check-label" for="notificacion">Enviar notificación</label>
@@ -142,43 +169,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
     $(document).ready(function() {
-        $('#id_usuario').change(function() {
-            const userId = $(this).val();
-            if (userId) {
-                console.log('Enviando ID:', userId); // Debug
-                $.ajax({
-                    url: 'obtener_area_usuario.php',
-                    type: 'POST',
-                    data: { id: userId },
-                    dataType: 'json',
-                    beforeSend: function() {
-                        console.log('Enviando petición...'); // Debug
-                    },
-                    success: function(response) {
-                        console.log('Respuesta completa:', response); // Debug
-                        if(response.area) {
-                            $('#area').val(response.area);
-                        } else {
-                            $('#area').val('No se encontró el área');
-                            console.log('Error en respuesta:', response.error);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error AJAX:', {
-                            status: status,
-                            error: error,
-                            response: xhr.responseText
-                        });
-                        $('#area').val('Error al obtener área');
-                    }
-                });
+        // Inicializar Select2 para la búsqueda de usuarios
+        $('.select2').select2({
+            placeholder: 'Buscar usuario...',
+            minimumInputLength: 1
+        });
+
+        // Manejar el cambio de usuario y actualizar el área
+        $('#id_usuario').on('change', function() {
+            const selectedOption = $(this).find('option:selected');
+            const area = selectedOption.data('area');
+            $('#area').val(area || '');
+        });
+
+        // Manejar el cambio de fecha y actualizar el estado
+        $('#fecha_vencimiento').on('change', function() {
+            const fechaVencimiento = new Date($(this).val());
+            const hoy = new Date();
+            const diferenciaDias = Math.ceil((fechaVencimiento - hoy) / (1000 * 60 * 60 * 24));
+            
+            if (diferenciaDias < 0) {
+                $('#estado').val('Vencido');
+            } else if (diferenciaDias <= 15) {
+                $('#estado').val('Por vencer');
             } else {
-                $('#area').val('');
+                $('#estado').val('Vigente');
             }
         });
+
+        // Mostrar/ocultar días de notificación
+        $('#notificacion').change(function() {
+            $('#dias_notificacion_container').toggle(this.checked);
+        });
     });
-</script>
+    </script>
 </body>
 </html>
