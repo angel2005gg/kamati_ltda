@@ -1,4 +1,19 @@
 <?php
+require_once '../controlador/ControladorCurso.php';
+
+$controladorCurso = new ControladorCurso();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_curso_fk'])) {
+    $nombre_curso_fk = $_POST['nombre_curso_fk'];
+
+    // Crear el curso en la tabla curso
+    $resultadoCurso = $controladorCurso->crear($nombre_curso_fk);
+    if ($resultadoCurso) {
+        echo "<script>alert('Curso creado correctamente');</script>";
+    } else {
+        echo "<script>alert('Error al crear el curso');</script>";
+    }
+}
 require_once '../modelo/EmpresaCliente.php';
 require_once '../modelo/Contratista.php';
 require_once '../modelo/CursoEmpresa.php';
@@ -111,22 +126,20 @@ $cursos = $curso->obtenerTodos();
     </div>
 </div>
 
-                    <!-- Formulario para añadir curso -->
+                    <!-- Formulario para crear un nuevo curso -->
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-header">
-                                <h5>Añadir Nuevo Curso</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="formCurso">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="nombre_curso" placeholder="Nombre del curso" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Añadir</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="card-header" > <h5>Crear Nuevo Curso</h5> </div>
+                        <div class="card-body">
+        <form method="POST" action="">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="nombre_curso_fk" name="nombre_curso_fk" placeholder="Nombre del Curso" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Curso</button>
+        </form>
+        </div>
+        </div>
+    </div>
 
                     <!-- Formulario para añadir contratista -->
                     <div class="col-md-4">
