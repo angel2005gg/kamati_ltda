@@ -80,6 +80,7 @@ class CursoUsuario {
                       IFNULL(u.segundo_apellido, '')) as usuario,
                 a.nombre_area as area,
                 ce.fecha_vencimiento as fecha_vencimiento,
+                ce.fecha_realizacion as fecha_realizacion,
                 ce.nombre_curso as curso,
                 ec.nombre_empresa as empresa,
                 ce.estado

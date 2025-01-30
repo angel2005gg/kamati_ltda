@@ -39,6 +39,7 @@ $cursosUsuarios = $controlador->obtenerTodos();
             <tr>
                 <th>Usuario</th>
                 <th>Área</th>
+                <th>Fecha Inicio</th>
                 <th>Fecha Final</th>
                 <th>Curso</th>
                 <th>Empresa</th>
@@ -50,6 +51,7 @@ $cursosUsuarios = $controlador->obtenerTodos();
             <tr>
                 <td><?php echo htmlspecialchars($cursoUsuario['usuario']); ?></td>
                 <td><?php echo htmlspecialchars($cursoUsuario['area']); ?></td>
+                <td><?php echo htmlspecialchars($cursoUsuario['fecha_realizacion']); ?></td>
                 <td><?php echo htmlspecialchars($cursoUsuario['fecha_vencimiento']); ?></td>
                 <td><?php echo htmlspecialchars($cursoUsuario['curso']); ?></td>
                 <td><?php echo htmlspecialchars($cursoUsuario['empresa']); ?></td>
