@@ -138,21 +138,26 @@ class CursoEmpresa {
     }
 
     // Métodos adicionales útiles
-    public function obtenerPorEmpresa($id_empresa) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
-                JOIN contratista c ON ce.id_contratista = c.id_contratista
-                WHERE ce.id_empresa_cliente = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id_empresa);
-        $stmt->execute();
-        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $this->conexion->desconectarBD();
-        return $resultado;
-    }
-
+// Modelo CursoEmpresa.php - Ajustes en el método obtenerPorEmpresa
+public function obtenerPorEmpresa($id_empresa) {
+    $conn = $this->conexion->conectarBD();
+    $sql = "SELECT 
+                ce.id_curso_empresa,
+                ce.nombre_curso,
+                ce.fecha_realizacion,
+                ce.fecha_vencimiento,
+                ce.estado,
+                ec.nombre_empresa
+            FROM curso_empresa ce
+            JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
+            WHERE ce.id_empresa_cliente = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_empresa);
+    $stmt->execute();
+    $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $this->conexion->desconectarBD();
+    return $resultado;
+}
     public function obtenerPorContratista($id_contratista) {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 

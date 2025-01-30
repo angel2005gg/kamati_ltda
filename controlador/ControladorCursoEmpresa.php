@@ -47,5 +47,6 @@ class ControladorCursoEmpresa {
         return $this->cursoEmpresa->obtenerPorContratista($id_contratista);
     }
     
+    
 }
 ?>
