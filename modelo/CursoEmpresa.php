@@ -99,15 +99,33 @@ class CursoEmpresa {
     }
 
     public function obtenerTodos() {
-        $conn = $this->conexion->conectarBD();
-        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
-                JOIN contratista c ON ce.id_contratista = c.id_contratista";
-        $resultado = $conn->query($sql);
-        $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
-        $this->conexion->desconectarBD();
-        return $cursos;
+        try {
+            $conn = $this->conexion->conectarBD();
+            $sql = "SELECT 
+                        ce.id_curso_empresa,
+                        ce.id_empresa_cliente,
+                        ce.nombre_curso,
+                        ce.fecha_realizacion,
+                        ce.fecha_vencimiento,
+                        ce.estado,
+                        ec.nombre_empresa
+                    FROM curso_empresa ce
+                    JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente";
+            
+            $resultado = $conn->query($sql);
+            
+            if (!$resultado) {
+                throw new Exception("Error en la consulta: " . $conn->error);
+            }
+            
+            $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
+            $this->conexion->desconectarBD();
+            return $cursos;
+            
+        } catch (Exception $e) {
+            error_log("Error en obtenerTodos: " . $e->getMessage());
+            throw $e;
+        }
     }
 
     public function actualizar($id, $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
