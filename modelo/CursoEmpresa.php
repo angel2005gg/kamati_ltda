@@ -140,23 +140,35 @@ class CursoEmpresa {
     // Métodos adicionales útiles
 // Modelo CursoEmpresa.php - Ajustes en el método obtenerPorEmpresa
 public function obtenerPorEmpresa($id_empresa) {
-    $conn = $this->conexion->conectarBD();
-    $sql = "SELECT 
-                ce.id_curso_empresa,
-                ce.nombre_curso,
-                ce.fecha_realizacion,
-                ce.fecha_vencimiento,
-                ce.estado,
-                ec.nombre_empresa
-            FROM curso_empresa ce
-            JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
-            WHERE ce.id_empresa_cliente = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_empresa);
-    $stmt->execute();
-    $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $this->conexion->desconectarBD();
-    return $resultado;
+    try {
+        error_log("Intentando obtener cursos para empresa ID: " . $id_empresa);
+        
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT 
+                    ce.id_curso_empresa,
+                    ce.nombre_curso,
+                    ce.fecha_realizacion,
+                    ce.fecha_vencimiento,
+                    ce.estado,
+                    ec.nombre_empresa
+                FROM curso_empresa ce
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                WHERE ce.id_empresa_cliente = ?";
+                
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_empresa);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
+        error_log("Resultado obtenido: " . print_r($resultado, true));
+        
+        $this->conexion->desconectarBD();
+        return $resultado;
+        
+    } catch (Exception $e) {
+        error_log("Error en obtenerPorEmpresa: " . $e->getMessage());
+        throw $e;
+    }
 }
     public function obtenerPorContratista($id_contratista) {
         $conn = $this->conexion->conectarBD();

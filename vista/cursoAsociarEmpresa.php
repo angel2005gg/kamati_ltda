@@ -19,10 +19,18 @@ $empresas = $controladorEmpresa->obtenerTodos();
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
+        error_log("Recibida solicitud para empresa_id: " . $_GET['empresa_id']);
         $cursosEmpresa = $controladorCursoEmpresa->obtenerPorEmpresa($_GET['empresa_id']);
+        
+        if ($cursosEmpresa === false) {
+            throw new Exception("Error al obtener los cursos de la base de datos");
+        }
+        
         header('Content-Type: application/json');
         echo json_encode($cursosEmpresa ?: []);
+        
     } catch (Exception $e) {
+        error_log("Error en la solicitud AJAX: " . $e->getMessage());
         header('Content-Type: application/json');
         http_response_code(500);
         echo json_encode(['error' => 'Error al obtener los cursos: ' . $e->getMessage()]);
@@ -210,54 +218,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Cargar cursos cuando se selecciona una empresa
         $('#id_empresa').on('change', function() {
-            const empresaId = $(this).val();
-            const cursosSelect = $('#id_curso_empresa');
-            
-            if (!empresaId) {
-                cursosSelect.html('<option value="">Primero seleccione una empresa</option>');
-                resetearCamposCurso();
-                return;
-            }
+    const empresaId = $(this).val();
+    const cursosSelect = $('#id_curso_empresa');
+    
+    if (!empresaId) {
+        cursosSelect.html('<option value="">Primero seleccione una empresa</option>');
+        resetearCamposCurso();
+        return;
+    }
 
-            cursosSelect.prop('disabled', true).html('<option value="">Cargando cursos...</option>');
+    cursosSelect.prop('disabled', true).html('<option value="">Cargando cursos...</option>');
+    
+    $.ajax({
+        url: '?action=getCursos&empresa_id=' + empresaId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(cursos) {
+            cursosSelect.empty().append('<option value="">Seleccione un curso</option>');
             
-            $.ajax({
-                url: '?action=getCursos&empresa_id=' + empresaId,
-                method: 'GET',
-                dataType: 'json',
-                success: function(cursos) {
-                    cursosSelect.empty().append('<option value="">Seleccione un curso</option>');
+            if (cursos && cursos.length > 0) {
+                cursos.forEach(function(curso) {
+                    const option = new Option(
+                        curso.nombre_curso,
+                        curso.id_curso_empresa,
+                        false,
+                        false
+                    );
                     
-                    if (cursos && cursos.length > 0) {
-                        cursos.forEach(function(curso) {
-                            const option = new Option(
-                                curso.nombre_curso,
-                                curso.id_curso_empresa,
-                                false,
-                                false
-                            );
-                            
-                            $(option).data({
-                                'fecha_realizacion': curso.fecha_realizacion,
-                                'fecha_vencimiento': curso.fecha_vencimiento,
-                                'estado': curso.estado
-                            });
-                            
-                            cursosSelect.append(option);
-                        });
-                    } else {
-                        cursosSelect.append('<option value="">No hay cursos disponibles</option>');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error al cargar cursos:', error);
-                    cursosSelect.html('<option value="">Error al cargar los cursos</option>');
-                },
-                complete: function() {
-                    cursosSelect.prop('disabled', false);
-                }
+                    $(option).data({
+                        'fecha_realizacion': curso.fecha_realizacion,
+                        'fecha_vencimiento': curso.fecha_vencimiento,
+                        'estado': curso.estado
+                    });
+                    
+                    cursosSelect.append(option);
+                });
+            } else {
+                cursosSelect.append('<option value="">No hay cursos disponibles</option>');
+            }
+            cursosSelect.prop('disabled', false);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al cargar cursos:', {
+                status: status,
+                error: error,
+                response: xhr.responseText
             });
-        });
+            cursosSelect.html('<option value="">Error al cargar los cursos</option>');
+            cursosSelect.prop('disabled', false);
+        }
+    });
+});
 
         // Actualizar campos cuando se selecciona un curso
         $('#id_curso_empresa').on('change', function() {
