@@ -2,6 +2,19 @@
 require_once '../modelo/EmpresaCliente.php';
 require_once '../modelo/Contratista.php';
 require_once '../modelo/CursoEmpresa.php';
+require_once '../controlador/ControladorEmpresaCliente.php';
+
+$controladorEmpresa = new ControladorEmpresaCliente();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_empresa'])) {
+    $nombre_empresa = $_POST['nombre_empresa'];
+    $resultado = $controladorEmpresa->crear($nombre_empresa);
+    if ($resultado) {
+        echo "<script>alert('Empresa creada correctamente');</script>";
+    } else {
+        echo "<script>alert('Error al crear la empresa');</script>";
+    }
+}
 
 session_start();
 
@@ -57,6 +70,7 @@ $cursos = $curso->obtenerTodos();
             z-index: 1000;
             display: none;
         }
+        
     </style>
 </head>
 <body>
@@ -82,22 +96,20 @@ $cursos = $curso->obtenerTodos();
             <!-- Pestaña Crear -->
             <div class="tab-pane fade show active" id="crear" role="tabpanel">
                 <div class="row mt-4">
-                    <!-- Formulario para añadir empresa -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Añadir Nueva Empresa</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="formEmpresa">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="nombre_empresa" placeholder="Nombre de la empresa" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Añadir</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Formulario para crear una nueva empresa -->
+<div class="col-md-4">
+<div class="card"> 
+<div class="card-header" > <h5>Crear Nueva Empresa</h5> </div>
+    <div class="card-body">
+    <form method="POST" action="">
+        <div class="mb-3">
+            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" placeholder="Nombre de la Empresa"  required>
+        </div>
+        <button type="submit" class="btn btn-primary">Añadir</button>
+    </form>
+    </div>
+    </div>
+</div>
 
                     <!-- Formulario para añadir curso -->
                     <div class="col-md-4">
