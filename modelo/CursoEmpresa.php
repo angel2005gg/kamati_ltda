@@ -7,7 +7,6 @@ class CursoEmpresa {
     private $id_curso_empresa;
     private $id_empresa_cliente;
     private $id_contratista;
-    private $nombre_curso;
     private $fecha_realizacion;
     private $fecha_vencimiento;
     private $estado;
@@ -38,13 +37,7 @@ class CursoEmpresa {
         $this->id_contratista = $id_contratista;
     }
 
-    public function getNombreCurso() {
-        return $this->nombre_curso;
-    }
 
-    public function setNombreCurso($nombre_curso) {
-        $this->nombre_curso = $nombre_curso;
-    }
 
     public function getFechaRealizacion() {
         return $this->fecha_realizacion;
@@ -103,13 +96,14 @@ class CursoEmpresa {
             $sql = "SELECT 
                         ce.id_curso_empresa,
                         ce.id_empresa_cliente,
-                        ce.nombre_curso,
                         ce.fecha_realizacion,
                         ce.fecha_vencimiento,
                         ce.estado,
-                        ec.nombre_empresa
+                        ec.nombre_empresa,
+                        c.nombre_curso_fk
                     FROM curso_empresa ce
-                    JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente";
+                    JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                    JOIN curso c ON ce.id_curso = c.id_curso";
             
             $resultado = $conn->query($sql);
             
@@ -126,6 +120,7 @@ class CursoEmpresa {
             throw $e;
         }
     }
+
 
     public function actualizar($id, $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
         $conn = $this->conexion->conectarBD();

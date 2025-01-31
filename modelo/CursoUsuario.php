@@ -52,7 +52,7 @@ class CursoUsuario {
                       u.primer_apellido, ' ', 
                       IFNULL(u.segundo_apellido, '')) as usuario,
                 a.nombre_area as area,
-                ce.nombre_curso as curso,
+                cr.nombre_curso_fk as curso,
                 ce.fecha_vencimiento as fecha_vencimiento,
                 ec.nombre_empresa as empresa,
                 ce.estado
@@ -62,6 +62,7 @@ class CursoUsuario {
                 JOIN area a ON c.id_area_fk = a.id_Area
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso cr ON ce.id_curso = cr.id_curso
                 WHERE cu.id_curso_usuario = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
@@ -75,13 +76,13 @@ class CursoUsuario {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT cu.id_curso_usuario,
                 CONCAT(u.primer_nombre, ' ', 
-                      IFNULL(u.segundo_nombre, ''), ' ',
-                      u.primer_apellido, ' ', 
-                      IFNULL(u.segundo_apellido, '')) as usuario,
+                       IFNULL(u.segundo_nombre, ''), ' ', 
+                       u.primer_apellido, ' ', 
+                       IFNULL(u.segundo_apellido, '')) as usuario,
                 a.nombre_area as area,
                 ce.fecha_vencimiento as fecha_vencimiento,
                 ce.fecha_realizacion as fecha_realizacion,
-                ce.nombre_curso as curso,
+                cr.nombre_curso_fk as curso,
                 ec.nombre_empresa as empresa,
                 ce.estado
                 FROM curso_usuario cu
@@ -89,14 +90,14 @@ class CursoUsuario {
                 JOIN cargo c ON u.id_Cargo_Usuario = c.id_Cargo
                 JOIN area a ON c.id_area_fk = a.id_Area
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente";
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso cr ON ce.id_curso = cr.id_curso";
         
         $resultado = $conn->query($sql);
         if (!$resultado) {
             throw new Exception("Error en la consulta: " . $conn->error);
         }
-        $cursos_usuarios
-         = $resultado->fetch_all(MYSQLI_ASSOC);
+        $cursos_usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
         return $cursos_usuarios;
     }
@@ -114,14 +115,15 @@ class CursoUsuario {
     public function obtenerCursosPorUsuario($id_usuario) {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT cu.id_curso_usuario,
-                ce.nombre_curso as curso,
-                ce.fecha_realizacion, as fecha_realizacion,
+                cr.nombre_curso_fk as curso,
+                ce.fecha_realizacion as fecha_realizacion,
                 ce.fecha_vencimiento as fecha_vencimiento,
                 ce.estado,
                 ec.nombre_empresa as empresa
                 FROM curso_usuario cu
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso cr ON ce.id_curso = cr.id_curso
                 WHERE cu.id_Usuarios = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_usuario);

@@ -32,33 +32,32 @@ $cursosUsuarios = $controlador->obtenerTodos();
     </style>
 </head>
 <body>
-    <h1>Listado de Cursos de Usuarios</h1>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Área</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Final</th>
-                <th>Curso</th>
-                <th>Empresa</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($cursoUsuario['usuario']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['area']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['fecha_realizacion']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['fecha_vencimiento']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['curso']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['empresa']); ?></td>
-                <td><?php echo htmlspecialchars($cursoUsuario['estado']); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="container mt-4">
+        <h2>Listado de Cursos de Usuarios</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Curso Usuario</th>
+                    <th>Usuario</th>
+                    <th>Curso</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+                    <tr>
+                        <td><?php echo $cursoUsuario['id_curso_usuario']; ?></td>
+                        <td><?php echo $cursoUsuario['nombre_usuario']; ?></td>
+                        <td><?php echo $cursoUsuario['nombre_curso_fk']; ?></td>
+                        <td><?php echo $cursoUsuario['fecha_inicio']; ?></td>
+                        <td><?php echo $cursoUsuario['fecha_fin']; ?></td>
+                        <td><?php echo $cursoUsuario['estado']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
