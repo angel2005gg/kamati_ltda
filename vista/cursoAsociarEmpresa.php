@@ -15,6 +15,8 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
+$cursosPublicados = $controladorCursoEmpresa->obtenerCursosPublicados();
+
 
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
@@ -57,6 +59,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: cursoAsociarEmpresa.php?error=1");
         exit();
     }
+}
+// Manejo de solicitud AJAX para obtener cursos
+if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
+    try {
+        error_log("Recibida solicitud para empresa_id: " . $_GET['empresa_id']);
+        $cursosEmpresa = $controladorCursoEmpresa->obtenerPorEmpresa($_GET['empresa_id']);
+        
+        if ($cursosEmpresa === false) {
+            throw new Exception("Error al obtener los cursos de la base de datos");
+        }
+        
+        header('Content-Type: application/json');
+        echo json_encode($cursosEmpresa ?: []);
+        
+    } catch (Exception $e) {
+        error_log("Error en la solicitud AJAX: " . $e->getMessage());
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode(['error' => 'Error al obtener los cursos: ' . $e->getMessage()]);
+    }
+    exit();
 }
 ?>
 
@@ -133,11 +156,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Campo Curso -->
             <div class="mb-3">
-                <label for="id_curso_empresa" class="form-label">Curso:</label>
-                <select class="form-select" id="id_curso_empresa" name="id_curso_empresa" required>
-                    <option value="">Primero seleccione una empresa</option>
+                <label for="selectCurso" class="form-label">Seleccione un Curso:</label>
+                <select class="form-select" id="selectCurso" name="id_curso_empresa" required>
+                    <option value="">Seleccione un curso...</option>
+                    <?php foreach ($cursosPublicados as $curso): ?>
+                        <option value="<?php echo $curso['id_curso_empresa']; ?>" data-fecha-inicio="<?php echo $curso['fecha_realizacion']; ?>" data-fecha-fin="<?php echo $curso['fecha_vencimiento']; ?>">
+                            <?php echo $curso['nombre_curso_fk']; ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
-                <div class="invalid-feedback">Por favor seleccione un curso.</div>
             </div>
 
             <!-- Campo Fecha de realización -->
@@ -178,7 +205,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
 $(document).ready(function() {
     console.log("Iniciando configuración...");
-    
+    $(document).ready(function() {
+            $('.select2').select2();
+
+            $('#selectCurso').on('change', function() {
+                const selectedOption = $(this).find('option:selected');
+                const fechaInicio = selectedOption.data('fecha-inicio');
+                const fechaFin = selectedOption.data('fecha-fin');
+                $('#fecha_inicio').val(fechaInicio);
+                $('#fecha_fin').val(fechaFin);
+            });
+
+            // Validación del formulario
+            const form = document.querySelector('.needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        });
     // Inicializar Select2
     $('#id_usuario').select2({
         placeholder: 'Buscar usuario...',

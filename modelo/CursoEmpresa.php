@@ -195,6 +195,29 @@ public function obtenerPorEmpresa($id_empresa) {
         $this->conexion->desconectarBD();
         return $resultado;
     }
+
+    public function obtenerCursosPublicados() {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT 
+                    ce.id_curso_empresa,
+                    ce.id_empresa_cliente,
+                    ce.fecha_realizacion,
+                    ce.fecha_vencimiento,
+                    ce.estado,
+                    ec.nombre_empresa,
+                    c.nombre_curso_fk
+                FROM curso_empresa ce
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso c ON ce.id_curso = c.id_curso";
+        
+        $resultado = $conn->query($sql);
+        if (!$resultado) {
+            throw new Exception("Error en la consulta: " . $conn->error);
+        }
+        $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        return $cursos;
+    }
 }
 
 ?>

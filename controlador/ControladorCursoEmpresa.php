@@ -46,7 +46,9 @@ class ControladorCursoEmpresa {
     public function obtenerPorContratista($id_contratista) {
         return $this->cursoEmpresa->obtenerPorContratista($id_contratista);
     }
-    
+    public function obtenerCursosPublicados() {
+        return $this->cursoEmpresa->obtenerCursosPublicados();
+    }
     
 }
 ?>
