@@ -1,43 +1,55 @@
 <?php
 require_once '../controlador/ControladorCurso.php';
-
-$controladorCurso = new ControladorCurso();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_curso_fk'])) {
-    $nombre_curso_fk = $_POST['nombre_curso_fk'];
-
-    // Crear el curso en la tabla curso
-    $resultadoCurso = $controladorCurso->crear($nombre_curso_fk);
-    if ($resultadoCurso) {
-        echo "<script>alert('Curso creado correctamente');</script>";
-    } else {
-        echo "<script>alert('Error al crear el curso');</script>";
-    }
-}
 require_once '../modelo/EmpresaCliente.php';
 require_once '../modelo/Contratista.php';
 require_once '../modelo/CursoEmpresa.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
+require_once '../controlador/ControladorContratista.php';
 
+$controladorCurso = new ControladorCurso();
 $controladorEmpresa = new ControladorEmpresaCliente();
+$empresa = new EmpresaCliente();
+$contratista = new Contratista();
+$curso = new CursoEmpresa();
+$controladorContratista = new ControladorContratista();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_contratista'])) {
+    $nombre_contratista = $_POST['nombre_contratista'];
+    $resultadoContratista = $controladorContratista->crear($nombre_contratista);
+    if ($resultadoContratista) {
+        header("Location: CursosGestion.php?success_contratista=1");
+        exit();
+    } else {
+        header("Location: CursosGestion.php?error_contratista=1");
+        exit();
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_curso_fk'])) {
+    $nombre_curso_fk = $_POST['nombre_curso_fk'];
+    $resultadoCurso = $controladorCurso->crear($nombre_curso_fk);
+    if ($resultadoCurso) {
+        header("Location: CursosGestion.php?success_curso=1");
+        exit();
+    } else {
+        header("Location: CursosGestion.php?error_curso=1");
+        exit();
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_empresa'])) {
     $nombre_empresa = $_POST['nombre_empresa'];
     $resultado = $controladorEmpresa->crear($nombre_empresa);
     if ($resultado) {
-        echo "<script>alert('Empresa creada correctamente');</script>";
+        header("Location: CursosGestion.php?success_empresa=1");
+        exit();
     } else {
-        echo "<script>alert('Error al crear la empresa');</script>";
+        header("Location: CursosGestion.php?error_empresa=1");
+        exit();
     }
 }
 
 session_start();
-
-$empresa = new EmpresaCliente();
-$contratista = new Contratista();
-$curso = new CursoEmpresa();
-
-// Obtener todas las empresas y contratistas para los selectores
 $empresas = $empresa->obtenerTodos();
 $contratistas = $contratista->obtenerTodos();
 $cursos = $curso->obtenerTodos();
@@ -50,7 +62,6 @@ $cursos = $curso->obtenerTodos();
     <title>Gestión de Cursos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-        /* Estilo para las pestañas centradas y más grandes */
         .nav-tabs {
             justify-content: center;
             border-bottom: 2px solid #dee2e6;
@@ -77,7 +88,6 @@ $cursos = $curso->obtenerTodos();
             font-weight: bold;
         }
 
-        /* Estilo para las alertas */
         .alert-floating {
             position: fixed;
             top: 20px;
@@ -85,181 +95,92 @@ $cursos = $curso->obtenerTodos();
             z-index: 1000;
             display: none;
         }
-        
     </style>
 </head>
 <body>
-    <!-- Alerta flotante para mensajes -->
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
     <div class="container mt-4">
-        <!-- Pestañas de navegación -->
         <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="crear-tab" data-bs-toggle="tab" href="#crear" role="tab">Crear Nuevo</a>
+                <a class="nav-link active" href="../vista/CursosGestion.php">Crear Nuevo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="eliminar-tab" data-bs-toggle="tab" href="#eliminar" role="tab">Eliminar</a>
+                <a class="nav-link" href="../vista/CursosGestionEliminar.php">Eliminar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="frecuencia-tab" data-bs-toggle="tab" href="#frecuencia" role="tab">Crear Frecuencia</a>
+                <a class="nav-link" href="CursosGestionFrecuencia.php">Crear Frecuencia</a>
             </li>
         </ul>
 
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content" id="myTabContent">
-            <!-- Pestaña Crear -->
-            <div class="tab-pane fade show active" id="crear" role="tabpanel">
-                <div class="row mt-4">
-                    <!-- Formulario para crear una nueva empresa -->
-<div class="col-md-4">
-<div class="card"> 
-<div class="card-header" > <h5>Crear Nueva Empresa</h5> </div>
-    <div class="card-body">
-    <form method="POST" action="">
-        <div class="mb-3">
-            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" placeholder="Nombre de la Empresa"  required>
-        </div>
-        <button type="submit" class="btn btn-primary">Añadir</button>
-    </form>
-    </div>
-    </div>
-</div>
-
-                    <!-- Formulario para crear un nuevo curso -->
-                    <div class="col-md-4">
-                        <div class="card">
-                        <div class="card-header" > <h5>Crear Nuevo Curso</h5> </div>
-                        <div class="card-body">
-        <form method="POST" action="">
-            <div class="mb-3">
-                <input type="text" class="form-control" id="nombre_curso_fk" name="nombre_curso_fk" placeholder="Nombre del Curso" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Curso</button>
-        </form>
-        </div>
-        </div>
-    </div>
-
-                    <!-- Formulario para añadir contratista -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Añadir Nuevo Contratista</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="formContratista">
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" name="nombre_contratista" placeholder="Nombre del contratista" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Añadir</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pestaña Eliminar -->
-            <div class="tab-pane fade" id="eliminar" role="tabpanel">
-                <div class="row mt-4">
-                    <!-- Eliminar Empresa -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Eliminar Empresa</h5>
-                            </div>
-                            <div class="card-body">
-                                <select class="form-select mb-3" id="eliminarEmpresa">
-                                    <option value="">Seleccione una empresa...</option>
-                                    <?php foreach ($empresas as $emp): ?>
-                                        <option value="<?php echo $emp['id_empresa']; ?>"><?php echo $emp['nombre_empresa']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <button class="btn btn-danger" onclick="eliminarEmpresa()">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Eliminar Curso -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Eliminar Curso</h5>
-                            </div>
-                            <div class="card-body">
-                                <select class="form-select mb-3" id="eliminarCurso">
-                                    <option value="">Seleccione un curso...</option>
-                                    <?php foreach ($cursos as $curso): ?>
-                                        <option value="<?php echo $curso['id_curso']; ?>"><?php echo $curso['nombre_curso']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <button class="btn btn-danger" onclick="eliminarCurso()">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Eliminar Contratista -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Eliminar Contratista</h5>
-                            </div>
-                            <div class="card-body">
-                                <select class="form-select mb-3" id="eliminarContratista">
-                                    <option value="">Seleccione un contratista...</option>
-                                    <?php foreach ($contratistas as $cont): ?>
-                                        <option value="<?php echo $cont['id_contratista']; ?>"><?php echo $cont['nombre_contratista']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <button class="btn btn-danger" onclick="eliminarContratista()">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pestaña Frecuencia -->
-            <div class="tab-pane fade" id="frecuencia" role="tabpanel">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h5>Crear Frecuencia de Curso</h5>
-                    </div>
+        <div class="row mt-4">
+            <!-- Formulario para crear una nueva empresa -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><h5>Crear Nueva Empresa</h5></div>
                     <div class="card-body">
-                        <form id="formFrecuencia">
+                        <?php if (isset($_GET['success_empresa'])): ?>
+                            <div class="alert alert-success" role="alert">
+                                Empresa creada correctamente.
+                            </div>
+                        <?php elseif (isset($_GET['error_empresa'])): ?>
+                            <div class="alert alert-danger" role="alert">
+                                Error al crear la empresa.
+                            </div>
+                        <?php endif; ?>
+                        <form method="POST" action="">
                             <div class="mb-3">
-                                <label class="form-label">Seleccionar Empresa</label>
-                                <select class="form-select" name="empresa_id" id="selectEmpresa" required>
-                                    <option value="">Seleccione una empresa...</option>
-                                    <?php foreach ($empresas as $emp): ?>
-                                        <option value="<?php echo $emp['id_empresa']; ?>"><?php echo $emp['nombre_empresa']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" placeholder="Nombre de la Empresa" required>
                             </div>
+                            <button type="submit" class="btn btn-primary">Añadir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Formulario para crear un nuevo curso -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><h5>Crear Nuevo Curso</h5></div>
+                    <div class="card-body">
+                        <?php if (isset($_GET['success_curso'])): ?>
+                            <div class="alert alert-success" role="alert">
+                                Curso creado correctamente.
+                            </div>
+                        <?php elseif (isset($_GET['error_curso'])): ?>
+                            <div class="alert alert-danger" role="alert">
+                                Error al crear el curso.
+                            </div>
+                        <?php endif; ?>
+                        <form method="POST" action="">
                             <div class="mb-3">
-                                <label class="form-label">Duración del Curso</label>
-                                <select class="form-select" name="duracion" required>
-                                    <option value="6">6 meses</option>
-                                    <option value="12">1 Año</option>
-                                    <option value="24">2 Años</option>
-                                </select>
+                                <input type="text" class="form-control" id="nombre_curso_fk" name="nombre_curso_fk" placeholder="Nombre del Curso" required>
                             </div>
+                            <button type="submit" class="btn btn-primary">Crear Curso</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Formulario para añadir contratista -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><h5>Crear Nuevo Contratista</h5></div>
+                    <div class="card-body">
+                        <?php if (isset($_GET['success_contratista'])): ?>
+                            <div class="alert alert-success" role="alert">
+                                Contratista creado correctamente.
+                            </div>
+                        <?php elseif (isset($_GET['error_contratista'])): ?>
+                            <div class="alert alert-danger" role="alert">
+                                Error al crear el contratista.
+                            </div>
+                        <?php endif; ?>
+                        <form method="POST" action="">
                             <div class="mb-3">
-                                <label class="form-label">Seleccionar Curso</label>
-                                <select class="form-select" name="curso_id" id="selectCurso" required>
-                                    <option value="">Seleccione un curso...</option>
-                                    <?php foreach ($cursos as $curso): ?>
-                                        <option value="<?php echo $curso['id_curso']; ?>"><?php echo $curso['nombre_curso']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control" id="nombre_contratista" name="nombre_contratista" placeholder="Nombre del Contratista" required>
                             </div>
-
-                            <div class="text-end">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Añadir</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary">Añadir Contratista</button>
                         </form>
                     </div>
                 </div>
@@ -268,127 +189,5 @@ $cursos = $curso->obtenerTodos();
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Función para mostrar alertas
-        function showAlert(message, type) {
-            const alert = document.getElementById('alertMessage');
-            alert.className = `alert alert-${type} alert-floating`;
-            alert.textContent = message;
-            alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 3000);
-        }
-
-        // Función para manejar los formularios
-        function handleForm(formId, url, successMessage) {
-            document.getElementById(formId).addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-
-                fetch(url, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        showAlert(successMessage, 'success');
-                        this.reset();
-                    } else {
-                        showAlert('Error: ' + data.message, 'danger');
-                    }
-                })
-                .catch(error => {
-                    showAlert('Error en la operación', 'danger');
-                });
-            });
-        }
-
-        // Inicializar los formularios
-        handleForm('formEmpresa', 'controlador/ControladorEmpresaCliente.php', 'Empresa añadida correctamente');
-        handleForm('formCurso', 'controllers/curso_controller.php', 'Curso añadido correctamente');
-        handleForm('formContratista', 'controllers/contratista_controller.php', 'Contratista añadido correctamente');
-        handleForm('formFrecuencia', 'controllers/frecuencia_controller.php', 'Frecuencia creada correctamente');
-
-        // Funciones para eliminar
-        function eliminarEmpresa() {
-            const id = document.getElementById('eliminarEmpresa').value;
-            if (id && confirm('¿Está seguro de eliminar esta empresa?')) {
-                fetch(`controllers/empresa_controller.php?action=delete&id=${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        showAlert('Empresa eliminada correctamente', 'success');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showAlert('Error al eliminar la empresa', 'danger');
-                    }
-                });
-            }
-        }
-
-        function eliminarCurso() {
-            const id = document.getElementById('eliminarCurso').value;
-            if (id && confirm('¿Está seguro de eliminar este curso?')) {
-                fetch(`controllers/curso_controller.php?action=delete&id=${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        showAlert('Curso eliminado correctamente', 'success');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showAlert('Error al eliminar el curso', 'danger');
-                    }
-                });
-            }
-        }
-
-        function eliminarContratista() {
-            const id = document.getElementById('eliminarContratista').value;
-            if (id && confirm('¿Está seguro de eliminar este contratista?')) {
-                fetch(`controllers/contratista_controller.php?action=delete&id=${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        showAlert('Contratista eliminado correctamente', 'success');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showAlert('Error al eliminar el contratista', 'danger');
-                    }
-                });
-            }
-        }
-
-        // Actualizar cursos cuando se selecciona una empresa
-        document.getElementById('selectEmpresa').addEventListener('change', function() {
-            const empresaId = this.value;
-            if(empresaId) {
-                fetch(`controllers/curso_controller.php?action=getPorEmpresa&id=${empresaId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const selectCurso = document.getElementById('selectCurso');
-                        selectCurso.innerHTML = '<option value="">Seleccione un curso...</option>';
-                        
-                        if (data.success && data.cursos) {
-                            data.cursos.forEach(curso => {
-                                selectCurso.innerHTML += `<option value="${curso.id_curso}">${curso.nombre_curso}</option>`;
-                            });
-                        } else {
-                            showAlert('Error al cargar los cursos', 'warning');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('Error al obtener los cursos', 'danger');
-                    });
-            }
-        });
-    </script>
 </body>
 </html>

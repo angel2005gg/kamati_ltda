@@ -24,8 +24,8 @@ class ControladorEmpresaCliente {
         return $this->empresaCliente->actualizar($id, $nombre_empresa);
     }
 
-    public function eliminar($id) {
-        return $this->empresaCliente->eliminar($id);
+    public function eliminar($id_empresa) {
+        return $this->empresaCliente->eliminar($id_empresa);
     }
 }
 ?>

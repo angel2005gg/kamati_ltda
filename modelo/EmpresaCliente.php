@@ -50,6 +50,9 @@ class EmpresaCliente {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT * FROM empresa_cliente";
         $resultado = $conn->query($sql);
+        if ($resultado === false) {
+            die("Error en la consulta: " . $conn->error);
+        }
         $empresas = $resultado->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
         return $empresas;
@@ -65,11 +68,11 @@ class EmpresaCliente {
         return $resultado;
     }
 
-    public function eliminar($id) {
+    public function eliminar($id_empresa) {
         $conn = $this->conexion->conectarBD();
-        $sql = "DELETE FROM empresa_cliente WHERE id_empresa = ?";
+        $sql = "DELETE FROM empresa_cliente WHERE id_empresa_cliente = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $id_empresa);
         $resultado = $stmt->execute();
         $this->conexion->desconectarBD();
         return $resultado;

@@ -65,11 +65,11 @@ class Contratista {
         return $resultado;
     }
 
-    public function eliminar($id) {
+    public function eliminar($id_contratista) {
         $conn = $this->conexion->conectarBD();
         $sql = "DELETE FROM contratista WHERE id_contratista = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $id_contratista);
         $resultado = $stmt->execute();
         $this->conexion->desconectarBD();
         return $resultado;

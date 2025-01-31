@@ -24,8 +24,8 @@ class ControladorContratista {
         return $this->contratista->actualizar($id, $nombre_contratista);
     }
 
-    public function eliminar($id) {
-        return $this->contratista->eliminar($id);
+    public function eliminar($id_contratista) {
+        return $this->contratista->eliminar($id_contratista);
     }
 }
 ?>

@@ -20,8 +20,11 @@ class Curso {
 
     public function obtenerTodos() {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT * FROM curso";
+        $sql = "SELECT id_curso, nombre_curso_fk FROM curso";
         $resultado = $conn->query($sql);
+        if ($resultado === false) {
+            die("Error en la consulta: " . $conn->error);
+        }
         $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
         return $cursos;
