@@ -64,13 +64,12 @@ class CursoEmpresa {
     }
 
     // Métodos CRUD
-    public function crear($id_empresa_cliente, $id_contratista, $id_curso, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
+    public function crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
         $conn = $this->conexion->conectarBD();
-        $sql = "INSERT INTO curso_empresa (id_empresa_cliente, id_contratista, id_curso, nombre_curso, fecha_realizacion, fecha_vencimiento, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO curso_empresa (id_empresa_cliente, id_curso, fecha_realizacion, fecha_vencimiento, estado) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iiissss", $id_empresa_cliente, $id_contratista, $id_curso, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
+        $stmt->bind_param("iisss", $id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
         $resultado = $stmt->execute();
-        $this->id_curso_empresa = $stmt->insert_id;
         $this->conexion->desconectarBD();
         return $resultado;
     }

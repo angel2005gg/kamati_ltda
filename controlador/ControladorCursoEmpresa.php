@@ -19,8 +19,8 @@ class ControladorCursoEmpresa {
         $this->cursoEmpresa = new CursoEmpresa();
     }
 
-    public function crear($id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado, $id_curso) {
-        return $this->cursoEmpresa->crear($id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado, $id_curso);
+    public function crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
+        return $this->cursoEmpresa->crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
     }
 
     public function obtenerPorId($id) {
