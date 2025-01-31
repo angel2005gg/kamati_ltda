@@ -2,6 +2,10 @@
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCurso.php';
+$output = ob_get_clean();
+if (!empty($output)) {
+    error_log('Output no deseado: ' . $output);
+}
 
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $controladorEmpresa = new ControladorEmpresaCliente();
