@@ -13,7 +13,7 @@ $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $controladorUsuario = new ControladorCursoUsuario();
 $controladorEmpresa = new ControladorEmpresaCliente();
 
-$usuarios = $controladorUsuario->obtenerTodos();
+$usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
 
 // Manejo de solicitud AJAX para obtener cursos
@@ -42,24 +42,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_POST['id_usuario'] ?? null;
     $id_curso_empresa = $_POST['id_curso_empresa'] ?? null;
-    $fecha_realizacion = $_POST['fecha_realizacion'] ?? null;
+    $duracion = $_POST['duracion'] ?? null;
 
-    if ($id_usuario && $id_curso_empresa && $fecha_realizacion) {
-        try {
-            // Verificar si el usuario ya está inscrito en el curso
-            if (!$controladorUsuario->verificarInscripcion($id_usuario, $id_curso_empresa)) {
-                // Llamar al método crear con los argumentos separados
-                $controladorUsuario->crear($id_usuario, $id_curso_empresa);
-                header('Location: ListaCursos.php');
-                exit();
-            } else {
-                echo "<script>alert('El usuario ya está inscrito en este curso.');</script>";
-            }
-        } catch (Exception $e) {
-            echo "<script>alert('Error al asignar el curso: " . htmlspecialchars($e->getMessage()) . "');</script>";
+    if ($id_usuario && $id_curso_empresa && $duracion) {
+        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa);
+        if ($resultado) {
+            header("Location: cursoAsociarEmpresa.php?success=1");
+            exit();
+        } else {
+            header("Location: cursoAsociarEmpresa.php?error=1");
+            exit();
         }
     } else {
-        echo "<script>alert('Por favor, complete todos los campos obligatorios.');</script>";
+        header("Location: cursoAsociarEmpresa.php?error=1");
+        exit();
     }
 }
 ?>
@@ -105,17 +101,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-3">
                 <label for="id_usuario" class="form-label">Nombre:</label>
                 <select class="form-select select2" id="id_usuario" name="id_usuario" required>
-                    <option value="">Buscar usuario...</option>
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <option value="<?php echo htmlspecialchars($usuario['id_curso_usuario']); ?>"
-                                data-area="<?php echo htmlspecialchars($usuario['area']); ?>">
-                            <?php echo htmlspecialchars(trim($usuario['usuario'])); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+    <option value="">Buscar usuario...</option>
+    <?php foreach ($usuarios as $usuario): ?>
+        <option value="<?php echo htmlspecialchars($usuario['id_Usuarios']); ?>" 
+                data-area="<?php echo htmlspecialchars($usuario['area'] ?? ''); ?>">
+            <?php echo htmlspecialchars($usuario['nombre_completo']); ?>
+        </option>
+    <?php endforeach; ?>
+</select>
                 <div class="invalid-feedback">Por favor seleccione un usuario.</div>
             </div>
-
             <!-- Campo Área -->
             <div class="mb-3">
                 <label class="form-label">Área:</label>
@@ -175,113 +170,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </div>
-
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-    $(document).ready(function() {
-        // Inicializar Select2 para la búsqueda de usuarios
-        $('.select2').select2({
-            placeholder: 'Buscar usuario...',
-            minimumInputLength: 1,
-            language: {
-                inputTooShort: function() {
-                    return "Por favor ingrese 1 o más caracteres";
-                },
-                noResults: function() {
-                    return "No se encontraron resultados";
-                },
-                searching: function() {
-                    return "Buscando...";
-                }
-            }
-        });
-
-        // Validación del formulario
-        const form = document.querySelector('.needs-validation');
-        form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-        });
-
-        // Manejar el cambio de usuario
-        $('#id_usuario').on('change', function() {
-            const selectedOption = $(this).find('option:selected');
-            const area = selectedOption.data('area');
-            $('#area').val(area || '');
-        });
-
-        // Cargar cursos cuando se selecciona una empresa
-        $('#id_empresa').on('change', function() {
-    const empresaId = $(this).val();
-    const cursosSelect = $('#id_curso_empresa');
+$(document).ready(function() {
+    console.log("Iniciando configuración...");
     
-    if (!empresaId) {
-        cursosSelect.html('<option value="">Primero seleccione una empresa</option>');
-        resetearCamposCurso();
-        return;
-    }
-
-    cursosSelect.prop('disabled', true).html('<option value="">Cargando cursos...</option>');
-    
-    $.ajax({
-        url: '?action=getCursos&empresa_id=' + empresaId,
-        method: 'GET',
-        dataType: 'json',
-        success: function(cursos) {
-            cursosSelect.empty().append('<option value="">Seleccione un curso</option>');
-            
-            if (cursos && cursos.length > 0) {
-                cursos.forEach(function(curso) {
-                    const option = new Option(
-                        curso.nombre_curso,
-                        curso.id_curso_empresa,
-                        false,
-                        false
-                    );
-                    
-                    $(option).data({
-                        'fecha_realizacion': curso.fecha_realizacion,
-                        'fecha_vencimiento': curso.fecha_vencimiento,
-                        'estado': curso.estado
-                    });
-                    
-                    cursosSelect.append(option);
-                });
-            } else {
-                cursosSelect.append('<option value="">No hay cursos disponibles</option>');
+    // Inicializar Select2
+    $('#id_usuario').select2({
+        placeholder: 'Buscar usuario...',
+        minimumInputLength: 1,
+        width: '100%',
+        language: {
+            inputTooShort: function() {
+                return "Por favor ingrese 1 o más caracteres";
+            },
+            noResults: function() {
+                return "No se encontraron resultados";
+            },
+            searching: function() {
+                return "Buscando...";
             }
-            cursosSelect.prop('disabled', false);
         },
-        error: function(xhr, status, error) {
-            console.error('Error al cargar cursos:', {
-                status: status,
-                error: error,
-                response: xhr.responseText
-            });
-            cursosSelect.html('<option value="">Error al cargar los cursos</option>');
-            cursosSelect.prop('disabled', false);
+        matcher: function(params, data) {
+            // Si no hay término de búsqueda, retornar todos
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Si no hay datos, retornar null
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            // Buscar en el texto del usuario
+            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                return data;
+            }
+
+            // Si no hay coincidencia, retornar null
+            return null;
         }
     });
-});
 
-        // Actualizar campos cuando se selecciona un curso
-        $('#id_curso_empresa').on('change', function() {
-            const selectedOption = $(this).find('option:selected');
-            
-            if (selectedOption.val()) {
-                $('#fecha_realizacion').val(selectedOption.data('fecha_realizacion') || '');
-                $('#fecha_vencimiento').val(selectedOption.data('fecha_vencimiento') || '');
-                $('#estado').val(selectedOption.data('estado') || '');
-            } else {
-                resetearCamposCurso();
-            }
-        });
+    // Manejar el cambio de usuario
+    $('#id_usuario').on('change', function() {
+        console.log("Usuario seleccionado");
+        const selectedOption = $(this).find('option:selected');
+        const area = selectedOption.data('area');
+        console.log("Área:", area);
+        $('#area').val(area || '');
+    });
+
+    // Mantén el resto de tu código existente que maneja empresas y cursos
+    $('#id_empresa').on('change', function() {
+        // ... tu código existente para manejar empresas ...
+    });
+
+    $('#id_curso_empresa').on('change', function() {
+        // ... tu código existente para manejar cursos ...
+    });
 
         // Función para resetear campos relacionados con el curso
         function resetearCamposCurso() {

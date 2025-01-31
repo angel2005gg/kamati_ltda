@@ -1,4 +1,6 @@
 <?php
+require_once '../configuracion/ConexionBD.php';
+
 //Clase de usuarios 
 
 class Usuarios
@@ -9,6 +11,7 @@ class Usuarios
     private $numero_identificacion, $correo_electronico, $numero_telefono_movil, $direccion_residencia;
     private $sede_laboral, $contrasena, $id_Cargo_Usuario, $id_Rol_Usuario, $salt, $id_jefe_area, $estado_usuario;
     private $nombre_cargo, $nombre_area;
+    private $conexion;
 
 
 
@@ -53,9 +56,32 @@ class Usuarios
         $this->estado_usuario = $estado_usuario;
         $this->nombre_cargo = $nombre_cargo;
         $this->nombre_area = $nombre_area;
+        $this->conexion = new ConexionBD();
     }
 
     //Métodos get y set de los atributos de la clase
+    public function obtenerTodos() {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT u.id_Usuarios,
+                CONCAT(u.primer_nombre, ' ',
+                      IFNULL(u.segundo_nombre, ''), ' ',
+                      u.primer_apellido, ' ',
+                      IFNULL(u.segundo_apellido, '')) as nombre_completo,
+                a.nombre_area as area
+                FROM usuarios u
+                LEFT JOIN cargo c ON u.id_Cargo_Usuario = c.id_Cargo
+                LEFT JOIN area a ON c.id_area_fk = a.id_Area
+                ORDER BY u.primer_nombre";
+        
+        $resultado = $conn->query($sql);
+        if (!$resultado) {
+            throw new Exception("Error en la consulta: " . $conn->error);
+        }
+        
+        $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        return $usuarios;
+    }
     public function getId_Usuarios()
     {
         return $this->id_Usuarios;

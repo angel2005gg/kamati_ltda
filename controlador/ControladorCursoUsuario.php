@@ -1,11 +1,14 @@
 <?php
 require_once '../modelo/CursoUsuario.php';
+require_once '../modelo/Usuarios.php';
 
 class ControladorCursoUsuario {
     private $cursoUsuario;
+    private $usuario;
 
     public function __construct() {
         $this->cursoUsuario = new CursoUsuario();
+        $this->usuario = new Usuarios();
     }
 
     public function crear($id_usuario, $id_curso_empresa) {
@@ -20,6 +23,9 @@ class ControladorCursoUsuario {
         return $this->cursoUsuario->obtenerTodos();
     }
 
+    public function obtenerTodosUsuarios() {
+        return $this->usuario->obtenerTodos();
+    }
     public function eliminar($id) {
         return $this->cursoUsuario->eliminar($id);
     }
