@@ -15,7 +15,19 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
-
+// Función para formatear duración
+function formatearDuracion($duracion) {
+    $anos = floor($duracion / 12);
+    $meses = $duracion % 12;
+    
+    if ($anos > 0 && $meses > 0) {
+        return "$anos " . ($anos == 1 ? "año" : "años") . " con $meses " . ($meses == 1 ? "mes" : "meses");
+    } elseif ($anos > 0) {
+        return "$anos " . ($anos == 1 ? "año" : "años");
+    } else {
+        return "$meses " . ($meses == 1 ? "mes" : "meses");
+    }
+}
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -194,12 +206,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    $('.select2').select2();
 
    $('#fecha_inicio').datepicker({
-       dateFormat: 'yy-mm-dd',
-       changeMonth: true,
-       changeYear: true,
-       yearRange: '-100:+10'
-   });
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100:+10',
+                showOn: 'both',  // Mostrar tanto en el input como en un icono
+                buttonImage: 'https://jqueryui.com/resources/demos/datepicker/images/calendar-icon.gif',
+                buttonImageOnly: true,
+                beforeShow: function(input, inst) {
+                    setTimeout(function() {
+                        var buttonPane = $(input)
+                            .datepicker("widget")
+                            .find(".ui-datepicker-buttonpane");
 
+                        $("<button>", {
+                            text: "Hoy",
+                            click: function() {
+                                $.datepicker._selectDate(input);
+                            }
+                        }).appendTo(buttonPane)
+                          .addClass("ui-datepicker-current ui-state-default ui-priority-primary ui-corner-all");
+                    }, 1);
+                }
+            });
    $('#selectEmpresa').on('change', function() {
        const empresaId = $(this).val();
        if (empresaId) {
