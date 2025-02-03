@@ -41,6 +41,9 @@ class ControladorCursoUsuario {
     public function verificarInscripcion($id_usuario, $id_curso_empresa) {
         return $this->cursoUsuario->verificarInscripcion($id_usuario, $id_curso_empresa);
     }
+    public function actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
+        return $this->cursoUsuario->actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
+    }
     
 }
 ?>

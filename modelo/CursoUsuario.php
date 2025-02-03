@@ -187,5 +187,21 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $resultado['existe'] > 0;
     }
+    public function actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
+        $conn = $this->conexion->conectarBD();
+        $sql = "UPDATE curso_usuario 
+                SET id_Usuarios = ?, 
+                    id_curso_empresa = ?, 
+                    fecha_inicio = ?, 
+                    fecha_fin = ? 
+                WHERE id_curso_usuario = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iissi", $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $id);
+        $resultado = $stmt->execute();
+        $this->conexion->desconectarBD();
+        return $resultado;
+    }
+
+    
 }
 ?>
