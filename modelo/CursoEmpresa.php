@@ -64,11 +64,11 @@ class CursoEmpresa {
     }
 
     // Métodos CRUD
-    public function crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
+    public function crear($id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado) {
         $conn = $this->conexion->conectarBD();
-        $sql = "INSERT INTO curso_empresa (id_empresa_cliente, id_curso, fecha_realizacion, fecha_vencimiento, estado) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO curso_empresa (id_empresa_cliente, id_curso, duracion, fecha_realizacion, fecha_vencimiento, estado) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iisss", $id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
+        $stmt->bind_param("iiisss", $id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado);
         $resultado = $stmt->execute();
         $this->conexion->desconectarBD();
         return $resultado;
@@ -90,117 +90,11 @@ class CursoEmpresa {
     }
 
     public function obtenerTodos() {
-        try {
-            $conn = $this->conexion->conectarBD();
-            $sql = "SELECT 
-                        ce.id_curso_empresa,
-                        ce.id_empresa_cliente,
-                        ce.fecha_realizacion,
-                        ce.fecha_vencimiento,
-                        ce.estado,
-                        ec.nombre_empresa,
-                        c.nombre_curso_fk
-                    FROM curso_empresa ce
-                    JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
-                    JOIN curso c ON ce.id_curso = c.id_curso";
-            
-            $resultado = $conn->query($sql);
-            
-            if (!$resultado) {
-                throw new Exception("Error en la consulta: " . $conn->error);
-            }
-            
-            $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
-            $this->conexion->desconectarBD();
-            return $cursos;
-            
-        } catch (Exception $e) {
-            error_log("Error en obtenerTodos: " . $e->getMessage());
-            throw $e;
-        }
-    }
-
-
-    public function actualizar($id, $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "UPDATE curso_empresa 
-                SET id_empresa_cliente = ?, 
-                    id_contratista = ?, 
-                    nombre_curso = ?, 
-                    fecha_realizacion = ?, 
-                    fecha_vencimiento = ?, 
-                    estado = ? 
-                WHERE id_curso_empresa = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iissssi", $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado, $id);
-        $resultado = $stmt->execute();
-        $this->conexion->desconectarBD();
-        return $resultado;
-    }
-
-    public function eliminar($id) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "DELETE FROM curso_empresa WHERE id_curso_empresa = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $resultado = $stmt->execute();
-        $this->conexion->desconectarBD();
-        return $resultado;
-    }
-
-    // Métodos adicionales útiles
-// Modelo CursoEmpresa.php - Ajustes en el método obtenerPorEmpresa
-public function obtenerPorEmpresa($id_empresa) {
-    try {
-        error_log("Intentando obtener cursos para empresa ID: " . $id_empresa);
-        
-        $conn = $this->conexion->conectarBD();
-        $sql = "SELECT 
-                    ce.id_curso_empresa,
-                    ce.nombre_curso,
-                    ce.fecha_realizacion,
-                    ce.fecha_vencimiento,
-                    ce.estado,
-                    ec.nombre_empresa
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
-                WHERE ce.id_empresa_cliente = ?";
-                
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id_empresa);
-        $stmt->execute();
-        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        
-        error_log("Resultado obtenido: " . print_r($resultado, true));
-        
-        $this->conexion->desconectarBD();
-        return $resultado;
-        
-    } catch (Exception $e) {
-        error_log("Error en obtenerPorEmpresa: " . $e->getMessage());
-        throw $e;
-    }
-}
-    public function obtenerPorContratista($id_contratista) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
-                JOIN contratista c ON ce.id_contratista = c.id_contratista
-                WHERE ce.id_contratista = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id_contratista);
-        $stmt->execute();
-        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $this->conexion->desconectarBD();
-        return $resultado;
-    }
-
-    public function obtenerCursosPublicados() {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT 
                     ce.id_curso_empresa,
                     ce.id_empresa_cliente,
+                    ce.duracion,
                     ce.fecha_realizacion,
                     ce.fecha_vencimiento,
                     ce.estado,
@@ -217,6 +111,92 @@ public function obtenerPorEmpresa($id_empresa) {
         $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
         return $cursos;
+    }
+
+    public function actualizar($id, $id_empresa_cliente, $id_contratista, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado) {
+        $conn = $this->conexion->conectarBD();
+        $sql = "UPDATE curso_empresa 
+                SET id_empresa_cliente = ?, 
+                    id_contratista = ?, 
+                    duracion = ?, 
+                    fecha_realizacion = ?, 
+                    fecha_vencimiento = ?, 
+                    estado = ? 
+                WHERE id_curso_empresa = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iissssi", $id_empresa_cliente, $id_contratista, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado, $id);
+        $resultado = $stmt->execute();
+        $this->conexion->desconectarBD();
+        return $resultado;
+    }
+
+    public function eliminar($id) {
+        $conn = $this->conexion->conectarBD();
+        $sql = "DELETE FROM curso_empresa WHERE id_curso_empresa = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $resultado = $stmt->execute();
+        $this->conexion->desconectarBD();
+        return $resultado;
+    }
+
+    public function obtenerPorEmpresa($id_empresa) {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT 
+                    ce.id_curso_empresa,
+                    ce.duracion,
+                    ce.fecha_realizacion,
+                    ce.fecha_vencimiento,
+                    ce.estado,
+                    ec.nombre_empresa
+                FROM curso_empresa ce
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                WHERE ce.id_empresa_cliente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_empresa);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        return $resultado;
+    }
+
+    public function obtenerCursosPublicados() {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT 
+                    ce.id_curso_empresa,
+                    ce.id_empresa_cliente,
+                    ce.duracion,
+                    ce.fecha_realizacion,
+                    ce.fecha_vencimiento,
+                    ce.estado,
+                    ec.nombre_empresa,
+                    c.nombre_curso_fk
+                FROM curso_empresa ce
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso c ON ce.id_curso = c.id_curso";
+        
+        $resultado = $conn->query($sql);
+        if (!$resultado) {
+            throw new Exception("Error en la consulta: " . $conn->error);
+        }
+        $cursos = $resultado->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        return $cursos;
+    }
+
+    public function obtenerPorContratista($id_contratista) {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 
+                FROM curso_empresa ce
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
+                JOIN contratista c ON ce.id_contratista = c.id_contratista
+                WHERE ce.id_contratista = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_contratista);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        return $resultado;
     }
 }
 

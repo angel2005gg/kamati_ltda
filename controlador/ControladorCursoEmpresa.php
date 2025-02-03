@@ -19,8 +19,8 @@ class ControladorCursoEmpresa {
         $this->cursoEmpresa = new CursoEmpresa();
     }
 
-    public function crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
-        return $this->cursoEmpresa->crear($id_empresa_cliente, $id_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
+    public function crear($id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado) {
+        return $this->cursoEmpresa->crear($id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado);
     }
 
     public function obtenerPorId($id) {
@@ -31,9 +31,10 @@ class ControladorCursoEmpresa {
         return $this->cursoEmpresa->obtenerTodos();
     }
 
-    public function actualizar($id, $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado) {
-        return $this->cursoEmpresa->actualizar($id, $id_empresa_cliente, $id_contratista, $nombre_curso, $fecha_realizacion, $fecha_vencimiento, $estado);
+    public function actualizar($id, $id_empresa_cliente, $id_contratista, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado) {
+        return $this->cursoEmpresa->actualizar($id, $id_empresa_cliente, $id_contratista, $duracion, $fecha_realizacion, $fecha_vencimiento, $estado);
     }
+
 
     public function eliminar($id) {
         return $this->cursoEmpresa->eliminar($id);

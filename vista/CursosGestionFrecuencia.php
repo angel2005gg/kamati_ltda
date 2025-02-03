@@ -6,7 +6,6 @@ $output = ob_get_clean();
 if (!empty($output)) {
     error_log('Output no deseado: ' . $output);
 }
-
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $controladorEmpresa = new ControladorEmpresaCliente();
 $controladorCurso = new ControladorCurso();
@@ -17,12 +16,18 @@ $cursos = $controladorCurso->obtenerTodos();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_empresa_cliente = $_POST['selectEmpresa'] ?? null;
     $id_curso = $_POST['selectCurso'] ?? null;
-    $fecha_inicio = $_POST['fecha_inicio'] ?? null;
     $duracion = $_POST['duracion'] ?? null;
+    $fecha_realizacion = $_POST['fecha_realizacion'] ?? null;
+    $fecha_vencimiento = $_POST['fecha_vencimiento'] ?? null;
 
-    if ($id_empresa_cliente && $id_curso && $fecha_inicio && $duracion) {
-        $fecha_vencimiento = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
-        $resultado = $controladorCursoEmpresa->crear($id_empresa_cliente, $id_curso, $fecha_inicio, $fecha_vencimiento, 'activo');
+    if ($id_empresa_cliente && $id_curso) {
+        if ($fecha_realizacion && $fecha_vencimiento) {
+            $duracion = null;
+        } else {
+            $fecha_realizacion = null;
+            $fecha_vencimiento = null;
+        }
+        $resultado = $controladorCursoEmpresa->crear($id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, 'activo');
         if ($resultado) {
             header("Location: CursosGestionFrecuencia.php?success=1");
             exit();
@@ -83,6 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             margin-left: 10px;
         }
+
+        .custom-date {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -133,18 +142,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
-                <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
-                <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
-                <span class="calendar-icon" id="calendar-icon">&#x1F4C5;</span>
+                <label class="form-label">Duración del Curso (en meses):</label>
+                <select class="form-select" id="duracion" name="duracion" required>
+                    <option value="12">1 Año</option>
+                    <option value="6">6 meses</option>
+                    <option value="24">2 Años</option>
+                </select>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Duración del Curso (en meses):</label>
-                <select class="form-select" name="duracion" required>
-                    <option value="6">6 meses</option>
-                    <option value="12">1 Año</option>
-                    <option value="24">2 Años</option>
-                </select>
+                <button type="button" class="btn btn-secondary" id="toggleCustomDate">Personalizar Fechas</button>
+            </div>
+
+            <div class="custom-date">
+                <div class="mb-3">
+                    <label for="fecha_realizacion" class="form-label">Fecha de Inicio:</label>
+                    <input type="text" class="form-control" id="fecha_realizacion" name="fecha_realizacion">
+                    <span class="calendar-icon" id="calendar-icon">&#x1F4C5;</span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha_vencimiento" class="form-label">Fecha de Fin:</label>
+                    <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Enviar</button>
@@ -155,12 +175,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#fecha_inicio').datepicker({
+            $('#fecha_realizacion').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+
+            $('#fecha_vencimiento').datepicker({
                 dateFormat: 'yy-mm-dd'
             });
 
             $('#calendar-icon').click(function() {
-                $('#fecha_inicio').datepicker('show');
+                $('#fecha_realizacion').datepicker('show');
+            });
+
+            $('#toggleCustomDate').click(function() {
+                $('.custom-date').toggle();
+                $('#duracion').prop('disabled', function(i, v) { return !v; });
             });
         });
     </script>
