@@ -15,19 +15,8 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
-// Función para formatear duración
-function formatearDuracion($duracion) {
-    $anos = floor($duracion / 12);
-    $meses = $duracion % 12;
-    
-    if ($anos > 0 && $meses > 0) {
-        return "$anos " . ($anos == 1 ? "año" : "años") . " con $meses " . ($meses == 1 ? "mes" : "meses");
-    } elseif ($anos > 0) {
-        return "$anos " . ($anos == 1 ? "año" : "años");
-    } else {
-        return "$meses " . ($meses == 1 ? "mes" : "meses");
-    }
-}
+
+
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -109,10 +98,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 0.875em;
             margin-top: 0.25rem;
         }
-        #fecha_inicio, #fecha_fin {
-            background-color: white;
+        .ui-datepicker {
+            background: #fff;
+            border: 1px solid #555;
+            color: #000;
+        }
+        .ui-datepicker-header {
+            background: #f2f2f2;
+            border-bottom: 1px solid #ddd;
+        }
+        .ui-datepicker-title {
+            color: #333;
+        }
+        .ui-datepicker-prev, .ui-datepicker-next {
             cursor: pointer;
         }
+        .ui-datepicker-calendar th {
+            color: #333;
+        }
+        .ui-datepicker-calendar td a {
+            color: #333;
+        }
+        .ui-datepicker-calendar td a:hover {
+            background: #eee;
+        }
+        .ui-datepicker-trigger {
+            width: 20px; 
+            height: 20px; 
+            vertical-align: middle; 
+}
     </style>
 </head>
 <body>
@@ -211,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 changeYear: true,
                 yearRange: '-100:+10',
                 showOn: 'both',  // Mostrar tanto en el input como en un icono
-                buttonImage: 'https://jqueryui.com/resources/demos/datepicker/images/calendar-icon.gif',
+                buttonImage: '../img/calendario.png',
                 buttonImageOnly: true,
                 beforeShow: function(input, inst) {
                     setTimeout(function() {
