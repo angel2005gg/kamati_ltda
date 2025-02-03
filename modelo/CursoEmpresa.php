@@ -76,10 +76,10 @@ class CursoEmpresa {
 
     public function obtenerPorId($id) {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_contratista 
+        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_curso_fk 
                 FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa
-                JOIN contratista c ON ce.id_contratista = c.id_contratista
+                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso c ON ce.id_curso = c.id_curso
                 WHERE ce.id_curso_empresa = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
@@ -148,9 +148,11 @@ class CursoEmpresa {
                     ce.fecha_realizacion,
                     ce.fecha_vencimiento,
                     ce.estado,
-                    ec.nombre_empresa
+                    ec.nombre_empresa,
+                    c.nombre_curso_fk as nombre_curso  
                 FROM curso_empresa ce
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+                JOIN curso c ON ce.id_curso = c.id_curso  
                 WHERE ce.id_empresa_cliente = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_empresa);

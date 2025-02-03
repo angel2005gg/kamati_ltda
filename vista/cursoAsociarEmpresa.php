@@ -15,8 +15,6 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
-$cursosPublicados = $controladorCursoEmpresa->obtenerCursosPublicados();
-
 
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
@@ -41,15 +39,21 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
 }
 
 // Manejo del formulario POST
+// Manejo del formulario POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_POST['id_usuario'] ?? null;
     $id_curso_empresa = $_POST['id_curso_empresa'] ?? null;
-    $duracion = $_POST['duracion'] ?? null;
+    $fecha_inicio = $_POST['fecha_inicio'] ?? null;
 
-    if ($id_usuario && $id_curso_empresa && $duracion) {
-        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa);
+    if ($id_usuario && $id_curso_empresa && $fecha_inicio) {
+        // Obtener la duración del curso desde curso_empresa
+        $cursoEmpresa = $controladorCursoEmpresa->obtenerPorId($id_curso_empresa);
+        $duracion = $cursoEmpresa['duracion'];
+        $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
+
+        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
         if ($resultado) {
-            header("Location: cursoAsociarEmpresa.php?success=1");
+            header("Location: listaCursos.php?success=1");
             exit();
         } else {
             header("Location: cursoAsociarEmpresa.php?error=1");
@@ -59,27 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: cursoAsociarEmpresa.php?error=1");
         exit();
     }
-}
-// Manejo de solicitud AJAX para obtener cursos
-if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
-    try {
-        error_log("Recibida solicitud para empresa_id: " . $_GET['empresa_id']);
-        $cursosEmpresa = $controladorCursoEmpresa->obtenerPorEmpresa($_GET['empresa_id']);
-        
-        if ($cursosEmpresa === false) {
-            throw new Exception("Error al obtener los cursos de la base de datos");
-        }
-        
-        header('Content-Type: application/json');
-        echo json_encode($cursosEmpresa ?: []);
-        
-    } catch (Exception $e) {
-        error_log("Error en la solicitud AJAX: " . $e->getMessage());
-        header('Content-Type: application/json');
-        http_response_code(500);
-        echo json_encode(['error' => 'Error al obtener los cursos: ' . $e->getMessage()]);
-    }
-    exit();
 }
 ?>
 
@@ -96,7 +79,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
             max-width: 800px;
             margin: 30px auto;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
             border-radius: 8px;
         }
         .select2-container {
@@ -114,44 +97,50 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
             font-size: 0.875em;
             margin-top: 0.25rem;
         }
+        #fecha_inicio, #fecha_fin {
+            background-color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <div id="alertMessage" class="alert alert-floating" role="alert"></div>
+
     <div class="container form-container">
         <h2 class="text-center mb-4">Asignación de Curso</h2>
+        <?php if (isset($_GET['success'])): ?>
+            <div class="alert alert-success" role="alert">
+                Curso asociado correctamente.
+            </div>
+        <?php elseif (isset($_GET['error'])): ?>
+            <div class="alert alert-danger" role="alert">
+                Error al asociar el curso.
+            </div>
+        <?php endif; ?>
         <form method="POST" action="" class="needs-validation" novalidate>
             <!-- Campo Usuario -->
             <div class="mb-3">
                 <label for="id_usuario" class="form-label">Nombre:</label>
                 <select class="form-select select2" id="id_usuario" name="id_usuario" required>
-    <option value="">Buscar usuario...</option>
-    <?php foreach ($usuarios as $usuario): ?>
-        <option value="<?php echo htmlspecialchars($usuario['id_Usuarios']); ?>" 
-                data-area="<?php echo htmlspecialchars($usuario['area'] ?? ''); ?>">
-            <?php echo htmlspecialchars($usuario['nombre_completo']); ?>
-        </option>
-    <?php endforeach; ?>
-</select>
+                    <option value="">Buscar usuario...</option>
+                    <?php foreach ($usuarios as $usuario): ?>
+                        <option value="<?php echo htmlspecialchars($usuario['id_Usuarios']); ?>">
+                            <?php echo htmlspecialchars(trim($usuario['nombre_completo'])); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
                 <div class="invalid-feedback">Por favor seleccione un usuario.</div>
-            </div>
-            <!-- Campo Área -->
-            <div class="mb-3">
-                <label class="form-label">Área:</label>
-                <input type="text" class="form-control" id="area" name="area" readonly>
             </div>
 
             <!-- Campo Empresa -->
             <div class="mb-3">
-                <label for="id_empresa" class="form-label">Empresa:</label>
-                <select class="form-select" id="id_empresa" name="id_empresa" required>
-                    <option value="">Seleccione una empresa</option>
+                <label for="selectEmpresa" class="form-label">Seleccione una Empresa:</label>
+                <select class="form-select" id="selectEmpresa" name="selectEmpresa" required>
+                    <option value="">Seleccione una empresa...</option>
                     <?php foreach ($empresas as $empresa): ?>
-                        <option value="<?php echo htmlspecialchars($empresa['id_empresa_cliente']); ?>">
-                            <?php echo htmlspecialchars($empresa['nombre_empresa']); ?>
-                        </option>
+                        <option value="<?php echo $empresa['id_empresa_cliente']; ?>"><?php echo $empresa['nombre_empresa']; ?></option>
                     <?php endforeach; ?>
                 </select>
-                <div class="invalid-feedback">Por favor seleccione una empresa.</div>
             </div>
 
             <!-- Campo Curso -->
@@ -159,135 +148,116 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
                 <label for="selectCurso" class="form-label">Seleccione un Curso:</label>
                 <select class="form-select" id="selectCurso" name="id_curso_empresa" required>
                     <option value="">Seleccione un curso...</option>
-                    <?php foreach ($cursosPublicados as $curso): ?>
-                        <option value="<?php echo $curso['id_curso_empresa']; ?>" data-fecha-inicio="<?php echo $curso['fecha_realizacion']; ?>" data-fecha-fin="<?php echo $curso['fecha_vencimiento']; ?>">
-                            <?php echo $curso['nombre_curso_fk']; ?>
-                        </option>
-                    <?php endforeach; ?>
                 </select>
             </div>
 
-            <!-- Campo Fecha de realización -->
+            <!-- Campo Fecha de Inicio -->
             <div class="mb-3">
-                <label class="form-label">Fecha de realización:</label>
-                <input type="date" class="form-control" id="fecha_realizacion" name="fecha_realizacion" required>
-                <div class="invalid-feedback">Por favor seleccione una fecha de realización.</div>
+                <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
+                <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
             </div>
 
-            <!-- Campo Fecha de vencimiento -->
+            <!-- Campo Fecha de Fin -->
             <div class="mb-3">
-                <label class="form-label">Fecha de vencimiento:</label>
-                <input type="text" class="form-control" id="fecha_vencimiento" readonly>
+                <label for="fecha_fin" class="form-label">Fecha de Fin:</label>
+                <input type="text" class="form-control" id="fecha_fin" name="fecha_fin" readonly>
             </div>
+            <!-- Configuración de Notificaciones -->
+<div class="mb-3">
+    <label class="form-label">Configuración de Notificación</label>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="enviar_correo" name="enviar_correo" checked>
+        <label class="form-check-label" for="enviar_correo">
+            Enviar notificación por correo
+        </label>
+    </div>
+    <div class="mb-3">
+        <label for="dias_notificacion" class="form-label">Días antes de enviar notificación:</label>
+        <select class="form-select" id="dias_notificacion" name="dias_notificacion" multiple>
+            <option value="10">10 días</option>
+            <option value="15">15 días</option>
+            <option value="20">20 días</option>
+        </select>
+        <small class="form-text text-muted">Puedes seleccionar múltiples opciones</small>
+    </div>
+</div>
 
-            <!-- Campo Estado -->
-            <div class="mb-3">
-                <label class="form-label">Estado:</label>
-                <input type="text" class="form-control" id="estado" readonly>
-            </div>
-
-            <!-- Botones -->
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-secondary me-2" onclick="window.location.href='ListaCursos.php'">
-                    Cancelar
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    Asignar
-                </button>
-            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
-    <!-- Scripts -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
-$(document).ready(function() {
-    console.log("Iniciando configuración...");
-    $(document).ready(function() {
-            $('.select2').select2();
+        $(document).ready(function() {
+   $('.select2').select2();
 
-            $('#selectCurso').on('change', function() {
-                const selectedOption = $(this).find('option:selected');
-                const fechaInicio = selectedOption.data('fecha-inicio');
-                const fechaFin = selectedOption.data('fecha-fin');
-                $('#fecha_inicio').val(fechaInicio);
-                $('#fecha_fin').val(fechaFin);
-            });
+   $('#fecha_inicio').datepicker({
+       dateFormat: 'yy-mm-dd',
+       changeMonth: true,
+       changeYear: true,
+       yearRange: '-100:+10'
+   });
 
-            // Validación del formulario
-            const form = document.querySelector('.needs-validation');
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            });
-        });
-    // Inicializar Select2
-    $('#id_usuario').select2({
-        placeholder: 'Buscar usuario...',
-        minimumInputLength: 1,
-        width: '100%',
-        language: {
-            inputTooShort: function() {
-                return "Por favor ingrese 1 o más caracteres";
-            },
-            noResults: function() {
-                return "No se encontraron resultados";
-            },
-            searching: function() {
-                return "Buscando...";
-            }
-        },
-        matcher: function(params, data) {
-            // Si no hay término de búsqueda, retornar todos
-            if ($.trim(params.term) === '') {
-                return data;
-            }
+   $('#selectEmpresa').on('change', function() {
+       const empresaId = $(this).val();
+       if (empresaId) {
+           $.ajax({
+               url: 'cursoAsociarEmpresa.php',
+               type: 'GET',
+               data: { action: 'getCursos', empresa_id: empresaId },
+               dataType: 'json',
+               success: function(data) {
+                   console.log('Cursos recibidos:', data);
+                   $('#selectCurso').empty().append('<option value="">Seleccione un curso...</option>');
+                   $.each(data, function(index, curso) {
+                       $('#selectCurso').append(
+                           '<option value="' + curso.id_curso_empresa + '" ' +
+                           'data-duracion="' + curso.duracion + '" ' +
+                           'data-nombre-curso="' + curso.nombre_curso + '">' +
+                           curso.nombre_curso + ' (' + curso.duracion + ' meses)' +
+                           '</option>'
+                       );
+                   });
+               },
+               error: function(xhr, status, error) {
+                   console.error('Error al obtener los cursos:', xhr.responseText);
+               }
+           });
+       } else {
+           $('#selectCurso').empty().append('<option value="">Seleccione un curso...</option>');
+       }
+   });
 
-            // Si no hay datos, retornar null
-            if (typeof data.text === 'undefined') {
-                return null;
-            }
+   $('#selectCurso, #fecha_inicio').on('change', function() {
+       const selectedCurso = $('#selectCurso').find('option:selected');
+       const duracion = selectedCurso.data('duracion');
+       const fechaInicio = $('#fecha_inicio').val();
 
-            // Buscar en el texto del usuario
-            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
-                return data;
-            }
+       if (fechaInicio && duracion) {
+           const fechaFin = new Date(fechaInicio);
+           fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
+           $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
+       }
+   });
 
-            // Si no hay coincidencia, retornar null
-            return null;
-        }
-    });
+   // Validación del formulario
+   const form = document.querySelector('.needs-validation');
+   form.addEventListener('submit', function(event) {
+       if (!form.checkValidity()) {
+           event.preventDefault();
+           event.stopPropagation();
+       }
+       form.classList.add('was-validated');
+   });
 
-    // Manejar el cambio de usuario
-    $('#id_usuario').on('change', function() {
-        console.log("Usuario seleccionado");
-        const selectedOption = $(this).find('option:selected');
-        const area = selectedOption.data('area');
-        console.log("Área:", area);
-        $('#area').val(area || '');
-    });
-
-    // Mantén el resto de tu código existente que maneja empresas y cursos
-    $('#id_empresa').on('change', function() {
-        // ... tu código existente para manejar empresas ...
-    });
-
-    $('#id_curso_empresa').on('change', function() {
-        // ... tu código existente para manejar cursos ...
-    });
-
-        // Función para resetear campos relacionados con el curso
-        function resetearCamposCurso() {
-            $('#fecha_realizacion').val('');
-            $('#fecha_vencimiento').val('');
-            $('#estado').val('');
-        }
-    });
+   // Configuración de Select2 para días de notificación
+   $('#dias_notificacion').select2({
+       placeholder: "Seleccione días de notificación",
+       allowClear: true
+   });
+});
     </script>
 </body>
 </html>

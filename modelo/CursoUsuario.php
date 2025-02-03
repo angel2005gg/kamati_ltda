@@ -5,6 +5,8 @@ class CursoUsuario {
     private $id_curso_usuario;
     private $id_usuario;
     private $id_curso_empresa;
+    private $fecha_inicio;
+    private $fecha_fin;
     private $conexion;
 
     public function __construct() {
@@ -32,12 +34,28 @@ class CursoUsuario {
         $this->id_curso_empresa = $id_curso_empresa;
     }
 
+    public function getFechaInicio() {
+        return $this->fecha_inicio;
+    }
+
+    public function setFechaInicio($fecha_inicio) {
+        $this->fecha_inicio = $fecha_inicio;
+    }
+
+    public function getFechaFin() {
+        return $this->fecha_fin;
+    }
+
+    public function setFechaFin($fecha_fin) {
+        $this->fecha_fin = $fecha_fin;
+    }
+
     // Métodos CRUD
-    public function crear($id_usuario, $id_curso_empresa) {
+    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
         $conn = $this->conexion->conectarBD();
-        $sql = "INSERT INTO curso_usuario (id_Usuarios, id_curso_empresa) VALUES (?, ?)";
+        $sql = "INSERT INTO curso_usuario (id_Usuarios, id_curso_empresa, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ii", $id_usuario, $id_curso_empresa);
+        $stmt->bind_param("iiss", $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
         $resultado = $stmt->execute();
         $this->id_curso_usuario = $stmt->insert_id;
         $this->conexion->desconectarBD();
@@ -50,10 +68,11 @@ class CursoUsuario {
                 CONCAT(u.primer_nombre, ' ', 
                       IFNULL(u.segundo_nombre, ''), ' ',
                       u.primer_apellido, ' ', 
-                      IFNULL(u.segundo_apellido, '')) as usuario,
+                      IFNULL(u.segundo_apellido, '')) as nombre_usuario,
                 a.nombre_area as area,
-                cr.nombre_curso_fk as curso,
-                ce.fecha_vencimiento as fecha_vencimiento,
+                cr.nombre_curso_fk as nombre_curso,
+                ce.fecha_realizacion as fecha_inicio,
+                ce.fecha_vencimiento as fecha_fin,
                 ec.nombre_empresa as empresa,
                 ce.estado
                 FROM curso_usuario cu
@@ -78,11 +97,11 @@ class CursoUsuario {
                 CONCAT(u.primer_nombre, ' ', 
                        IFNULL(u.segundo_nombre, ''), ' ', 
                        u.primer_apellido, ' ', 
-                       IFNULL(u.segundo_apellido, '')) as usuario,
+                       IFNULL(u.segundo_apellido, '')) as nombre_usuario,
                 a.nombre_area as area,
-                ce.fecha_vencimiento as fecha_vencimiento,
-                ce.fecha_realizacion as fecha_realizacion,
-                cr.nombre_curso_fk as curso,
+                cu.fecha_inicio,
+                cu.fecha_fin,
+                cr.nombre_curso_fk as nombre_curso,
                 ec.nombre_empresa as empresa,
                 ce.estado
                 FROM curso_usuario cu
@@ -115,9 +134,9 @@ class CursoUsuario {
     public function obtenerCursosPorUsuario($id_usuario) {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT cu.id_curso_usuario,
-                cr.nombre_curso_fk as curso,
-                ce.fecha_realizacion as fecha_realizacion,
-                ce.fecha_vencimiento as fecha_vencimiento,
+                cr.nombre_curso_fk as nombre_curso,
+                ce.fecha_realizacion as fecha_inicio,
+                ce.fecha_vencimiento as fecha_fin,
                 ce.estado,
                 ec.nombre_empresa as empresa
                 FROM curso_usuario cu
@@ -139,7 +158,7 @@ class CursoUsuario {
                 CONCAT(u.primer_nombre, ' ', 
                       IFNULL(u.segundo_nombre, ''), ' ',
                       u.primer_apellido, ' ', 
-                      IFNULL(u.segundo_apellido, '')) as usuario,
+                      IFNULL(u.segundo_apellido, '')) as nombre_usuario,
                 a.nombre_area as area,
                 u.tipo_contratista,
                 u.estado_usuario as estado

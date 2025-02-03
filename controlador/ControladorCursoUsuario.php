@@ -11,8 +11,8 @@ class ControladorCursoUsuario {
         $this->usuario = new Usuarios();
     }
 
-    public function crear($id_usuario, $id_curso_empresa) {
-        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa);
+    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
+        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
     }
 
     public function obtenerPorId($id) {

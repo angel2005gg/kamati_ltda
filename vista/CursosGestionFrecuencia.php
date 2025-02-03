@@ -20,6 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_realizacion = $_POST['fecha_realizacion'] ?? null;
     $fecha_vencimiento = $_POST['fecha_vencimiento'] ?? null;
 
+    // Si se personaliza la duración, calcularla en meses
+    if (isset($_POST['custom_years']) && isset($_POST['custom_months'])) {
+        $custom_years = intval($_POST['custom_years']);
+        $custom_months = intval($_POST['custom_months']);
+        $duracion = ($custom_years * 12) + $custom_months;
+    }
+
     if ($id_empresa_cliente && $id_curso) {
         if ($fecha_realizacion && $fecha_vencimiento) {
             $duracion = null;
@@ -92,6 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .custom-date {
             display: none;
         }
+
+        .custom-duration {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -151,19 +162,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
-                <button type="button" class="btn btn-secondary" id="toggleCustomDate">Personalizar Fechas</button>
+                <button type="button" class="btn btn-secondary" id="toggleCustomDuration">Personalizar Duración</button>
             </div>
 
-            <div class="custom-date">
+            <div class="custom-duration">
                 <div class="mb-3">
-                    <label for="fecha_realizacion" class="form-label">Fecha de Inicio:</label>
-                    <input type="text" class="form-control" id="fecha_realizacion" name="fecha_realizacion">
-                    <span class="calendar-icon" id="calendar-icon">&#x1F4C5;</span>
+                    <label for="custom_years" class="form-label">Años:</label>
+                    <select class="form-select" id="custom_years" name="custom_years">
+                        <?php 
+                        for ($i = 1; $i <= 5; $i++) {
+                            echo "<option value='$i'>$i " . ($i == 1 ? 'año' : 'años') . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="fecha_vencimiento" class="form-label">Fecha de Fin:</label>
-                    <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
+                    <label for="custom_months" class="form-label">Meses:</label>
+                    <select class="form-select" id="custom_months" name="custom_months">
+                        <?php 
+                        for ($i = 1; $i <= 11; $i++) {
+                            echo "<option value='$i'>$i " . ($i == 1 ? 'mes' : 'meses') . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
 
@@ -189,6 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $('#toggleCustomDate').click(function() {
                 $('.custom-date').toggle();
+                $('#duracion').prop('disabled', function(i, v) { return !v; });
+            });
+
+            $('#toggleCustomDuration').click(function() {
+                $('.custom-duration').toggle();
                 $('#duracion').prop('disabled', function(i, v) { return !v; });
             });
         });
