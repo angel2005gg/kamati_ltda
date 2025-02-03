@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Duración del Curso (en meses):</label>
+                <label class="form-label">Duración del Curso (tiempo del curso):</label>
                 <select class="form-select" id="duracion" name="duracion" required>
                     <option value="12">1 Año</option>
                     <option value="6">6 meses</option>
