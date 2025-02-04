@@ -2,10 +2,6 @@
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCurso.php';
-$output = ob_get_clean();
-if (!empty($output)) {
-    error_log('Output no deseado: ' . $output);
-}
 
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $controladorEmpresa = new ControladorEmpresaCliente();
@@ -21,21 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_realizacion = $_POST['fecha_realizacion'] ?? null;
     $fecha_vencimiento = $_POST['fecha_vencimiento'] ?? null;
 
-    // Si se personaliza la duración, calcularla en meses
-    if (isset($_POST['custom_years']) || isset($_POST['custom_months'])) {
+    if (!empty($_POST['custom_duration_enabled'])) {
         $custom_years = intval($_POST['custom_years'] ?? 0);
         $custom_months = intval($_POST['custom_months'] ?? 0);
         $duracion = ($custom_years * 12) + $custom_months;
     }
 
     if ($id_empresa_cliente && $id_curso) {
-        if ($fecha_realizacion && $fecha_vencimiento) {
+        if (!empty($fecha_realizacion) && !empty($fecha_vencimiento)) {
             $duracion = null;
-        } else {
-            $fecha_realizacion = null;
-            $fecha_vencimiento = null;
         }
+
         $resultado = $controladorCursoEmpresa->crear($id_empresa_cliente, $id_curso, $duracion, $fecha_realizacion, $fecha_vencimiento, 'activo');
+
         if ($resultado) {
             header("Location: CursosGestionFrecuencia.php?success=1");
             exit();
@@ -62,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             border-bottom: 2px solid #dee2e6;
         }
-        
         .nav-tabs .nav-link {
             font-size: 1.2rem;
             padding: 1rem 2rem;
@@ -71,19 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #6c757d;
             transition: all 0.3s ease;
         }
-
         .nav-tabs .nav-link:hover {
-            border: none;
             color: #0d6efd;
         }
-
         .nav-tabs .nav-link.active {
-            border: none;
             border-bottom: 3px solid #0d6efd;
             color: #0d6efd;
             font-weight: bold;
         }
-
         .alert-floating {
             position: fixed;
             top: 20px;
@@ -91,43 +79,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             z-index: 1000;
             display: none;
         }
-
-        .calendar-icon {
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .custom-date, .custom-duration {
+        .custom-duration {
             display: none;
         }
     </style>
 </head>
 <body>
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
-
     <div class="container mt-4">
-        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link" href="CursosGestion.php">Crear Nuevo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="CursosGestionFrecuencia.php">Asignar Curso a Empresa</a>
-            </li>
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><a class="nav-link" href="CursosGestion.php">Crear Nuevo</a></li>
+            <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
+            <li class="nav-item"><a class="nav-link active" href="CursosGestionFrecuencia.php">Asignar Curso a Empresa</a></li>
         </ul>
 
         <h2>Asignar Curso a Empresa</h2>
         <?php if (isset($_GET['success'])): ?>
-            <div class="alert alert-success" role="alert">
-                Curso asignado correctamente.
-            </div>
+            <div class="alert alert-success">Curso asignado correctamente.</div>
         <?php elseif (isset($_GET['error'])): ?>
-            <div class="alert alert-danger" role="alert">
-                Error al asignar el curso.
-            </div>
+            <div class="alert alert-danger">Error al asignar el curso.</div>
         <?php endif; ?>
+
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="selectEmpresa" class="form-label">Seleccione una Empresa:</label>
@@ -150,52 +122,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Duración del Curso (tiempo del curso):</label>
-                <select class="form-select" id="duracion" name="duracion" required>
+                <label class="form-label">Duración del Curso:</label>
+                <select class="form-select" id="duracion" name="duracion">
                     <option value="12">1 Año</option>
                     <option value="6">6 meses</option>
                     <option value="24">2 Años</option>
                 </select>
             </div>
 
-            <div class="mb-3">
-                <button type="button" class="btn btn-secondary" id="toggleCustomDuration">Personalizar Duración</button>
-            </div>
+            <button type="button" class="btn btn-secondary" id="toggleCustomDuration">Personalizar Duración</button>
 
             <div class="custom-duration">
+                <input type="hidden" name="custom_duration_enabled" id="custom_duration_enabled" value="0">
                 <div class="mb-3">
                     <label for="custom_years" class="form-label">Años:</label>
                     <select class="form-select" id="custom_years" name="custom_years">
-                        <?php 
-                        for ($i = 0; $i <= 5; $i++) {
-                            echo "<option value='$i'>$i " . ($i == 1 ? 'año' : 'años') . "</option>";
-                        }
-                        ?>
+                        <?php for ($i = 0; $i <= 5; $i++): ?>
+                            <option value="<?= $i ?>"><?= $i ?> <?= $i == 1 ? 'año' : 'años' ?></option>
+                        <?php endfor; ?>
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label for="custom_months" class="form-label">Meses:</label>
                     <select class="form-select" id="custom_months" name="custom_months">
-                        <?php 
-                        for ($i = 0; $i <= 11; $i++) {
-                            echo "<option value='$i'>$i " . ($i == 1 ? 'mes' : 'meses') . "</option>";
-                        }
-                        ?>
+                        <?php for ($i = 0; $i <= 11; $i++): ?>
+                            <option value="<?= $i ?>"><?= $i ?> <?= $i == 1 ? 'mes' : 'meses' ?></option>
+                        <?php endfor; ?>
                     </select>
-                </div>
-            </div>
-
-            <div class="custom-date">
-                <div class="mb-3">
-                    <label for="fecha_realizacion" class="form-label">Fecha de Inicio:</label>
-                    <input type="text" class="form-control" id="fecha_realizacion" name="fecha_realizacion">
-                    <span class="calendar-icon" id="calendar-icon">&#x1F4C5;</span>
-                </div>
-
-                <div class="mb-3">
-                    <label for="fecha_vencimiento" class="form-label">Fecha de Fin:</label>
-                    <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
                 </div>
             </div>
 
@@ -204,29 +157,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#fecha_realizacion').datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-
-            $('#fecha_vencimiento').datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-
-            $('#calendar-icon').click(function() {
-                $('#fecha_realizacion').datepicker('show');
-            });
-
             $('#toggleCustomDuration').click(function() {
                 $('.custom-duration').toggle();
-                $('#duracion').prop('disabled', function(i, v) { return !v; });
-            });
-
-            $('#toggleCustomDate').click(function() {
-                $('.custom-date').toggle();
-                $('#duracion').prop('disabled', function(i, v) { return !v; });
+                $('#custom_duration_enabled').val($('.custom-duration').is(':visible') ? '1' : '0');
+                $('#duracion').prop('disabled', $('.custom-duration').is(':visible'));
             });
         });
     </script>

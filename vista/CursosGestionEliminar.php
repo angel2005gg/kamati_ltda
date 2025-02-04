@@ -13,37 +13,53 @@ $controladorCurso = new ControladorCurso();
 $cursos = $controladorCurso->obtenerTodos();
 $controladorContratista = new ControladorContratista();
 $contratistas = $controladorContratista->obtenerTodos();
+
+// Para empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_empresa'])) {
     $id_empresa = $_POST['id_empresa'];
-    $resultado = $controladorEmpresa->eliminar($id_empresa);
-    if ($resultado) {
-        header("Location: CursosGestionEliminar.php?success=empresa");
-    } else {
-        header("Location: CursosGestionEliminar.php?error=empresa");
+    try {
+        $resultado = $controladorEmpresa->eliminar($id_empresa);
+        if ($resultado) {
+            header("Location: CursosGestionEliminar.php?success=empresa");
+        } else {
+            header("Location: CursosGestionEliminar.php?error=empresa");
+        }
+    } catch (mysqli_sql_exception $e) {
+        header("Location: CursosGestionEliminar.php?error=constraint_empresa");
     }
     exit();
 }
 
+// Para curso
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_curso'])) {
     $id_curso = $_POST['id_curso'];
-    $resultado = $controladorCurso->eliminar($id_curso);
-    if ($resultado) {
-        header("Location: CursosGestionEliminar.php?success=curso");
-    } else {
-        header("Location: CursosGestionEliminar.php?error=curso");
+    try {
+        $resultado = $controladorCurso->eliminar($id_curso);
+        if ($resultado) {
+            header("Location: CursosGestionEliminar.php?success=curso");
+        } else {
+            header("Location: CursosGestionEliminar.php?error=curso");
+        }
+    } catch (mysqli_sql_exception $e) {
+        header("Location: CursosGestionEliminar.php?error=constraint_curso");
     }
     exit();
 }
+
+// Para contratista
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_contratista'])) {
     $id_contratista = $_POST['id_contratista'];
-    $resultado = $controladorContratista->eliminar($id_contratista);
-    if ($resultado) {
-        header("Location: CursosGestionEliminar.php?success=contratista");
-        exit();
-    } else {
-        header("Location: CursosGestionEliminar.php?error=contratista");
-        exit();
+    try {
+        $resultado = $controladorContratista->eliminar($id_contratista);
+        if ($resultado) {
+            header("Location: CursosGestionEliminar.php?success=contratista");
+        } else {
+            header("Location: CursosGestionEliminar.php?error=contratista");
+        }
+    } catch (mysqli_sql_exception $e) {
+        header("Location: CursosGestionEliminar.php?error=constraint_contratista");
     }
+    exit();
 }
 $empresa = new EmpresaCliente();
 $contratista = new Contratista();
@@ -97,6 +113,7 @@ session_start();
     </style>
 </head>
 <body>
+
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
     <div class="container mt-4">
@@ -129,6 +146,12 @@ session_start();
         Error al eliminar la empresa.
     </div>
 <?php endif; ?>
+<!-- Para empresa -->
+<?php if (isset($_GET['error']) && $_GET['error'] === 'constraint_empresa'): ?>
+    <div class="alert alert-warning" role="alert">
+        No se puede eliminar. La empresa está siendo utilizada en otros registros.
+    </div>
+<?php endif; ?>
                         <form method="POST" action="">
                             <div class="mb-3">
                                 <select class="form-select" id="id_empresa" name="id_empresa" required>
@@ -144,7 +167,11 @@ session_start();
                 </div>
             </div>
        
-        
+            
+
+
+
+
 
             <!-- Eliminar Curso -->
             <div class="col-md-4">
@@ -160,6 +187,12 @@ session_start();
 <?php elseif (isset($_GET['error']) && $_GET['error'] === 'curso'): ?>
     <div class="alert alert-danger" role="alert">
         Error al eliminar el curso.
+    </div>
+<?php endif; ?>
+<!-- Para curso -->
+<?php if (isset($_GET['error']) && $_GET['error'] === 'constraint_curso'): ?>
+    <div class="alert alert-warning" role="alert">
+        No se puede eliminar. El curso está siendo utilizado en otros registros.
     </div>
 <?php endif; ?>
                         <form method="POST" action="">
@@ -197,6 +230,12 @@ session_start();
                                 Error al eliminar el contratista.
                             </div>
                         <?php endif; ?>
+                        <!-- Para contratista -->
+<?php if (isset($_GET['error']) && $_GET['error'] === 'constraint_contratista'): ?>
+    <div class="alert alert-warning" role="alert">
+        No se puede eliminar. El contratista está siendo utilizado en otros registros.
+    </div>
+<?php endif; ?>
                         <form method="POST" action="">
                             <div class="mb-3">
                                 <select class="form-select" id="id_contratista" name="id_contratista" required>

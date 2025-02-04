@@ -133,12 +133,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
                         <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" 
-        value="<?php echo htmlspecialchars($cursoUsuario['fecha_inicio'] ?? ''); ?>" required>
+                               value="<?php echo htmlspecialchars($cursoUsuario['fecha_inicio'] ?? ''); ?>" placeholder="Actualiza la fecha" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="fecha_fin" class="form-label">Fecha de Fin:</label>
-                        <input type="text" class="form-control" id="fecha_fin" 
+                        <input type="text" class="form-control" id="fecha_fin" name="fecha_fin"
                                value="<?php echo htmlspecialchars($cursoUsuario['fecha_fin'] ?? ''); ?>" readonly>
                     </div>
                 </div>
@@ -146,62 +146,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-        </form>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursosEditar.php'">Cancelar</button>        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#fecha_inicio').datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
+    // Inicializar datepicker
+    $('#fecha_inicio').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 
-            $('#selectEmpresa').on('change', function() {
-                const empresaId = $(this).val();
-                if (empresaId) {
-                    $.ajax({
-                        url: 'cursoAsociarEmpresa.php',
-                        type: 'GET',
-                        data: { action: 'getCursos', empresa_id: empresaId },
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#selectCurso').empty();
-                            if (data && data.length > 0) {
-                                $.each(data, function(index, curso) {
-                                    $('#selectCurso').append(
-                                        '<option value="' + curso.id_curso_empresa + '" data-duracion="' + (curso.duracion || 0) + '">' +
-                                        (curso.nombre_curso_fk || curso.nombre_curso || 'Curso sin nombre') + ' (' + (curso.duracion || 0) + ' meses)' +
-                                        '</option>'
-                                    );
-                                });
-                                $('#selectCurso').trigger('change');
-                            } else {
-                                $('#selectCurso').append('<option value="">No hay cursos disponibles</option>');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error al obtener los cursos:', error);
-                            $('#selectCurso').empty().append('<option value="">Error al cargar cursos</option>');
-                        }
+    // Cargar cursos automáticamente al cargar la página
+    function cargarCursosPorEmpresa(empresaId) {
+        $.ajax({
+            url: 'cursoAsociarEmpresa.php',
+            type: 'GET',
+            data: { action: 'getCursos', empresa_id: empresaId },
+            dataType: 'json',
+            success: function(data) {
+                $('#selectCurso').empty();
+                if (data && data.length > 0) {
+                    $.each(data, function(index, curso) {
+                        const selected = curso.id_curso_empresa == <?php echo $cursoUsuario['id_curso_empresa'] ?? 0; ?> ? 'selected' : '';
+                        $('#selectCurso').append(
+                            '<option value="' + curso.id_curso_empresa + '" ' + selected + ' data-duracion="' + (curso.duracion || 0) + '">' +
+                            (curso.nombre_curso_fk || curso.nombre_curso || 'Curso sin nombre') + ' (' + (curso.duracion || 0) + ' meses)' +
+                            '</option>'
+                        );
                     });
-                } else {
-                    $('#selectCurso').empty().append('<option value="">Seleccione un curso</option>');
-                }
-            });
+                    
+                    // Forzar cambio de curso para calcular fecha de fin
+                    $('#selectCurso').trigger('change');
 
-            $('#selectCurso, #fecha_inicio').on('change', function() {
-                const duracion = $('#selectCurso').find('option:selected').data('duracion');
-                const fechaInicio = $('#fecha_inicio').val();
-    if (fechaInicio) {
-        // Calcular y establecer fecha de fin automáticamente
-        const duracion = $('#selectCurso').find('option:selected').data('duracion');
-        const fechaFin = new Date(fechaInicio);
-        fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
-        $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
-    }
-            });
+                    // Establecer fechas después de cargar los cursos
+                    $('#fecha_inicio').val('<?php echo $cursoUsuario["fecha_inicio"] ?? ""; ?>');
+                    $('#fecha_fin').val('<?php echo $cursoUsuario["fecha_fin"] ?? ""; ?>');
+                } else {
+                    $('#selectCurso').append('<option value="">No hay cursos disponibles</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al obtener los cursos:', error);
+                $('#selectCurso').empty().append('<option value="">Error al cargar cursos</option>');
+            }
         });
+    }
+
+    // Cargar cursos al cambiar la empresa
+    $('#selectEmpresa').on('change', function() {
+        const empresaId = $(this).val();
+        if (empresaId) {
+            cargarCursosPorEmpresa(empresaId);
+        } else {
+            $('#selectCurso').empty().append('<option value="">Seleccione un curso</option>');
+        }
+    });
+
+    // Calcular fecha de fin automáticamente
+    $('#selectCurso, #fecha_inicio').on('change', function() {
+        const duracion = $('#selectCurso').find('option:selected').data('duracion');
+        const fechaInicio = $('#fecha_inicio').val();
+        if (fechaInicio) {
+            const fechaFin = new Date(fechaInicio);
+            fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
+            $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
+        }
+    });
+
+    // Cargar cursos automáticamente al inicio
+    const empresaId = $('#selectEmpresa').val();
+    cargarCursosPorEmpresa(empresaId);
+});
     </script>
 </body>
 </html>

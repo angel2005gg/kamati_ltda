@@ -44,6 +44,23 @@ class ControladorCursoUsuario {
     public function actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
         return $this->cursoUsuario->actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
     }
+    public function obtenerTodosFiltrados($filtros) {
+        return $this->cursoUsuario->obtenerTodosFiltrados($filtros);
+    }
+    public function obtenerTodasLasAreas() {
+        return $this->cursoUsuario->obtenerTodasLasAreas();
+    }
     
+    public function obtenerAñosDisponibles() {
+        return $this->cursoUsuario->obtenerAñosDisponibles();
+    }
+    
+    public function obtenerCursosDisponibles() {
+        return $this->cursoUsuario->obtenerCursosDisponibles();
+    }
+    
+    public function obtenerEmpresasDisponibles() {
+        return $this->cursoUsuario->obtenerEmpresasDisponibles();
+    }
 }
 ?>

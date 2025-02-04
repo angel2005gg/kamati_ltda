@@ -74,15 +74,11 @@ class CursoEmpresa {
         return $resultado;
     }
 
-    public function obtenerPorId($id) {
+    public function obtenerPorId($id_curso_empresa) {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT ce.*, ec.nombre_empresa, c.nombre_curso_fk 
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
-                JOIN curso c ON ce.id_curso = c.id_curso
-                WHERE ce.id_curso_empresa = ?";
+        $sql = "SELECT * FROM curso_empresa WHERE id_curso_empresa = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $id_curso_empresa);
         $stmt->execute();
         $resultado = $stmt->get_result()->fetch_assoc();
         $this->conexion->desconectarBD();
@@ -140,22 +136,11 @@ class CursoEmpresa {
         return $resultado;
     }
 
-    public function obtenerPorEmpresa($id_empresa) {
+    public function obtenerPorEmpresa($id_empresa_cliente) {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT 
-                    ce.id_curso_empresa,
-                    ce.duracion,
-                    ce.fecha_realizacion,
-                    ce.fecha_vencimiento,
-                    ce.estado,
-                    ec.nombre_empresa,
-                    c.nombre_curso_fk as nombre_curso  
-                FROM curso_empresa ce
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
-                JOIN curso c ON ce.id_curso = c.id_curso  
-                WHERE ce.id_empresa_cliente = ?";
+        $sql = "SELECT * FROM curso_empresa WHERE id_empresa_cliente = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id_empresa);
+        $stmt->bind_param("i", $id_empresa_cliente);
         $stmt->execute();
         $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
