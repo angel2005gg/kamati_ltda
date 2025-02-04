@@ -2,6 +2,10 @@
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCurso.php';
+$output = ob_get_clean();
+if (!empty($output)) {
+    error_log('Output no deseado: ' . $output);
+}
 
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $controladorEmpresa = new ControladorEmpresaCliente();
@@ -93,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="nav-item"><a class="nav-link active" href="CursosGestionFrecuencia.php">Asignar Curso a Empresa</a></li>
         </ul>
 
-        <h2>Asignar Curso a Empresa</h2>
         <?php if (isset($_GET['success'])): ?>
             <div class="alert alert-success">Curso asignado correctamente.</div>
         <?php elseif (isset($_GET['error'])): ?>
