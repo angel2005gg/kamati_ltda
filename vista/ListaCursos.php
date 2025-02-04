@@ -53,6 +53,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
     <title>Listado de Cursos de Usuarios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         table {
             width: 100%;
@@ -97,17 +98,18 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                 <div class="col-md-3">
                     <input type="text" class="form-control" name="nombre_usuario" placeholder="Nombre de Usuario" value="<?php echo htmlspecialchars($filtros['nombre_usuario']); ?>">
                 </div>
-                <div class="col-md-3">
-                    <select class="form-select" name="area">
-                        <option value="">Seleccionar Área</option>
-                        <?php foreach ($areas as $area): ?>
-                            <option value="<?php echo htmlspecialchars($area['nombre_area']); ?>" 
-                                <?php echo $filtros['area'] == $area['nombre_area'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($area['nombre_area']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                <!-- Contenedor del filtro de área -->
+<div id="filtroArea" class="col-md-3" style="display: none;">
+    <select class="form-select" name="area">
+        <option value="">Seleccionar Área</option>
+        <?php foreach ($areas as $area): ?>
+            <option value="<?php echo htmlspecialchars($area['nombre_area']); ?>" 
+                <?php echo $filtros['area'] == $area['nombre_area'] ? 'selected' : ''; ?>>
+                <?php echo htmlspecialchars($area['nombre_area']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
                 <div class="col-md-3">
                     <select class="form-select" name="año_inicio">
                         <option value="">Año Inicio</option>
@@ -197,7 +199,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                 <thead>
                     <tr>
                         <th>Usuario</th>
-                        <th>Area</th>
+                        <th>Área <i class="fas fa-filter" onclick="toggleFiltroArea()"></i></th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Fin</th>
                         <th>Curso</th>
@@ -240,6 +242,14 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                 dateFormat: 'yy-mm-dd'
             });
         });
+        function toggleFiltroArea() {
+        const filtroArea = document.getElementById('filtroArea');
+       if (filtroArea.style.display === 'none' || filtroArea.style.display === '') {
+        filtroArea.style.display = 'block';
+       } else {
+        filtroArea.style.display = 'none';
+       }
+       }
     </script>
 </body>
 </html>
