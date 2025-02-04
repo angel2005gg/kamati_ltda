@@ -252,18 +252,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                data: { action: 'getCursos', empresa_id: empresaId },
                dataType: 'json',
                success: function(data) {
-                   console.log('Cursos recibidos:', data);
-                   $('#selectCurso').empty().append('<option value="">Seleccione un curso...</option>');
-                   $.each(data, function(index, curso) {
-                       $('#selectCurso').append(
-                           '<option value="' + curso.id_curso_empresa + '" ' +
-                           'data-duracion="' + curso.duracion + '" ' +
-                           'data-nombre-curso="' + curso.nombre_curso + '">' +
-                           curso.nombre_curso + ' (' + curso.duracion + ' meses)' +
-                           '</option>'
-                       );
-                   });
-               },
+    $('#selectCurso').empty();
+    $('#selectCurso').append('<option value="">Seleccione un curso...</option>');
+    if (data && data.length > 0) {
+        data.forEach(function(curso) {
+            if (curso && curso.nombre_curso_fk) {
+                $('#selectCurso').append(
+                    '<option value="' + curso.id_curso_empresa + '" data-duracion="' + curso.duracion + '">' +
+                    curso.nombre_curso_fk + ' (' + curso.duracion + ' meses)' +
+                    '</option>'
+                );
+            }
+        });
+    }
+},
                error: function(xhr, status, error) {
                    console.error('Error al obtener los cursos:', xhr.responseText);
                }
@@ -300,6 +302,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        placeholder: "Seleccione días de notificación",
        allowClear: true
    });
+   $.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '< Ant ',
+    nextText: ' Sig >',
+    currentText: 'Actualiza la fecha',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'yy-mm-dd',
+    firstDay: 1
+};
+$.datepicker.setDefaults($.datepicker.regional['es']);
 });
     </script>
 </body>

@@ -138,7 +138,10 @@ class CursoEmpresa {
 
     public function obtenerPorEmpresa($id_empresa_cliente) {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT * FROM curso_empresa WHERE id_empresa_cliente = ?";
+        $sql = "SELECT ce.id_curso_empresa, c.nombre_curso_fk, ce.duracion 
+                FROM curso_empresa ce
+                JOIN curso c ON ce.id_curso = c.id_curso
+                WHERE ce.id_empresa_cliente = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_empresa_cliente);
         $stmt->execute();
