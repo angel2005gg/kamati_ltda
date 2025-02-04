@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
                         <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" 
-                               value="<?php echo htmlspecialchars($cursoUsuario['fecha_inicio'] ?? ''); ?>" required>
+        value="<?php echo htmlspecialchars($cursoUsuario['fecha_inicio'] ?? ''); ?>" required>
                     </div>
 
                     <div class="mb-3">
@@ -193,12 +193,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $('#selectCurso, #fecha_inicio').on('change', function() {
                 const duracion = $('#selectCurso').find('option:selected').data('duracion');
                 const fechaInicio = $('#fecha_inicio').val();
-
-                if (fechaInicio && duracion) {
-                    const fechaFin = new Date(fechaInicio);
-                    fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
-                    $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
-                }
+    if (fechaInicio) {
+        // Calcular y establecer fecha de fin automáticamente
+        const duracion = $('#selectCurso').find('option:selected').data('duracion');
+        const fechaFin = new Date(fechaInicio);
+        fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
+        $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
+    }
             });
         });
     </script>
