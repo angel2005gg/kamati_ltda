@@ -62,5 +62,9 @@ class ControladorCursoUsuario {
     public function obtenerEmpresasDisponibles() {
         return $this->cursoUsuario->obtenerEmpresasDisponibles();
     }
+    public function buscarUsuarios($termino) {
+        return $this->cursoUsuario->buscarUsuarios($termino);
+    }
+    
 }
 ?>

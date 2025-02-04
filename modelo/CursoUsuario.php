@@ -348,6 +348,35 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $empresas;
     }
+    public function buscarUsuarios($termino) {
+        $conn = $this->conexion->conectarBD();
+        try {
+            $sql = "SELECT DISTINCT 
+                    CONCAT(u.primer_nombre, ' ', 
+                          IFNULL(u.segundo_nombre, ''), ' ',
+                          u.primer_apellido, ' ', 
+                          IFNULL(u.segundo_apellido, '')) as nombre_usuario
+                    FROM usuarios u
+                    INNER JOIN curso_usuario cu ON u.id_Usuarios = cu.id_Usuarios
+                    WHERE CONCAT(u.primer_nombre, ' ', 
+                               IFNULL(u.segundo_nombre, ''), ' ',
+                               u.primer_apellido, ' ', 
+                               IFNULL(u.segundo_apellido, '')) LIKE ?";
+            
+            $stmt = $conn->prepare($sql);
+            $terminoBusqueda = "%$termino%";
+            $stmt->bind_param("s", $terminoBusqueda);
+            $stmt->execute();
+            
+            $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->conexion->desconectarBD();
+            
+            return $resultado;
+        } catch (Exception $e) {
+            $this->conexion->desconectarBD();
+            return [];
+        }
+    }
 
     
 }

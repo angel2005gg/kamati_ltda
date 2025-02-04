@@ -27,7 +27,6 @@ $filtros = [
     'estado' => $_GET['estado'] ?? ''
 ];
 
-// Obtener los cursos de usuarios aplicando los filtros
 $cursosUsuarios = $controladorCursoUsuario->obtenerTodosFiltrados($filtros);
 
 function calcularEstado($fecha_inicio, $fecha_fin) {
@@ -52,204 +51,353 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
     <meta charset="UTF-8">
     <title>Listado de Cursos de Usuarios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        .filtro-container {
+            display: none;
+            margin-top: 10px;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
+        .filtro-container.visible {
+            display: block;
         }
-        th {
-            background-color: #f2f2f2;
+        .filtro-fecha {
+            display: flex;
+            gap: 10px;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .estado-vigente {
-            color: green;
-        }
-        .estado-a-vencer {
-            color: orange;
-        }
-        .estado-vencido {
-            color: red;
-        }
+        .estado-vigente { color: green; }
+        .estado-a-vencer { color: orange; }
+        .estado-vencido { color: red; }
         .no-resultados {
             text-align: center;
             color: #6c757d;
             padding: 20px;
             font-size: 1.2em;
         }
+        .busqueda-container {
+            position: relative;
+        }
+        #sugerencias {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .sugerencia-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .sugerencia-item:hover {
+            background-color: #f0f0f0;
+        }
+        .tabla-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-4">
         <h2>Listado de Cursos de Usuarios</h2>
-        
-        <!-- Formulario de Filtros -->
-        <form method="GET" action="ListaCursos.php" class="mb-4">
-            <div class="row">
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="nombre_usuario" placeholder="Nombre de Usuario" value="<?php echo htmlspecialchars($filtros['nombre_usuario']); ?>">
-                </div>
-                <!-- Contenedor del filtro de área -->
-<div id="filtroArea" class="col-md-3" style="display: none;">
-    <select class="form-select" name="area">
-        <option value="">Seleccionar Área</option>
-        <?php foreach ($areas as $area): ?>
-            <option value="<?php echo htmlspecialchars($area['nombre_area']); ?>" 
-                <?php echo $filtros['area'] == $area['nombre_area'] ? 'selected' : ''; ?>>
-                <?php echo htmlspecialchars($area['nombre_area']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+        <!-- Botón para quitar todos los filtros -->
+        <div class="mb-3">
+            <a href="ListaCursos.php" class="btn btn-secondary">Quitar Filtros</a>
+        </div>
+        <!-- Barra de búsqueda fija -->
+    <!-- Reemplaza el input de búsqueda actual por este -->
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="busqueda-container">
+            <input type="text" 
+                   id="nombre_usuario" 
+                   class="form-control" 
+                   placeholder="Buscar usuario..." 
+                   value="<?php echo htmlspecialchars($filtros['nombre_usuario'] ?? ''); ?>">
+            <div id="sugerencias"></div>
+        </div>
+    </div>
 </div>
-                <div class="col-md-3">
-                    <select class="form-select" name="año_inicio">
-                        <option value="">Año Inicio</option>
-                        <?php foreach ($años as $año): ?>
-                            <option value="<?php echo $año['año']; ?>" 
-                                <?php echo $filtros['año_inicio'] == $año['año'] ? 'selected' : ''; ?>>
-                                <?php echo $año['año']; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select" name="mes_inicio">
-                        <option value="">Mes Inicio</option>
-                        <?php foreach ($meses as $numero => $nombre): ?>
-                            <option value="<?php echo $numero; ?>" 
-                                <?php echo $filtros['mes_inicio'] == $numero ? 'selected' : ''; ?>>
-                                <?php echo $nombre; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <select class="form-select" name="año_fin">
-                        <option value="">Año Fin</option>
-                        <?php foreach ($años as $año): ?>
-                            <option value="<?php echo $año['año']; ?>" 
-                                <?php echo $filtros['año_fin'] == $año['año'] ? 'selected' : ''; ?>>
-                                <?php echo $año['año']; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <select class="form-select" name="mes_fin">
-                        <option value="">Mes Fin</option>
-                        <?php foreach ($meses as $numero => $nombre): ?>
-                            <option value="<?php echo $numero; ?>" 
-                                <?php echo $filtros['mes_fin'] == $numero ? 'selected' : ''; ?>>
-                                <?php echo $nombre; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <select class="form-select" name="nombre_curso">
-                        <option value="">Seleccionar Curso</option>
-                        <?php foreach ($cursos as $curso): ?>
-                            <option value="<?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>" 
-                                <?php echo $filtros['nombre_curso'] == $curso['nombre_curso_fk'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <select class="form-select" name="empresa">
-                        <option value="">Seleccionar Empresa</option>
-                        <?php foreach ($empresas as $empresa): ?>
-                            <option value="<?php echo htmlspecialchars($empresa['nombre_empresa']); ?>" 
-                                <?php echo $filtros['empresa'] == $empresa['nombre_empresa'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($empresa['nombre_empresa']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <select class="form-select" name="estado">
-                        <option value="">Estado</option>
-                        <option value="Vigente" <?php echo $filtros['estado'] == 'Vigente' ? 'selected' : ''; ?>>Vigente</option>
-                        <option value="A vencer" <?php echo $filtros['estado'] == 'A vencer' ? 'selected' : ''; ?>>A vencer</option>
-                        <option value="Vencido" <?php echo $filtros['estado'] == 'Vencido' ? 'selected' : ''; ?>>Vencido</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mt-2">
-                    <button type="submit" class="btn btn-primary">Filtrar</button>
-                </div>
-            </div>
-        </form>
 
-        <?php if (empty($cursosUsuarios)): ?>
-            <div class="no-resultados">
-                No se encontraron resultados para los filtros seleccionados.
-            </div>
-        <?php else: ?>
+        <!-- Encabezados con iconos de filtro -->
+        <div class="tabla-container">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Usuario</th>
-                        <th>Área <i class="fas fa-filter" onclick="toggleFiltroArea()"></i></th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Fin</th>
-                        <th>Curso</th>
-                        <th>Empresa</th>                    
-                        <th>Estado</th>
+                        <th>
+                            Área 
+                            <i class="fas fa-filter" onclick="toggleFiltro('area')"></i>
+                            <div id="filtroArea" class="filtro-container">
+                                <select class="form-select" name="area">
+                                    <option value="">Seleccionar Área</option>
+                                    <?php foreach ($areas as $area): ?>
+                                        <option value="<?php echo htmlspecialchars($area['nombre_area']); ?>">
+                                            <?php echo htmlspecialchars($area['nombre_area']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </th>
+                        <th>
+                            Fecha Inicio
+                            <i class="fas fa-filter" onclick="toggleFiltro('fecha_inicio')"></i>
+                            <div id="filtroFechaInicio" class="filtro-container">
+                                <div class="filtro-fecha">
+                                    <select class="form-select" name="año_inicio">
+                                        <option value="">Año</option>
+                                        <?php foreach ($años as $año): ?>
+                                            <option value="<?php echo $año['año']; ?>">
+                                                <?php echo $año['año']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <select class="form-select" name="mes_inicio">
+                                        <option value="">Mes</option>
+                                        <?php foreach ($meses as $numero => $nombre): ?>
+                                            <option value="<?php echo $numero; ?>">
+                                                <?php echo $nombre; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            Fecha Fin
+                            <i class="fas fa-filter" onclick="toggleFiltro('fecha_fin')"></i>
+                            <div id="filtroFechaFin" class="filtro-container">
+                                <div class="filtro-fecha">
+                                    <select class="form-select" name="año_fin">
+                                        <option value="">Año</option>
+                                        <?php foreach ($años as $año): ?>
+                                            <option value="<?php echo $año['año']; ?>">
+                                                <?php echo $año['año']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <select class="form-select" name="mes_fin">
+                                        <option value="">Mes</option>
+                                        <?php foreach ($meses as $numero => $nombre): ?>
+                                            <option value="<?php echo $numero; ?>">
+                                                <?php echo $nombre; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            Curso
+                            <i class="fas fa-filter" onclick="toggleFiltro('curso')"></i>
+                            <div id="filtroCurso" class="filtro-container">
+                                <select class="form-select" name="nombre_curso">
+                                    <option value="">Seleccionar Curso</option>
+                                    <?php foreach ($cursos as $curso): ?>
+                                        <option value="<?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>">
+                                            <?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </th>
+                        <th>
+                            Empresa
+                            <i class="fas fa-filter" onclick="toggleFiltro('empresa')"></i>
+                            <div id="filtroEmpresa" class="filtro-container">
+                                <select class="form-select" name="empresa">
+                                    <option value="">Seleccionar Empresa</option>
+                                    <?php foreach ($empresas as $empresa): ?>
+                                        <option value="<?php echo htmlspecialchars($empresa['nombre_empresa']); ?>">
+                                            <?php echo htmlspecialchars($empresa['nombre_empresa']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </th>
+                        <th>
+                            Estado
+                            <i class="fas fa-filter" onclick="toggleFiltro('estado')"></i>
+                            <div id="filtroEstado" class="filtro-container">
+                                <select class="form-select" name="estado">
+                                    <option value="">Seleccionar Estado</option>
+                                    <option value="Vigente">Vigente</option>
+                                    <option value="A vencer">A vencer</option>
+                                    <option value="Vencido">Vencido</option>
+                                </select>
+                            </div>
+                        </th>
+                        <th>Acciones</th>
                     </tr>
+                    
                 </thead>
                 <tbody>
-                    <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+                    <?php if (empty($cursosUsuarios)): ?>
                         <tr>
-                            <td><?php echo isset($cursoUsuario['nombre_usuario']) ? htmlspecialchars($cursoUsuario['nombre_usuario']) : 'N/A'; ?></td>
-                            <td><?php echo isset($cursoUsuario['area']) ? htmlspecialchars($cursoUsuario['area']) : 'N/A'; ?></td>
-                            <td><?php echo isset($cursoUsuario['fecha_inicio']) ? htmlspecialchars($cursoUsuario['fecha_inicio']) : 'N/A'; ?></td>
-                            <td><?php echo isset($cursoUsuario['fecha_fin']) ? htmlspecialchars($cursoUsuario['fecha_fin']) : 'N/A'; ?></td>
-                            <td><?php echo isset($cursoUsuario['nombre_curso']) ? htmlspecialchars($cursoUsuario['nombre_curso']) : 'N/A'; ?></td>
-                            <td><?php echo isset($cursoUsuario['empresa']) ? htmlspecialchars($cursoUsuario['empresa']) : 'N/A'; ?></td>
-                            <?php
-                            if (isset($cursoUsuario['fecha_inicio']) && isset($cursoUsuario['fecha_fin'])) {
-                                $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
-                            } else {
-                                $estado = ['estado' => 'N/A', 'clase' => ''];
-                            }
-                            ?>
-                            <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
+                            <td colspan="7" class="no-resultados">
+                                No se encontraron resultados para los filtros seleccionados.
+                            </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+                            <tr>
+                                <td><?php echo isset($cursoUsuario['nombre_usuario']) ? htmlspecialchars($cursoUsuario['nombre_usuario']) : 'N/A'; ?></td>
+                                <td><?php echo isset($cursoUsuario['area']) ? htmlspecialchars($cursoUsuario['area']) : 'N/A'; ?></td>
+                                <td><?php echo isset($cursoUsuario['fecha_inicio']) ? htmlspecialchars($cursoUsuario['fecha_inicio']) : 'N/A'; ?></td>
+                                <td><?php echo isset($cursoUsuario['fecha_fin']) ? htmlspecialchars($cursoUsuario['fecha_fin']) : 'N/A'; ?></td>
+                                <td><?php echo isset($cursoUsuario['nombre_curso']) ? htmlspecialchars($cursoUsuario['nombre_curso']) : 'N/A'; ?></td>
+                                <td><?php echo isset($cursoUsuario['empresa']) ? htmlspecialchars($cursoUsuario['empresa']) : 'N/A'; ?></td>
+                                <?php
+                                if (isset($cursoUsuario['fecha_inicio']) && isset($cursoUsuario['fecha_fin'])) {
+                                    $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
+                                } else {
+                                    $estado = ['estado' => 'N/A', 'clase' => ''];
+                                }
+                                ?>
+                                <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
+                                <td>
+                    <a href="EditarCursoUsuario.php?id=<?php echo $cursoUsuario['id_curso_usuario']; ?>" class="edit-icon">
+                        <img src="../img/boton-editar.png" alt="Editar" width="20" height="20">
+                    </a>
+                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
-        <?php endif; ?>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
+        // Manejadores de eventos cuando el documento está listo
         $(document).ready(function() {
-            $('#fecha_inicio').datepicker({
-                dateFormat: 'yy-mm-dd'
+            // Cerrar sugerencias al hacer clic fuera
+            $(document).click(function(e) {
+                if (!$(e.target).closest('.busqueda-container').length) {
+                    $('#sugerencias').empty();
+                }
             });
-            $('#fecha_fin').datepicker({
-                dateFormat: 'yy-mm-dd'
+
+            // Búsqueda en vivo de usuarios
+            $('#nombre_usuario').on('input', function() {
+                const valor = $(this).val();
+                if (valor.length >= 2) {
+                    $.ajax({
+                        url: 'buscar_usuarios.php',
+                        method: 'GET',
+                        data: { term: valor },
+                        success: function(response) {
+                            const usuarios = JSON.parse(response);
+                            mostrarSugerencias(usuarios);
+                        }
+                    });
+                } else {
+                    $('#sugerencias').empty();
+                }
+            });
+
+            // Aplicar filtros automáticamente cuando cambian los selects
+            $('select').on('change', function() {
+                aplicarFiltros();
             });
         });
-        function toggleFiltroArea() {
-        const filtroArea = document.getElementById('filtroArea');
-       if (filtroArea.style.display === 'none' || filtroArea.style.display === '') {
-        filtroArea.style.display = 'block';
-       } else {
-        filtroArea.style.display = 'none';
-       }
-       }
+
+        // Función para mostrar sugerencias de usuarios
+        function mostrarSugerencias(usuarios) {
+    const sugerencias = $('#sugerencias');
+    sugerencias.empty();
+
+    usuarios.forEach(usuario => {
+        const div = $('<div>')
+            .addClass('sugerencia-item')
+            .text(usuario.nombre_usuario)
+            .click(function() {
+                $('#nombre_usuario').val(usuario.nombre_usuario);
+                sugerencias.empty();
+                aplicarFiltros();
+            });
+        sugerencias.append(div);
+    });
+}
+
+        // Función para mostrar/ocultar filtros
+        function toggleFiltro(filtroId) {
+            // Cerrar todos los otros filtros primero
+            $('.filtro-container').not(`#filtro${filtroId.charAt(0).toUpperCase() + filtroId.slice(1)}`).removeClass('visible');
+            
+            // Toggle del filtro seleccionado
+            const contenedor = document.getElementById(`filtro${filtroId.charAt(0).toUpperCase() + filtroId.slice(1)}`);
+            contenedor.classList.toggle('visible');
+        }
+
+        // Función para aplicar todos los filtros
+        function aplicarFiltros() {
+            const filtros = {
+                nombre_usuario: $('#nombre_usuario').val(),
+                area: $('select[name="area"]').val(),
+                año_inicio: $('select[name="año_inicio"]').val(),
+                mes_inicio: $('select[name="mes_inicio"]').val(),
+                año_fin: $('select[name="año_fin"]').val(),
+                mes_fin: $('select[name="mes_fin"]').val(),
+                nombre_curso: $('select[name="nombre_curso"]').val(),
+                empresa: $('select[name="empresa"]').val(),
+                estado: $('select[name="estado"]').val()
+            };
+
+            // Eliminar parámetros vacíos
+            Object.keys(filtros).forEach(key => {
+                if (!filtros[key]) {
+                    delete filtros[key];
+                }
+            });
+
+            // Construir y redirigir a la URL con los filtros
+            const params = new URLSearchParams(filtros);
+            window.location.href = 'ListaCursos.php?' + params.toString();
+        }
+
+        // Evento para cerrar filtros al hacer clic fuera
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.filtro-container').length && 
+                !$(e.target).hasClass('fa-filter')) {
+                $('.filtro-container').removeClass('visible');
+            }
+        });
+
+        // Prevenir que los clicks dentro de los filtros los cierren
+        $('.filtro-container').click(function(e) {
+            e.stopPropagation();
+        });
+        function filtrarUsuarios() {
+        const input = document.getElementById('nombre_usuario');
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById('tablaUsuarios');
+        const tr = table.getElementsByTagName('tr');
+
+        for (let i = 0; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName('td')[0];
+            if (td) {
+                const txtValue = td.textContent || td.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    tr[i].style.display = '';
+                } else {
+                    tr[i].style.display = 'none';
+                }
+            }
+        }
+    }
+    function toggleFiltro(filtro) {
+    const filtroContainer = document.getElementById('filtro' + filtro.charAt(0).toUpperCase() + filtro.slice(1));
+    if (filtroContainer.style.display === 'none' || filtroContainer.style.display === '') {
+        filtroContainer.style.display = 'block';
+    } else {
+        filtroContainer.style.display = 'none';
+    }
+}
     </script>
 </body>
 </html>

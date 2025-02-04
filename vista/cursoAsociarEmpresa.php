@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
         if ($resultado) {
-            header("Location: ListaCursosEditar.php?success=1");
+            header("Location: ListaCursos.php?success=1");
             exit();
         } else {
             header("Location: cursoAsociarEmpresa.php?error=1");

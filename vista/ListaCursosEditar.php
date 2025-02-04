@@ -71,7 +71,6 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                     <th>Curso</th>
                     <th>Empresa</th>                    
                     <th>Estado</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,12 +89,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                             $estado = ['estado' => 'N/A', 'clase' => ''];
                         }
                         ?>
-                        <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
-                        <td>
-                            <a href="EditarCursoUsuario.php?id=<?php echo $cursoUsuario['id_curso_usuario']; ?>" class="edit-icon">
-                                <img src="../img/boton-editar.png" alt="Editar" width="20" height="20">
-                            </a>
-                        </td>
+                        <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>              
                     </tr>
                 <?php endforeach; ?>
             </tbody>
