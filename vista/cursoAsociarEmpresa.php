@@ -157,6 +157,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
                 <div class="invalid-feedback">Por favor seleccione un usuario.</div>
             </div>
+            <!-- Campo Área (nuevo) -->
+            <div class="mb-3">
+              <label for="area_usuario" class="form-label">Área:</label>
+               <input type="text" class="form-control" id="area_usuario" readonly>
+             </div>
 
             <!-- Campo Empresa -->
             <div class="mb-3">
@@ -211,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -317,6 +323,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     firstDay: 1
 };
 $.datepicker.setDefaults($.datepicker.regional['es']);
+
+$('#id_usuario').on('change', function() {
+    const usuarioId = $(this).val();
+    if (usuarioId) {
+        const formData = new FormData();
+        formData.append('id', usuarioId);
+
+        $.ajax({
+            url: 'obtener_area_usuario.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log('Respuesta completa:', response); // Debug
+                if (response.area) {
+                    $('#area_usuario').val(response.area);
+                } else {
+                    $('#area_usuario').val('');
+                    console.error('Error al obtener el área:', response.error);
+                    console.log('Debug info:', response.debug); // Debug
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la petición AJAX:', error);
+                console.log('Estado de la respuesta:', xhr.status);
+                console.log('Respuesta:', xhr.responseText);
+                $('#area_usuario').val('');
+            }
+        });
+    } else {
+        $('#area_usuario').val('');
+    }
+});
 });
     </script>
 </body>

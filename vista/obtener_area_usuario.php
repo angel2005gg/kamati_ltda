@@ -8,45 +8,24 @@ ini_set('display_errors', 1);
 // Establecer cabeceras
 header('Content-Type: application/json');
 
-// Log de la petición
-$request_log = [
-    'method' => $_SERVER['REQUEST_METHOD'],
-    'post_data' => $_POST,
-    'raw_input' => file_get_contents('php://input')
-];
-
-// Verificar método
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode([
-        'error' => 'Método no permitido',
-        'debug' => $request_log
-    ]);
-    exit();
-}
-
-// Verificar ID
-if (!isset($_POST['id']) || empty($_POST['id'])) {
-    echo json_encode([
-        'error' => 'ID no proporcionado',
-        'debug' => $request_log
-    ]);
-    exit();
-}
-
 try {
-    $id_curso_usuario = $_POST['id'];
+    if (!isset($_POST['id']) || empty($_POST['id'])) {
+        throw new Exception('ID no proporcionado');
+    }
+
+    $id_usuario = $_POST['id'];  // Cambiado de id_curso_usuario a id_usuario
     $conn = (new ConexionBD())->conectarBD();
     
     if (!$conn) {
         throw new Exception("Error de conexión a la base de datos");
     }
 
+    // Modificada la consulta SQL para buscar directamente por id_usuario
     $sql = "SELECT a.nombre_area 
-            FROM curso_usuario cu
-            JOIN usuarios u ON cu.id_Usuarios = u.id_Usuarios
+            FROM usuarios u
             JOIN cargo c ON u.id_Cargo_Usuario = c.id_Cargo
             JOIN area a ON c.id_area_fk = a.id_Area
-            WHERE cu.id_curso_usuario = ?";
+            WHERE u.id_Usuarios = ?";
     
     $stmt = $conn->prepare($sql);
     
@@ -54,7 +33,7 @@ try {
         throw new Exception("Error en la preparación de la consulta: " . $conn->error);
     }
     
-    $stmt->bind_param("i", $id_curso_usuario);
+    $stmt->bind_param("i", $id_usuario);
     
     if (!$stmt->execute()) {
         throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
@@ -62,6 +41,11 @@ try {
     
     $resultado = $stmt->get_result();
     $fila = $resultado->fetch_assoc();
+    
+    // Agregar logging
+    error_log("ID Usuario: " . $id_usuario);
+    error_log("SQL: " . $sql);
+    error_log("Resultado: " . json_encode($fila));
     
     $stmt->close();
     $conn->close();
@@ -72,13 +56,14 @@ try {
         echo json_encode([
             'error' => 'Área no encontrada',
             'debug' => [
-                'id_buscado' => $id_curso_usuario,
+                'id_usuario' => $id_usuario,
                 'sql' => $sql
             ]
         ]);
     }
 
 } catch (Exception $e) {
+    error_log("Error en obtener_area_usuario.php: " . $e->getMessage());
     echo json_encode([
         'error' => $e->getMessage(),
         'debug' => [
