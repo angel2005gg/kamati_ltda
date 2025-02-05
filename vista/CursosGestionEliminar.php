@@ -127,6 +127,8 @@ session_start();
             <li class="nav-item">
                 <a class="nav-link" href="../vista/CursosGestionFrecuencia.php">Crear Frecuencia</a>
             </li>
+            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Cursos</a></li>
+
         </ul>
 
         <div class="row mt-4">

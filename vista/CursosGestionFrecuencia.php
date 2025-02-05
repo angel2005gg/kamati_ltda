@@ -95,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="nav-item"><a class="nav-link" href="CursosGestion.php">Crear Nuevo</a></li>
             <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
             <li class="nav-item"><a class="nav-link active" href="CursosGestionFrecuencia.php">Crear Frecuencia</a></li>
+            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Cursos</a></li>
+
         </ul>
 
         <?php if (isset($_GET['success'])): ?>

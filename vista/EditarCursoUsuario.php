@@ -40,7 +40,7 @@ $cursosEmpresa = $id_empresa_actual ?
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['eliminar'])) {
         $controladorCursoUsuario->eliminar($id_curso_usuario);
-        header("Location: ListaCursosEditar.php?deleted=1");
+        header("Location: ListaCursos.php?deleted=1");
         exit();
     } else {
         $fecha_inicio = $_POST['fecha_inicio'] ?? null;
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
 
             $controladorCursoUsuario->actualizar($id_curso_usuario, $cursoUsuario['id_Usuarios'], $id_curso_empresa, $fecha_inicio, $fecha_fin);
-            header("Location: ListaCursosEditar.php?updated=1");
+            header("Location: ListaCursos.php?updated=1");
             exit();
         }
     }
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursosEditar.php'">Cancelar</button>        </form>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursos.php'">Cancelar</button>        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

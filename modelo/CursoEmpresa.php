@@ -128,14 +128,40 @@ class CursoEmpresa {
 
     public function eliminar($id) {
         $conn = $this->conexion->conectarBD();
-        $sql = "DELETE FROM curso_empresa WHERE id_curso_empresa = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $resultado = $stmt->execute();
-        $this->conexion->desconectarBD();
-        return $resultado;
+        try {
+            // Intentar eliminar la fila en curso_empresa
+            $sql = "DELETE FROM curso_empresa WHERE id_curso_empresa = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+    
+            if ($stmt->affected_rows > 0) {
+                $this->conexion->desconectarBD();
+                return [
+                    'eliminado' => true, 
+                    'mensaje' => 'Registro eliminado correctamente'
+                ];
+            } else {
+                throw new Exception("No se encontró el registro para eliminar.");
+            }
+        } catch (mysqli_sql_exception $e) {
+            $this->conexion->desconectarBD();
+            error_log('Error al eliminar la asociación: ' . $e->getMessage());
+            return [
+                'eliminado' => false, 
+                'error' => 'No se pudo eliminar la asociación porque está siendo referenciada por otros registros.'
+            ];
+        } catch (Exception $e) {
+            $this->conexion->desconectarBD();
+            error_log('Error: ' . $e->getMessage());
+            return [
+                'eliminado' => false, 
+                'error' => $e->getMessage()
+            ];
+        }
     }
 
+    
     public function obtenerPorEmpresa($id_empresa_cliente) {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT ce.id_curso_empresa, c.nombre_curso_fk, ce.duracion 
