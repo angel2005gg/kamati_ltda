@@ -1,6 +1,5 @@
 <?php
 require_once '../controlador/ControladorCursoUsuario.php';
-
 $controladorCursoUsuario = new ControladorCursoUsuario();
 $cursosUsuarios = $controladorCursoUsuario->obtenerTodos();
 
@@ -33,67 +32,90 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
             margin: 20px 0;
         }
         th, td {
-            padding: 8px;
-            text-align: left;
+            padding: 12px;
             border: 1px solid #ddd;
+            text-align: left;
         }
         th {
             background-color: #f2f2f2;
+            color: #333;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .estado-vigente {
-            color: green;
+        tr:nth-child(odd) {
+            background-color: #fff;
         }
-        .estado-a-vencer {
-            color: orange;
+        .estado-vigente { color: green; }
+        .estado-a-vencer { color: orange; }
+        .estado-vencido { color: red; }
+        .search-container {
+            margin-bottom: 20px;
         }
-        .estado-vencido {
-            color: red;
-        }
-        .edit-icon {
-            cursor: pointer;
-            color: blue;
+        .search-container input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
     <div class="container mt-4">
         <h2>Listado de Cursos de Usuarios</h2>
-        <table class="table table-bordered">
+        <!-- Añadir el campo de búsqueda -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar usuario...">
+        </div>
+
+        <!-- Tabla de resultados -->
+        <table class="table table-bordered" id="tablaUsuarios">
             <thead>
                 <tr>
                     <th>Usuario</th>
-                    <th>Area</th>
+                    <th>Área</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
                     <th>Curso</th>
-                    <th>Empresa</th>                    
+                    <th>Empresa</th>
                     <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+                <?php if (empty($cursosUsuarios)): ?>
                     <tr>
-                        <td><?php echo isset($cursoUsuario['nombre_usuario']) ? htmlspecialchars($cursoUsuario['nombre_usuario']) : 'N/A'; ?></td>
-                        <td><?php echo isset($cursoUsuario['area']) ? htmlspecialchars($cursoUsuario['area']) : 'N/A'; ?></td>
-                        <td><?php echo isset($cursoUsuario['fecha_inicio']) ? htmlspecialchars($cursoUsuario['fecha_inicio']) : 'N/A'; ?></td>
-                        <td><?php echo isset($cursoUsuario['fecha_fin']) ? htmlspecialchars($cursoUsuario['fecha_fin']) : 'N/A'; ?></td>
-                        <td><?php echo isset($cursoUsuario['nombre_curso']) ? htmlspecialchars($cursoUsuario['nombre_curso']) : 'N/A'; ?></td>
-                        <td><?php echo isset($cursoUsuario['empresa']) ? htmlspecialchars($cursoUsuario['empresa']) : 'N/A'; ?></td>
-                        <?php
-                        if (isset($cursoUsuario['fecha_inicio']) && isset($cursoUsuario['fecha_fin'])) {
-                            $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
-                        } else {
-                            $estado = ['estado' => 'N/A', 'clase' => ''];
-                        }
-                        ?>
-                        <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>              
+                        <td colspan="7" class="text-center">No se encontraron resultados.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+                        <?php
+                        $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
+                        ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($cursoUsuario['nombre_usuario']); ?></td>
+                            <td><?php echo htmlspecialchars($cursoUsuario['area']); ?></td>
+                            <td><?php echo htmlspecialchars($cursoUsuario['fecha_inicio']); ?></td>
+                            <td><?php echo htmlspecialchars($cursoUsuario['fecha_fin']); ?></td>
+                            <td><?php echo htmlspecialchars($cursoUsuario['nombre_curso']); ?></td>
+                            <td><?php echo htmlspecialchars($cursoUsuario['empresa']); ?></td>
+                            <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
+
+    <!-- Añadir jQuery y el script de búsqueda -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tablaUsuarios tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </body>
 </html>
