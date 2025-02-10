@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once '../controlador/ControladorCursoEmpresa.php';
 $output = ob_get_clean();
 if (!empty($output)) {
@@ -55,13 +56,16 @@ $cursosEmpresas = $controladorCursoEmpresa->obtenerTodos();
     </style>
 </head>
 <body>
+<?php include 'navBar.php'; ?>
+<br><br>
+    Viento1&Norte
     <div class="container mt-4">
         <!-- Mantener la sección de navegación -->
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item"><a class="nav-link" href="CursosGestion.php">Crear Nuevo</a></li>
             <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
             <li class="nav-item"><a class="nav-link" href="CursosGestionFrecuencia.php">Crear Frecuencia</a></li>
-            <li class="nav-item"><a class="nav-link active" href="ListaEmpresaAsociadas.php">Lista de Cursos</a></li>
+            <li class="nav-item"><a class="nav-link active" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
         </ul>
 
         <!-- Tabla de resultados -->

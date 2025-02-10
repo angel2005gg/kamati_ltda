@@ -47,4 +47,5 @@ class EmailSoftwareDao
             $this->conexion->desconectarBD();
         }
     }
+    
 }

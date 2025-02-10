@@ -3,10 +3,13 @@ error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCursoEmpresa.php';
+require_once '../modelo/email/emailHelper.php';
+
 $controladorCursoUsuario = new ControladorCursoUsuario();
 $controladorEmpresa = new ControladorEmpresaCliente();
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $output = ob_get_clean();
+
 if (!empty($output)) {
     error_log('Output no deseado: ' . $output);
 }
@@ -37,27 +40,57 @@ $cursosEmpresa = $id_empresa_actual ?
     $controladorCursoEmpresa->obtenerPorEmpresa($id_empresa_actual) : 
     [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['eliminar'])) {
-        $controladorCursoUsuario->eliminar($id_curso_usuario);
-        header("Location: ListaCursos.php?deleted=1");
-        exit();
-    } else {
-        $fecha_inicio = $_POST['fecha_inicio'] ?? null;
-        $id_empresa_cliente = $_POST['selectEmpresa'] ?? null;
-        $id_curso_empresa = $_POST['selectCurso'] ?? null;
-
-        if ($fecha_inicio && $id_empresa_cliente && $id_curso_empresa) {
-            $cursoEmpresa = $controladorCursoEmpresa->obtenerPorId($id_curso_empresa);
-            $duracion = $cursoEmpresa['duracion'] ?? 0;
-            $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
-
-            $controladorCursoUsuario->actualizar($id_curso_usuario, $cursoUsuario['id_Usuarios'], $id_curso_empresa, $fecha_inicio, $fecha_fin);
-            header("Location: ListaCursos.php?updated=1");
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['eliminar'])) {
+            $controladorCursoUsuario->eliminar($id_curso_usuario);
+            header("Location: ListaCursos.php?deleted=1");
             exit();
+        } elseif (isset($_POST['notificar'])) {
+            // Enviar notificación manual
+            $destinatarios = [$cursoUsuario['correo_usuario']]; // Reemplaza con el correo del usuario
+            $asunto = 'Notificación del curso';
+    
+            // Verificar que las fechas estén definidas
+            if (!empty($cursoUsuario['fecha_fin'])) {
+                $fecha_fin = new DateTime($cursoUsuario['fecha_fin']);
+                $fecha_actual = new DateTime();
+                $dias_restantes = $fecha_actual->diff($fecha_fin)->days;
+                $mensaje = 'Este es un recordatorio de que el curso finalizará el ' . $cursoUsuario['fecha_fin'] . '. Quedan ' . $dias_restantes . ' días.';
+    
+                if (enviarCorreo($destinatarios, $asunto, $mensaje)) {
+                    echo 'Notificación enviada';
+                } else {
+                    echo 'Error al enviar la notificación 2';
+                }
+            } else {
+                echo 'Error: La fecha de fin no está definida.';
+            }
+        } elseif (isset($_POST['desactivar_notificaciones'])) {
+            // Desactivar notificaciones
+            $_SESSION['notificaciones_activas'] = false;
+            $notificaciones_activas = false;
+            echo 'Notificaciones desactivadas';
+        } elseif (isset($_POST['activar_notificaciones'])) {
+            // Activar notificaciones
+            $_SESSION['notificaciones_activas'] = true;
+            $notificaciones_activas = true;
+            echo 'Notificaciones activadas';
+        } else {
+            $fecha_inicio = $_POST['fecha_inicio'] ?? null;
+            $id_empresa_cliente = $_POST['selectEmpresa'] ?? null;
+            $id_curso_empresa = $_POST['selectCurso'] ?? null;
+    
+            if ($fecha_inicio && $id_empresa_cliente && $id_curso_empresa) {
+                $cursoEmpresa = $controladorCursoEmpresa->obtenerPorId($id_curso_empresa);
+                $duracion = $cursoEmpresa['duracion'] ?? 0;
+                $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
+    
+                $controladorCursoUsuario->actualizar($id_curso_usuario, $cursoUsuario['id_Usuarios'], $id_curso_empresa, $fecha_inicio, $fecha_fin);
+                header("Location: ListaCursos.php?updated=1");
+                exit();
+            }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +179,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursos.php'">Cancelar</button>        </form>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursos.php'">Cancelar</button> 
+        </form>
+        <br>
+        <form method="post">
+            <button type="submit" name="notificar" class="btn btn-warning">Notificar Ahora</button>
+            <?php if ($notificaciones_activas): ?>
+                <button type="submit" name="desactivar_notificaciones" class="btn btn-secondary">Desactivar Notificaciones</button>
+            <?php else: ?>
+                <button type="submit" name="activar_notificaciones" class="btn btn-secondary">Activar Notificaciones</button>
+            <?php endif; ?>
+        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

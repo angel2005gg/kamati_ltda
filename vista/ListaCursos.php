@@ -101,6 +101,8 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
     </style>
 </head>
 <body>
+<?php include 'navBar.php'; ?>
+<br><br>
     <div class="container mt-4">
         <h2>Listado de Cursos de Usuarios</h2>
         <!-- Botón para quitar todos los filtros -->

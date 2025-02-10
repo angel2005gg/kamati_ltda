@@ -3,6 +3,7 @@ ob_start();
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
+require_once '../modelo/email/emailHelper.php';
 
 $output = ob_get_clean();
 if (!empty($output)) {
@@ -17,6 +18,31 @@ $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
 
 
+// Código existente...
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $fecha_fin = $_POST['fecha_fin'];
+    $enviar_correo = isset($_POST['enviar_correo']) ? true : false;
+    $dias_notificacion = $_POST['dias_notificacion'];
+
+    // Código existente para procesar el formulario...
+
+    // Configuración de notificaciones
+    if ($enviar_correo) {
+        $destinatarios = ['destinatario1@dominio.com', 'destinatario2@dominio.com']; // Reemplaza con los correos reales
+        $asunto = 'Notificación de Curso';
+        $mensaje = 'Este es un recordatorio de que el curso finalizará el ' . $fecha_fin;
+
+        // Enviar correos electrónicos en los días especificados
+        foreach ($dias_notificacion as $dias) {
+            $fecha_notificacion = date('Y-m-d', strtotime("$fecha_fin - $dias days"));
+            if (date('Y-m-d') == $fecha_notificacion) {
+                enviarCorreo($destinatarios, $asunto, $mensaje);
+            }
+        }
+    }
+}
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -130,6 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
+<?php include 'navBar.php'; ?>
+<br><br>
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
     <div class="container form-container">

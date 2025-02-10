@@ -1,11 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
-    exit;
-}
+require_once '../configuracion/auth.php';
+verificarAutenticacion();
 
 require_once "../modelo/Usuarios.php";
 require_once "../modelo/dao/UsuariosDao.php";

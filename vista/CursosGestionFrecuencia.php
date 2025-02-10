@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCurso.php';
@@ -89,13 +90,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
+<?php include 'navBar.php'; ?>
+<br><br>
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
     <div class="container mt-4">
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item"><a class="nav-link" href="CursosGestion.php">Crear Nuevo</a></li>
             <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
             <li class="nav-item"><a class="nav-link active" href="CursosGestionFrecuencia.php">Crear Frecuencia</a></li>
-            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Cursos</a></li>
+            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
 
         </ul>
 

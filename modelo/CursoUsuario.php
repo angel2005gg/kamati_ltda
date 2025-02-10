@@ -69,10 +69,11 @@ class CursoUsuario {
                       IFNULL(u.segundo_nombre, ''), ' ',
                       u.primer_apellido, ' ', 
                       IFNULL(u.segundo_apellido, '')) as nombre_usuario,
+                u.correo_electronico as correo_usuario,  
                 a.nombre_area as area,
                 cr.nombre_curso_fk as nombre_curso,
-                ce.fecha_realizacion as fecha_inicio,
-                ce.fecha_vencimiento as fecha_fin,
+                cu.fecha_inicio as fecha_inicio,
+                cu.fecha_fin as fecha_fin,
                 ec.nombre_empresa as empresa,
                 ce.estado
                 FROM curso_usuario cu
@@ -131,26 +132,35 @@ class CursoUsuario {
         return $resultado;
     }
 
-    public function obtenerCursosPorUsuario($id_usuario) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "SELECT cu.id_curso_usuario,
-                cr.nombre_curso_fk as nombre_curso,
-                ce.fecha_realizacion as fecha_inicio,
-                ce.fecha_vencimiento as fecha_fin,
-                ce.estado,
-                ec.nombre_empresa as empresa
-                FROM curso_usuario cu
-                JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
-                JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
-                JOIN curso cr ON ce.id_curso = cr.id_curso
-                WHERE cu.id_Usuarios = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id_usuario);
-        $stmt->execute();
-        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $this->conexion->desconectarBD();
-        return $resultado;
-    }
+    
+public function obtenerCursosPorUsuario($id_usuario) {
+    $conn = $this->conexion->conectarBD();
+    $sql = "SELECT cu.id_curso_usuario,
+            CONCAT(u.primer_nombre, ' ', 
+                  IFNULL(u.segundo_nombre, ''), ' ',
+                  u.primer_apellido, ' ', 
+                  IFNULL(u.segundo_apellido, '')) as nombre_usuario,
+            a.nombre_area as area,
+            cu.fecha_inicio,
+            cu.fecha_fin,
+            cr.nombre_curso_fk as nombre_curso,
+            ec.nombre_empresa as empresa,
+            ce.estado
+            FROM curso_usuario cu
+            JOIN usuarios u ON cu.id_Usuarios = u.id_Usuarios
+            JOIN cargo c ON u.id_Cargo_Usuario = c.id_Cargo
+            JOIN area a ON c.id_area_fk = a.id_Area
+            JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
+            JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
+            JOIN curso cr ON ce.id_curso = cr.id_curso
+            WHERE cu.id_Usuarios = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $this->conexion->desconectarBD();
+    return $resultado;
+}
 
     public function obtenerUsuariosPorCurso($id_curso_empresa) {
         $conn = $this->conexion->conectarBD();
@@ -187,6 +197,7 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $resultado['existe'] > 0;
     }
+
     public function actualizar($id, $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
         $conn = $this->conexion->conectarBD();
         $sql = "UPDATE curso_usuario 
@@ -201,6 +212,7 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $resultado;
     }
+
     public function obtenerTodosFiltrados($filtros) {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT cu.id_curso_usuario,
@@ -313,6 +325,7 @@ class CursoUsuario {
         
         return $resultado;
     }
+
     public function obtenerTodasLasAreas() {
         $conn = $this->conexion->conectarBD();
         $sql = "SELECT DISTINCT nombre_area FROM area ORDER BY nombre_area";
@@ -348,6 +361,7 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $empresas;
     }
+
     public function buscarUsuarios($termino) {
         $conn = $this->conexion->conectarBD();
         try {
@@ -377,7 +391,5 @@ class CursoUsuario {
             return [];
         }
     }
-
-    
 }
 ?>

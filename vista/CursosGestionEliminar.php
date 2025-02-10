@@ -113,6 +113,8 @@ session_start();
     </style>
 </head>
 <body>
+<?php include 'navBar.php'; ?>
+<br><br>
 
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
@@ -127,7 +129,7 @@ session_start();
             <li class="nav-item">
                 <a class="nav-link" href="../vista/CursosGestionFrecuencia.php">Crear Frecuencia</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Cursos</a></li>
+            <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
 
         </ul>
 

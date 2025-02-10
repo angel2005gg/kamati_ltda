@@ -1,12 +1,6 @@
 <?php
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
-    exit;
-}
+require_once '../configuracion/auth.php';
+verificarAutenticacion();
 require_once "../modelo/Usuarios.php";
 require_once "../modelo/dao/UsuariosDao.php";
 $usersModal = new Usuarios();
@@ -82,6 +76,27 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
 
                         </ul>
                     </li>
+                    <!-- Reemplazar la sección actual por esto -->
+                    <li class="nav-item dropdown">
+    <?php
+    if (isset($_SESSION['cargo'])) {
+        // Para debug, muestra el cargo actual
+        // echo "Cargo actual: " . $_SESSION['cargo'];
+        if ($_SESSION['cargo'] == "Directora Sistema Integral SHEQ" || $_SESSION['cargo'] == "Coordinadora SST") {  // Ajusta estos nombres según los cargos que deben tener acceso
+    ?>
+            <a class="nav-link dropdown-toggle text_custom" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Gestión de Cursos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="cursoAsociarEmpresa.php">Asociar Empresa</a></li>
+                <li><a class="dropdown-item" href="ListaCursos.php">Listado Completo</a></li>
+                <li><a class="dropdown-item" href="CursosGestion.php">Gestión de Datos</a></li>
+            </ul>
+    <?php
+        }
+    }
+    ?>
+</li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text_custom" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Variables

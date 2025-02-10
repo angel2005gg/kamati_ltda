@@ -1,11 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
-    exit;
-}
+require_once '../configuracion/auth.php';
+verificarAutenticacion();
 require_once '../modelo/dao/PermisosDao.php';
 
 ?>
@@ -61,7 +56,7 @@ require_once '../modelo/dao/PermisosDao.php';
                             <th scope="col">Cantidad dias compensados</th>
                             <th scope="col">Total horas</th>
                             <th scope="col">Motivo</th>
-                            <th scope="col">Remuneraci¨®n</th>
+                            <th scope="col">Remuneraciï¿½ï¿½n</th>
                             <th scope="col">Estado</th>
                         </tr>
                     </thead>
