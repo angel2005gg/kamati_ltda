@@ -135,7 +135,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                             <i class="fas fa-filter" onclick="toggleFiltro('area')"></i>
                             <div id="filtroArea" class="filtro-container">
                                 <select class="form-select" name="area">
-                                    <option value="">Seleccionar Área</option>
+                                    <option value=""> Área</option>
                                     <?php foreach ($areas as $area): ?>
                                         <option value="<?php echo htmlspecialchars($area['nombre_area']); ?>">
                                             <?php echo htmlspecialchars($area['nombre_area']); ?>
@@ -197,7 +197,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                             <i class="fas fa-filter" onclick="toggleFiltro('curso')"></i>
                             <div id="filtroCurso" class="filtro-container">
                                 <select class="form-select" name="nombre_curso">
-                                    <option value="">Seleccionar Curso</option>
+                                    <option value=""> Curso</option>
                                     <?php foreach ($cursos as $curso): ?>
                                         <option value="<?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>">
                                             <?php echo htmlspecialchars($curso['nombre_curso_fk']); ?>
@@ -211,7 +211,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                             <i class="fas fa-filter" onclick="toggleFiltro('empresa')"></i>
                             <div id="filtroEmpresa" class="filtro-container">
                                 <select class="form-select" name="empresa">
-                                    <option value="">Seleccionar Empresa</option>
+                                    <option value=""> Empresa</option>
                                     <?php foreach ($empresas as $empresa): ?>
                                         <option value="<?php echo htmlspecialchars($empresa['nombre_empresa']); ?>">
                                             <?php echo htmlspecialchars($empresa['nombre_empresa']); ?>
@@ -225,7 +225,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
                             <i class="fas fa-filter" onclick="toggleFiltro('estado')"></i>
                             <div id="filtroEstado" class="filtro-container">
                                 <select class="form-select" name="estado">
-                                    <option value="">Seleccionar Estado</option>
+                                    <option value="">Estado</option>
                                     <option value="Vigente">Vigente</option>
                                     <option value="A vencer">A vencer</option>
                                     <option value="Vencido">Vencido</option>
