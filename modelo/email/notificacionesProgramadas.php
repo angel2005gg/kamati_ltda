@@ -1,31 +1,66 @@
 <?php
-require '../vendor/autoload.php';
-require_once '../modelo/dao/EmailSoftwareDao.php';
-require_once '../modelo/CursoUsuario.php';
-require_once '../modelo/email/emailHelper.php';
+error_log("Iniciando script de notificaciones programadas");
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../configuracion/ConexionBD.php';
+require_once __DIR__ . '/emailHelper.php';
 
-$cursoUsuarioModel = new CursoUsuario();
-$emailDao = new EmailSoftwareDao();
+try {
+    // Iniciar conexión
+    $conexion = new ConexionBD();
+    $conn = $conexion->conectarBD();
 
-// Obtener todos los cursos de usuarios
-$cursosUsuarios = $cursoUsuarioModel->obtenerTodos();
+    // Consulta SQL
+    $sql = "SELECT cu.*,
+            CONCAT(u.primer_nombre, ' ',
+                  IFNULL(u.segundo_nombre, ''), ' ',
+                  u.primer_apellido, ' ',
+                  IFNULL(u.segundo_apellido, '')) as nombre_usuario,
+            u.correo_electronico as correo_usuario
+            FROM curso_usuario cu
+            JOIN usuarios u ON cu.id_Usuarios = u.id_Usuarios
+            WHERE DATEDIFF(cu.fecha_fin, CURRENT_DATE) <= cu.dias_notificacion
+            AND CURRENT_DATE <= cu.fecha_fin";
 
-foreach ($cursosUsuarios as $cursoUsuario) {
-    $fecha_fin = new DateTime($cursoUsuario['fecha_fin']);
-    $fecha_actual = new DateTime();
-    $dias_restantes = $fecha_actual->diff($fecha_fin)->days;
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
+    }
 
-    // Obtener los días de notificación desde la base de datos
-    $dias_notificacion = $cursoUsuarioModel->obtenerDiasNotificacion($cursoUsuario['id_curso_usuario']);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $cursosUsuarios = $resultado->fetch_all(MYSQLI_ASSOC);
 
-    $dias_notificacion_array = array_column($dias_notificacion, 'dias');
+    // Logging para debug
+    error_log("Procesando " . count($cursosUsuarios) . " cursos");
 
-    if (in_array($dias_restantes, $dias_notificacion_array)) {
-        $destinatarios = [$cursoUsuario['correo_usuario']];
-        $asunto = 'Recordatorio de Curso';
-        $mensaje = 'Este es un recordatorio de que el curso finalizará el ' . $cursoUsuario['fecha_fin'] . '. Quedan ' . $dias_restantes . ' días.';
+    foreach ($cursosUsuarios as $cursoUsuario) {
+        $fecha_fin = new DateTime($cursoUsuario['fecha_fin']);
+        $fecha_actual = new DateTime();
+        $dias_restantes = $fecha_actual->diff($fecha_fin)->days;
 
-        enviarCorreo($destinatarios, $asunto, $mensaje);
+        if ($dias_restantes <= $cursoUsuario['dias_notificacion']) {
+            try {
+                $destinatarios = [$cursoUsuario['correo_usuario']];
+                $asunto = 'Recordatorio de Curso';
+                $mensaje = sprintf(
+                    'Este es un recordatorio de que el curso finalizará el %s. Quedan %d días. Mensaje automático',
+                    $cursoUsuario['fecha_fin'],
+                    $dias_restantes
+                );
+
+                error_log("Enviando correo a: " . $cursoUsuario['correo_usuario']);
+                enviarCorreo($destinatarios, $asunto, $mensaje);
+            } catch (Exception $e) {
+                error_log("Error enviando correo a {$cursoUsuario['correo_usuario']}: " . $e->getMessage());
+            }
+        }
+    }
+
+} catch (Exception $e) {
+    error_log("Error en el proceso de notificaciones: " . $e->getMessage());
+} finally {
+    if (isset($conexion)) {
+        $conexion->desconectarBD();
     }
 }
-?>

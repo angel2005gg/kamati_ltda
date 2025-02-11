@@ -1,6 +1,7 @@
 <?php
-require '../vendor/autoload.php';
-require_once '../modelo/dao/EmailSoftwareDao.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../modelo/dao/EmailSoftwareDao.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

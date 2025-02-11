@@ -1,6 +1,6 @@
 <?php
-require_once '../configuracion/ConexionBD.php';
-require_once '../modelo/EmailSoftware.php';
+require_once __DIR__ . '/../../configuracion/ConexionBD.php';
+require_once __DIR__ . '/../EmailSoftware.php';
 
 class EmailSoftwareDao
 {
