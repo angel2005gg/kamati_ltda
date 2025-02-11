@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../../modelo/dao/EmailSoftwareDao.php';
+require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once(__DIR__ . '/../dao/EmailSoftwareDao.php');
+require_once(__DIR__ . '/../../configuracion/ConexionBD.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -52,6 +53,10 @@ function enviarCorreo($destinatarios, $asunto, $mensaje) {
 
             // Enviar el correo
             $mail->send();
+
+            // Almacenar el historial del correo enviado
+            almacenarHistorialCorreo($destinatarios, $asunto, $mensaje);
+
             return true;
         } catch (Exception $e) {
             error_log('No se pudo enviar el mensaje. Error: ' . $mail->ErrorInfo);
@@ -61,6 +66,21 @@ function enviarCorreo($destinatarios, $asunto, $mensaje) {
         error_log('No se encontró un servidor SMTP para el dominio del remitente');
         return false;
     }
+}
+
+function almacenarHistorialCorreo($destinatarios, $asunto, $mensaje) {
+    $conexion = new ConexionBD();
+    $conn = $conexion->conectarBD();
+    $fecha_envio = date('Y-m-d H:i:s');
+
+    foreach ($destinatarios as $destinatario) {
+        $sql = "INSERT INTO historial_correos (destinatario, asunto, mensaje, fecha_envio) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ssss', $destinatario, $asunto, $mensaje, $fecha_envio);
+        $stmt->execute();
+    }
+
+    $conexion->desconectarBD();
 }
 
 // Función para obtener el servidor SMTP basado en el dominio del remitente del correo electrónico

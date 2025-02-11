@@ -58,7 +58,6 @@ $cursosEmpresas = $controladorCursoEmpresa->obtenerTodos();
 <body>
 <?php include 'navBar.php'; ?>
 <br><br>
-    Viento1&Norte
     <div class="container mt-4">
         <!-- Mantener la sección de navegación -->
         <ul class="nav nav-tabs mb-4">
@@ -66,6 +65,8 @@ $cursosEmpresas = $controladorCursoEmpresa->obtenerTodos();
             <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
             <li class="nav-item"><a class="nav-link" href="CursosGestionFrecuencia.php">Crear Frecuencia</a></li>
             <li class="nav-item"><a class="nav-link active" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
+            <li class="nav-item"><a class="nav-link " href="ListaCorreoUsuario.php">h</a></li>
+
         </ul>
 
         <!-- Tabla de resultados -->
