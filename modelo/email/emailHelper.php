@@ -24,7 +24,7 @@ function enviarCorreo($destinatarios, $asunto, $mensaje) {
         try {
             // Crear una nueva instancia de PHPMailer
             $mail = new PHPMailer(true);
-            $mail->SMTPDebug = 2; // Habilita depuración detallada
+            $mail->SMTPDebug = 0; // Desactivar depuración
 
             // Configurar PHPMailer con la información proporcionada por el usuario
             $mail->CharSet = 'UTF-8';

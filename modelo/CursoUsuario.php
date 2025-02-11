@@ -51,15 +51,42 @@ class CursoUsuario {
     }
 
     // Métodos CRUD
-    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
-        $conn = $this->conexion->conectarBD();
-        $sql = "INSERT INTO curso_usuario (id_Usuarios, id_curso_empresa, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iiss", $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
-        $resultado = $stmt->execute();
-        $this->id_curso_usuario = $stmt->insert_id;
-        $this->conexion->desconectarBD();
-        return $resultado;
+    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion) {
+        try {
+            $conn = $this->conexion->conectarBD();
+            $sql = "INSERT INTO curso_usuario (id_Usuarios, id_curso_empresa, fecha_inicio, fecha_fin, dias_notificacion) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if (!$stmt) {
+                error_log("Error en la preparación de la consulta: " . $conn->error);
+                return false;
+            }
+
+            $stmt->bind_param("iissi", $id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion);
+
+            if (!$stmt->execute()) {
+                error_log("Error al ejecutar la consulta: " . $stmt->error);
+                error_log("Último error MySQL: " . $conn->error);
+                return false;
+            }
+
+            $this->id_curso_usuario = $stmt->insert_id;
+            error_log("Curso usuario creado con ID: " . $this->id_curso_usuario);
+
+            $this->conexion->desconectarBD();
+            return true;
+
+        } catch (Exception $e) {
+            error_log("Error en crear curso_usuario: " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            if (isset($conn)) {
+                $this->conexion->desconectarBD();
+            }
+            return false;
+        }
+    }
+
+    public function obtenerUltimoIdCursoUsuario() {
+        return $this->id_curso_usuario;
     }
 
     public function obtenerPorId($id) {
@@ -75,7 +102,8 @@ class CursoUsuario {
                 cu.fecha_inicio as fecha_inicio,
                 cu.fecha_fin as fecha_fin,
                 ec.nombre_empresa as empresa,
-                ce.estado
+                ce.estado,
+                ce.duracion
                 FROM curso_usuario cu
                 JOIN usuarios u ON cu.id_Usuarios = u.id_Usuarios
                 JOIN cargo c ON u.id_Cargo_Usuario = c.id_Cargo
@@ -83,7 +111,7 @@ class CursoUsuario {
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
                 JOIN curso cr ON ce.id_curso = cr.id_curso
-                WHERE cu.id_curso_usuario = ?";
+                WHERE cu.id_curso_empresa = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -91,18 +119,18 @@ class CursoUsuario {
         $this->conexion->desconectarBD();
         return $resultado;
     }
-
     public function obtenerTodos() {
         $conn = $this->conexion->conectarBD();
-        $sql = "SELECT cu.id_curso_usuario,
+        $sql = "SELECT cu.*, 
                 CONCAT(u.primer_nombre, ' ', 
-                       IFNULL(u.segundo_nombre, ''), ' ', 
-                       u.primer_apellido, ' ', 
-                       IFNULL(u.segundo_apellido, '')) as nombre_usuario,
+                      IFNULL(u.segundo_nombre, ''), ' ',
+                      u.primer_apellido, ' ', 
+                      IFNULL(u.segundo_apellido, '')) as nombre_usuario,
+                u.correo as correo_usuario,
                 a.nombre_area as area,
-                cu.fecha_inicio,
-                cu.fecha_fin,
                 cr.nombre_curso_fk as nombre_curso,
+                cu.fecha_inicio as fecha_inicio,
+                cu.fecha_fin as fecha_fin,
                 ec.nombre_empresa as empresa,
                 ce.estado
                 FROM curso_usuario cu
@@ -112,14 +140,82 @@ class CursoUsuario {
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
                 JOIN curso cr ON ce.id_curso = cr.id_curso";
-        
-        $resultado = $conn->query($sql);
-        if (!$resultado) {
-            throw new Exception("Error en la consulta: " . $conn->error);
-        }
-        $cursos_usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $this->conexion->desconectarBD();
-        return $cursos_usuarios;
+        return $resultado;
+    }
+    // Método para obtener los días de notificación de un curso de usuario
+    // Método para obtener los días de notificación de un curso de usuario
+    // Método para obtener los días de notificación de un curso de usuario
+public function obtenerDiasNotificacion($id_curso_usuario) {
+    try {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT dias FROM dias_notificacion WHERE id_curso_usuario = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_curso_usuario);
+        $stmt->execute();
+        $resultado = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->conexion->desconectarBD();
+        
+        // Debug
+        error_log("Días de notificación obtenidos para curso_usuario " . $id_curso_usuario . ": " . print_r($resultado, true));
+        
+        return $resultado;
+    } catch (Exception $e) {
+        error_log("Error al obtener días de notificación: " . $e->getMessage());
+        $this->conexion->desconectarBD();
+        return [];
+    }
+}
+
+    // Método para insertar los días de notificación de un curso de usuario
+    public function insertarDiasNotificacion($id_curso_usuario, $dias_notificacion) {
+        try {
+            $conn = $this->conexion->conectarBD();
+            
+            // Primero eliminamos notificaciones existentes
+            $sqlDelete = "DELETE FROM dias_notificacion WHERE id_curso_usuario = ?";
+            $stmtDelete = $conn->prepare($sqlDelete);
+            $stmtDelete->bind_param("i", $id_curso_usuario);
+            $stmtDelete->execute();
+            
+            // Luego insertamos las nuevas
+            $sql = "INSERT INTO dias_notificacion (id_curso_usuario, dias) VALUES (?, ?)";
+            $stmt = $conn->prepare($sql);
+            
+            foreach ($dias_notificacion as $dias) {
+                $stmt->bind_param("ii", $id_curso_usuario, $dias);
+                $stmt->execute();
+            }
+            
+            $this->conexion->desconectarBD();
+            return true;
+            
+        } catch (Exception $e) {
+            error_log("Error en insertarDiasNotificacion: " . $e->getMessage());
+            $this->conexion->desconectarBD();
+            return false;
+        }
+    }
+
+    // Método para eliminar los días de notificación de un curso de usuario
+    public function eliminarDiasNotificacion($id_curso_usuario) {
+        try {
+            $conn = $this->conexion->conectarBD();
+            $sql = "DELETE FROM dias_notificacion WHERE id_curso_usuario = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id_curso_usuario);
+            $resultado = $stmt->execute();
+            $this->conexion->desconectarBD();
+            return $resultado;
+            
+        } catch (Exception $e) {
+            error_log("Error en eliminarDiasNotificacion: " . $e->getMessage());
+            $this->conexion->desconectarBD();
+            return false;
+        }
     }
 
     public function eliminar($id) {

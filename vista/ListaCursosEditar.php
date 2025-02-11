@@ -60,11 +60,10 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
 <?php include 'navBar.php'; ?>
 <br><br>
 <div class="container mt-4">
+    <br>
     <h2>Tus cursos actuales</h2>
-    <!-- Añadir el campo de búsqueda -->
-    <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Buscar usuario...">
-    </div>
+    <br>
+   
 
     <!-- Tabla de resultados -->
     <table class="table table-bordered" id="tablaUsuarios">

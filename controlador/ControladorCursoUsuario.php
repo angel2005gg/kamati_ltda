@@ -11,8 +11,24 @@ class ControladorCursoUsuario {
         $this->usuario = new Usuarios();
     }
 
-    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin) {
-        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
+    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion) {
+        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion);
+    }
+
+    public function obtenerUltimoIdCursoUsuario() {
+        return $this->cursoUsuario->obtenerUltimoIdCursoUsuario();
+    }
+    // Métodos para manejar los días de notificación
+    public function obtenerDiasNotificacion($id_curso_usuario) {
+        return $this->cursoUsuario->obtenerDiasNotificacion($id_curso_usuario);
+    }
+
+    public function insertarDiasNotificacion($id_curso_usuario, $dias_notificacion) {
+        return $this->cursoUsuario->insertarDiasNotificacion($id_curso_usuario, $dias_notificacion);
+    }
+
+    public function eliminarDiasNotificacion($id_curso_usuario) {
+        return $this->cursoUsuario->eliminarDiasNotificacion($id_curso_usuario);
     }
 
     public function obtenerPorId($id) {

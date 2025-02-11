@@ -14,13 +14,14 @@ function verificarAutenticacion() {
     } else {
         if (!isset($_SESSION['user'])) {
             $_SESSION['user'] = [
-                'id' => 9,
-                'nombre' => 'Nombre',
-                'apellido' => 'Apellido',
-                'rol' => '',
-                'idUser' => 9,
+               
+                
+               
+                'idUser' => 86
+                
             ];
-            $_SESSION['idUser'] = 9;
+            $_SESSION['idUser'];
         }
     }
 }
+?>

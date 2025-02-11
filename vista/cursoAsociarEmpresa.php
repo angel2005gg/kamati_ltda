@@ -16,33 +16,8 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
+$cursoUsuarioModel = new CursoUsuario();
 
-
-// Código existente...
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener los datos del formulario
-    $fecha_fin = $_POST['fecha_fin'];
-    $enviar_correo = isset($_POST['enviar_correo']) ? true : false;
-    $dias_notificacion = $_POST['dias_notificacion'];
-
-    // Código existente para procesar el formulario...
-
-    // Configuración de notificaciones
-    if ($enviar_correo) {
-        $destinatarios = ['destinatario1@dominio.com', 'destinatario2@dominio.com']; // Reemplaza con los correos reales
-        $asunto = 'Notificación de Curso';
-        $mensaje = 'Este es un recordatorio de que el curso finalizará el ' . $fecha_fin;
-
-        // Enviar correos electrónicos en los días especificados
-        foreach ($dias_notificacion as $dias) {
-            $fecha_notificacion = date('Y-m-d', strtotime("$fecha_fin - $dias days"));
-            if (date('Y-m-d') == $fecha_notificacion) {
-                enviarCorreo($destinatarios, $asunto, $mensaje);
-            }
-        }
-    }
-}
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -65,32 +40,53 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
     exit();
 }
 
-// Manejo del formulario POST
-// Manejo del formulario POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_usuario = $_POST['id_usuario'] ?? null;
-    $id_curso_empresa = $_POST['id_curso_empresa'] ?? null;
-    $fecha_inicio = $_POST['fecha_inicio'] ?? null;
+    try {
+        // Obtener los datos del formulario
+        $id_usuario = $_POST['id_usuario'];
+        $id_curso_empresa = $_POST['id_curso_empresa'];
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $dias_notificacion = $_POST['dias_notificacion'] ?? 0;
 
-    if ($id_usuario && $id_curso_empresa && $fecha_inicio) {
-        // Obtener la duración del curso desde curso_empresa
+        // Validación de datos requeridos
+        if (!$id_usuario || !$id_curso_empresa || !$fecha_inicio) {
+            throw new Exception("Faltan datos requeridos");
+        }
+
+        // Obtener la duración del curso y calcular fecha fin
         $cursoEmpresa = $controladorCursoEmpresa->obtenerPorId($id_curso_empresa);
+        if (!$cursoEmpresa) {
+            throw new Exception("No se pudo obtener la información del curso");
+        }
+
         $duracion = $cursoEmpresa['duracion'];
         $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
 
-        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin);
-        if ($resultado) {
-            header("Location: ListaCursos.php?success=1");
-            exit();
-        } else {
-            header("Location: cursoAsociarEmpresa.php?error=1");
-            exit();
+        // Debug
+        error_log("Creando curso usuario con los siguientes datos:");
+        error_log("ID Usuario: " . $id_usuario);
+        error_log("ID Curso Empresa: " . $id_curso_empresa);
+        error_log("Fecha Inicio: " . $fecha_inicio);
+        error_log("Fecha Fin: " . $fecha_fin);
+        error_log("Días de Notificación: " . $dias_notificacion);
+
+        // Crear el curso usuario
+        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion);
+        
+        if (!$resultado) {
+            throw new Exception("Error al crear el curso usuario");
         }
-    } else {
-        header("Location: cursoAsociarEmpresa.php?error=1");
+
+        // Redirigir en caso de éxito
+        header("Location: ListaCursos.php?success=1");
+        exit();
+    } catch (Exception $e) {
+        error_log("Error en el proceso: " . $e->getMessage());
+        header("Location: cursoAsociarEmpresa.php?error=1&message=" . urlencode("Error al asociar el curso: " . $e->getMessage()));
         exit();
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -222,33 +218,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" class="form-control" id="fecha_fin" name="fecha_fin" readonly>
             </div>
             <!-- Configuración de Notificaciones -->
-<div class="mb-3">
-    <label class="form-label">Configuración de Notificación</label>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="enviar_correo" name="enviar_correo" checked>
-        <label class="form-check-label" for="enviar_correo">
-            Enviar notificación por correo
-        </label>
-    </div>
-    <div class="mb-3">
-        <label for="dias_notificacion" class="form-label">Días antes de enviar notificación:</label>
-        <select class="form-select" id="dias_notificacion" name="dias_notificacion" multiple>
-            <option value="10">10 días</option>
-            <option value="15">15 días</option>
-            <option value="20">20 días</option>
-        </select>
-        <small class="form-text text-muted">Puedes seleccionar múltiples opciones</small>
-    </div>
-</div>
-
+            <div class="mb-3">
+                <label class="form-label">Configuración de Notificación</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enviar_correo" name="enviar_correo" checked>
+                    <label class="form-check-label" for="enviar_correo">
+                        Enviar notificación por correo
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label for="dias_notificacion" class="form-label">Días antes de enviar notificación:</label>
+                    <select class="form-select" id="dias_notificacion" name="dias_notificacion" required>
+                        <option value="10">10 días</option>
+                        <option value="15">15 días</option>
+                        <option value="20">20 días</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
+                    <small class="form-text text-muted">Selecciona una opción</small>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- Primero jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Luego jQuery UI -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- Después Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         $(document).ready(function() {
    $('.select2').select2();

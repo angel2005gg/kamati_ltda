@@ -108,11 +108,19 @@ $cursosEmpresa = $id_empresa_actual ?
             border: 1px solid #dee2e6;
             border-radius: 8px;
         }
+        
     </style>
 </head>
 <body>
     <div class="container form-container">
         <h2 class="text-center mb-4">Editar Curso de Usuario</h2>
+        <!-- Contenedor para la alerta -->
+        <?php if (isset($mensajeNotificacion)): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo $mensajeNotificacion; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
         <form method="POST" action="">
             <div class="row">
                 <div class="col-md-6">
