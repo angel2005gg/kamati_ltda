@@ -111,7 +111,7 @@ class CursoUsuario {
                 JOIN curso_empresa ce ON cu.id_curso_empresa = ce.id_curso_empresa
                 JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
                 JOIN curso cr ON ce.id_curso = cr.id_curso
-                WHERE cu.id_curso_empresa = ?";
+                WHERE cu.id_curso_usuario = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
