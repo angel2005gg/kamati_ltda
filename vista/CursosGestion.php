@@ -114,6 +114,7 @@ $cursos = $curso->obtenerTodos();
                 <a class="nav-link" href="CursosGestionFrecuencia.php">Crear Frecuencia</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
+            <li class="nav-item"><a class="nav-link " href="ListaCorreoUsuario.php">Historial</a></li>
 
         </ul>
 

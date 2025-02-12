@@ -99,6 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="nav-item"><a class="nav-link" href="CursosGestionEliminar.php">Eliminar</a></li>
             <li class="nav-item"><a class="nav-link active" href="CursosGestionFrecuencia.php">Crear Frecuencia</a></li>
             <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
+            <li class="nav-item"><a class="nav-link " href="ListaCorreoUsuario.php">Historial</a></li>
+
 
         </ul>
 
