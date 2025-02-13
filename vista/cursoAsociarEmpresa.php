@@ -39,36 +39,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
     }
     exit();
 }
-session_start();
-
-if (!isset($_SESSION['user'])) {
-    die("Error: No se ha iniciado sesión.");
-}
-
-$usuario = $_SESSION['user'];
-$rolUsuario = $usuario->getId_Rol_Usuario();
-
-if ($rolUsuario === null) {
-    die("Error: No se pudo determinar el rol del usuario.");
-}
-
-// Incluir el archivo de navegación correcto según el rol del usuario
-switch ($rolUsuario) {
-    case 1: // Admin
-        include 'navBarAdmin.php';
-        break;
-    case 2: // Jefe
-        include 'navBarJefe.php';
-        break;
-    case 3: // Trabajador
-        include 'navBarTrabajador.php';
-        break;
-    default:
-        include 'navBar.php';
-        break;
-}
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Obtener los datos del formulario
@@ -105,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$resultado) {
             throw new Exception("Error al crear el curso usuario");
         }
-
         // Redirigir en caso de éxito
         header("Location: ListaCursos.php?success=1");
         exit();
@@ -116,6 +85,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
 }
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    die("Error: No se ha iniciado sesión.");
+}
+
+$usuario = $_SESSION['user'];
+$rolUsuario = $usuario->getId_Rol_Usuario();
+
+if ($rolUsuario === null) {
+    die("Error: No se pudo determinar el rol del usuario.");
+}
+
+// Incluir el archivo de navegación correcto según el rol del usuario
+switch ($rolUsuario) {
+    case 1: // Admin
+        include 'navBarAdmin.php';
+        break;
+    case 2: // Jefe
+        include 'navBarJefe.php';
+        break;
+    case 3: // Trabajador
+        include 'navBarTrabajador.php';
+        break;
+    default:
+        include 'navBar.php';
+        break;
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
