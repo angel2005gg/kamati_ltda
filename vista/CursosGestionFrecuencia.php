@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+include 'incluirNavegacion.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
-<br><br>
+
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
     <div class="container mt-4">
         <ul class="nav nav-tabs mb-4">

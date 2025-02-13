@@ -1,5 +1,6 @@
 <?php
 require_once '../controlador/ControladorCursoUsuario.php';
+require_once '../modelo/Usuarios.php';
 
 $controladorCursoUsuario = new ControladorCursoUsuario();
 
@@ -43,6 +44,8 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
         return ['estado' => 'Vigente', 'clase' => 'estado-vigente'];
     }
 }
+include 'incluirNavegacion.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +104,6 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
-<br><br>
     <div class="container mt-4">
         <h2>Listado de Cursos de Usuarios</h2>
         <!-- Botón para quitar todos los filtros -->

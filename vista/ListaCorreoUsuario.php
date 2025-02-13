@@ -10,6 +10,8 @@ $result = $conn->query($sql);
 $correos = $result->fetch_all(MYSQLI_ASSOC);
 
 $conexion->desconectarBD();
+include 'incluirNavegacion.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +51,7 @@ $conexion->desconectarBD();
     </style>
 </head>
 <body>
-    <?php include 'navBar.php'; ?>
-    <br><br>
+   
     <div class="container mt-4">
         <!-- Mantener la sección de navegación -->
         <ul class="nav nav-tabs mb-4">

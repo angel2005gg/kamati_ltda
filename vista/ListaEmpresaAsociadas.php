@@ -8,6 +8,8 @@ if (!empty($output)) {
 
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $cursosEmpresas = $controladorCursoEmpresa->obtenerTodos();
+include 'incluirNavegacion.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -56,8 +58,6 @@ $cursosEmpresas = $controladorCursoEmpresa->obtenerTodos();
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
-<br><br>
     <div class="container mt-4">
         <!-- Mantener la sección de navegación -->
         <ul class="nav nav-tabs mb-4">

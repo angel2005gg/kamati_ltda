@@ -65,7 +65,7 @@ $empresa = new EmpresaCliente();
 $contratista = new Contratista();
 $curso = new CursoEmpresa();
 
-session_start();
+include 'incluirNavegacion.php';
 
 
 ?>
@@ -113,8 +113,7 @@ session_start();
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
-<br><br>
+
 
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 

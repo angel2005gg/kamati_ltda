@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_empresa'])) {
         exit();
     }
 }
+include 'incluirNavegacion.php';
 
-session_start();
 $empresas = $empresa->obtenerTodos();
 $contratistas = $contratista->obtenerTodos();
 $cursos = $curso->obtenerTodos();
@@ -98,8 +98,7 @@ $cursos = $curso->obtenerTodos();
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
-<br><br>
+
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
     <div class="container mt-4">

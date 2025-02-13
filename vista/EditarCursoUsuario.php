@@ -91,6 +91,8 @@ $cursosEmpresa = $id_empresa_actual ?
             }
         }
     }
+    include 'incluirNavegacion.php';
+
 ?>
 
 <!DOCTYPE html>
