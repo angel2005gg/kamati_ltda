@@ -12,6 +12,7 @@ class Login
 
     public function login($identificacion, $contrasena)
     {
+        
         header('Content-Type: application/json');
 
 
@@ -21,9 +22,10 @@ class Login
         } else {
             $usuario = $this->ingresoModelo->verificarCredenciales($identificacion, $contrasena);
         }
-
+        
         if ($usuario) {
             $_SESSION['user'] = $usuario;
+
 
             $redirectUrl = '';
             switch ($usuario->getId_Rol_Usuario()) {
@@ -99,7 +101,7 @@ class Login
 
             echo json_encode(['status' => 'success', 'redirect' => $redirectUrl]);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas. Inténtelo de nuevo.']);
+            echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas. Inténtelo de nuevo 2.']);
         }
     }
 }

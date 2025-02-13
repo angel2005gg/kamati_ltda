@@ -4,23 +4,12 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 function verificarAutenticacion() {
-    $deshabilitarAutenticacion = TRUE;
-
+    $deshabilitarAutenticacion = false;  // Cambiamos esto a FALSE
+    
     if (!$deshabilitarAutenticacion) {
         if (!isset($_SESSION['user'])) {
             header('Location: ../index.php');
             exit();
-        }
-    } else {
-        if (!isset($_SESSION['user'])) {
-            $_SESSION['user'] = [
-               
-                
-               
-                'idUser' => 86
-                
-            ];
-            $_SESSION['idUser'];
         }
     }
 }

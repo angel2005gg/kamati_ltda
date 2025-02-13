@@ -230,6 +230,7 @@ public function obtenerDiasNotificacion($id_curso_usuario) {
 
     
 public function obtenerCursosPorUsuario($id_usuario) {
+    
     $conn = $this->conexion->conectarBD();
     $sql = "SELECT cu.id_curso_usuario,
             CONCAT(u.primer_nombre, ' ', 

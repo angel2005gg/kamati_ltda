@@ -1,5 +1,6 @@
 <?php
 ob_start();
+
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
@@ -17,7 +18,34 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
 $cursoUsuarioModel = new CursoUsuario();
+session_start();
 
+if (!isset($_SESSION['user'])) {
+    die("Error: No se ha iniciado sesión.");
+}
+
+$usuario = $_SESSION['user'];
+$rolUsuario = $usuario->getId_Rol_Usuario();
+
+if ($rolUsuario === null) {
+    die("Error: No se pudo determinar el rol del usuario.");
+}
+
+// Incluir el archivo de navegación correcto según el rol del usuario
+switch ($rolUsuario) {
+    case 1: // Admin
+        include 'navBarAdmin.php';
+        break;
+    case 2: // Jefe
+        include 'navBarJefe.php';
+        break;
+    case 3: // Trabajador
+        include 'navBarTrabajador.php';
+        break;
+    default:
+        include 'navBar.php';
+        break;
+}
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -85,7 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: cursoAsociarEmpresa.php?error=1&message=" . urlencode("Error al asociar el curso: " . $e->getMessage()));
         exit();
     }
+    
 }
+
 
 ?>
 
@@ -152,7 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-<?php include 'navBar.php'; ?>
 <br><br>
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 

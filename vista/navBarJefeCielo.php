@@ -58,7 +58,8 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
                         <li><a class="dropdown-item" href="reporteSolicitudesLCielo.php">Reportes de novedades</a></li>
                     </ul>
                 </li>
-               
+               <!-- Incluir la sección de Gestión de Cursos -->
+               <?php include 'gestionCursos.php'; ?>
                 
                
                 <div class="dropdown">

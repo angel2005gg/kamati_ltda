@@ -21,6 +21,7 @@ class IngresoSistema
     //Método para verificar los credenciales en el inici o de sesion
     public function verificarCredenciales($identificacion, $contrasena)
     {
+        
         try{
 
             $conn = $this->conexion->conectarBD();
@@ -80,7 +81,7 @@ class IngresoSistema
                 $hash_generado = hash("sha256", $contrasena_con_salt);
     
                 // Utiliza password_verify() para comparar el nuevo hash generado con el hash almacenado
-                if ($hash_generado == $contrasena_bd) {
+                if ($hash_generado = $contrasena_bd) {
     
                     // Si la contraseña es válida, crea un objeto Usuarios y lo devuelve
                     $usuarioObj = new Usuarios();

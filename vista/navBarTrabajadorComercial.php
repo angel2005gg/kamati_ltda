@@ -57,6 +57,8 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
                             <li><a class="dropdown-item" href="CreacionCotizacion.php">Crear cotizaciones.</a></li>
                         </ul>
                     </li>
+                    <!-- Incluir la sección de Gestión de Cursos -->
+                    <?php include 'gestionCursos.php'; ?>
 
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

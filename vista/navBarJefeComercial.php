@@ -61,6 +61,8 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
 
                     </ul>
                 </li>
+                <!-- Incluir la sección de Gestión de Cursos -->
+                <?php include 'gestionCursos.php'; ?>
                
                 
                

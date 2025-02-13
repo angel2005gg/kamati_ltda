@@ -1,15 +1,13 @@
 <?php
 session_start();
+
 require_once '../modelo/CursoUsuario.php';
+require_once '../configuracion/auth.php';
 
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
-    exit();
-}
+verificarAutenticacion();
 
-// Obtener el ID del usuario de la sesión
-$id_usuario = $_SESSION['user']['id'];
+// Cambiar esta línea:
+$id_usuario = $_SESSION['idUser'];
 
 // Crear una instancia del modelo CursoUsuario
 $cursoUsuarioModel = new CursoUsuario();
@@ -62,9 +60,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
 <div class="container mt-4">
     <br>
     <h2>Tus cursos actuales</h2>
-    <br>
-   
-
+    <br>   
     <!-- Tabla de resultados -->
     <table class="table table-bordered" id="tablaUsuarios">
         <thead>

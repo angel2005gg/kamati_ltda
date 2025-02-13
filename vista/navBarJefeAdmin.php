@@ -76,6 +76,8 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
 
                         </ul>
                     </li>
+                    <!-- Incluir la sección de Gestión de Cursos -->
+                    <?php include 'gestionCursos.php'; ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text_custom" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Variables
