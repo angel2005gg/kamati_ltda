@@ -1,6 +1,6 @@
 <?php
 ob_start();
-
+require_once '../modelo/Usuarios.php';
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
@@ -18,6 +18,27 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
 $cursoUsuarioModel = new CursoUsuario();
+// Manejo de solicitud AJAX para obtener cursos
+if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
+    try {
+        error_log("Recibida solicitud para empresa_id: " . $_GET['empresa_id']);
+        $cursosEmpresa = $controladorCursoEmpresa->obtenerPorEmpresa($_GET['empresa_id']);
+        
+        if ($cursosEmpresa === false) {
+            throw new Exception("Error al obtener los cursos de la base de datos");
+        }
+        
+        header('Content-Type: application/json');
+        echo json_encode($cursosEmpresa ?: []);
+        
+    } catch (Exception $e) {
+        error_log("Error en la solicitud AJAX: " . $e->getMessage());
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode(['error' => 'Error al obtener los cursos: ' . $e->getMessage()]);
+    }
+    exit();
+}
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -46,27 +67,7 @@ switch ($rolUsuario) {
         include 'navBar.php';
         break;
 }
-// Manejo de solicitud AJAX para obtener cursos
-if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
-    try {
-        error_log("Recibida solicitud para empresa_id: " . $_GET['empresa_id']);
-        $cursosEmpresa = $controladorCursoEmpresa->obtenerPorEmpresa($_GET['empresa_id']);
-        
-        if ($cursosEmpresa === false) {
-            throw new Exception("Error al obtener los cursos de la base de datos");
-        }
-        
-        header('Content-Type: application/json');
-        echo json_encode($cursosEmpresa ?: []);
-        
-    } catch (Exception $e) {
-        error_log("Error en la solicitud AJAX: " . $e->getMessage());
-        header('Content-Type: application/json');
-        http_response_code(500);
-        echo json_encode(['error' => 'Error al obtener los cursos: ' . $e->getMessage()]);
-    }
-    exit();
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -115,8 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
 }
-
-
 ?>
 
 <!DOCTYPE html>
