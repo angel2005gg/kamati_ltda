@@ -39,6 +39,13 @@ try {
         $fecha_actual = new DateTime();
         $dias_restantes = $fecha_actual->diff($fecha_fin)->days;
 
+        // Verificar si hoy es sábado o domingo
+        $dia_semana = $fecha_actual->format('N'); // 1 (lunes) a 7 (domingo)
+        if ($dia_semana >= 6) {
+            error_log("Hoy es sábado o domingo, no se envían correos.");
+            continue;
+        }
+
         if ($dias_restantes <= $cursoUsuario['dias_notificacion']) {
             try {
                 $destinatarios = [$cursoUsuario['correo_usuario']];
@@ -50,12 +57,18 @@ try {
                 );
 
                 error_log("Enviando correo a: " . $cursoUsuario['correo_usuario']);
-                enviarCorreo($destinatarios, $asunto, $mensaje);
+                if (enviarCorreo($destinatarios, $asunto, $mensaje)) {
+                    error_log("Correo enviado a: " . $cursoUsuario['correo_usuario']);
+                } else {
+                    error_log("Error al enviar correo a: " . $cursoUsuario['correo_usuario']);
+                }
             } catch (Exception $e) {
                 error_log("Error enviando correo a {$cursoUsuario['correo_usuario']}: " . $e->getMessage());
             }
         }
     }
+
+    error_log("Script de notificaciones programadas finalizado");
 
 } catch (Exception $e) {
     error_log("Error en el proceso de notificaciones: " . $e->getMessage());
@@ -64,3 +77,4 @@ try {
         $conexion->desconectarBD();
     }
 }
+?>

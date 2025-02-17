@@ -9,7 +9,7 @@ $controladorCursoUsuario = new ControladorCursoUsuario();
 $controladorEmpresa = new ControladorEmpresaCliente();
 $controladorCursoEmpresa = new ControladorCursoEmpresa();
 $output = ob_get_clean();
-
+include 'incluirNavegacion.php';
 if (!empty($output)) {
     error_log('Output no deseado: ' . $output);
 }
@@ -91,7 +91,7 @@ $cursosEmpresa = $id_empresa_actual ?
             }
         }
     }
-    include 'incluirNavegacion.php';
+    
 
 ?>
 

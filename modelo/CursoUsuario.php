@@ -472,7 +472,8 @@ public function obtenerCursosPorUsuario($id_usuario) {
                     WHERE CONCAT(u.primer_nombre, ' ', 
                                IFNULL(u.segundo_nombre, ''), ' ',
                                u.primer_apellido, ' ', 
-                               IFNULL(u.segundo_apellido, '')) LIKE ?";
+                               IFNULL(u.segundo_apellido, '')) LIKE ?
+                    AND u.estado_usuario = 'Activo'";
             
             $stmt = $conn->prepare($sql);
             $terminoBusqueda = "%$termino%";

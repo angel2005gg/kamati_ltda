@@ -73,11 +73,34 @@ function almacenarHistorialCorreo($destinatarios, $asunto, $mensaje) {
     $conn = $conexion->conectarBD();
     $fecha_envio = date('Y-m-d H:i:s');
 
+    // Eliminar correos más antiguos si el total supera los 30
+    $sql = "DELETE FROM historial_correos WHERE id_historial_correos NOT IN (
+                SELECT id_historial_correos FROM (
+                    SELECT id_historial_correos FROM historial_correos ORDER BY fecha_envio DESC LIMIT 29
+                ) AS t
+            )";
+    if (!$conn->query($sql)) {
+        error_log("Error ejecutando la consulta de eliminación: " . $conn->error);
+    }
+
     foreach ($destinatarios as $destinatario) {
+        // Verificar los parámetros antes de la inserción
+        if (empty($destinatario) || empty($asunto) || empty($mensaje)) {
+            error_log("Parámetros inválidos para almacenarHistorialCorreo: destinatario=$destinatario, asunto=$asunto, mensaje=$mensaje");
+            continue;
+        }
+
         $sql = "INSERT INTO historial_correos (destinatario, asunto, mensaje, fecha_envio) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            error_log("Error preparando la consulta: " . $conn->error);
+            continue;
+        }
+
         $stmt->bind_param('ssss', $destinatario, $asunto, $mensaje, $fecha_envio);
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            error_log("Error ejecutando la consulta: " . $stmt->error);
+        }
     }
 
     $conexion->desconectarBD();
