@@ -101,7 +101,7 @@ class Login
 
             echo json_encode(['status' => 'success', 'redirect' => $redirectUrl]);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas. Inténtelo de nuevo 2.']);
+            echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas. Inténtelo de nuevo.']);
         }
     }
 }
