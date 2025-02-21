@@ -13,43 +13,46 @@ $contratista = new Contratista();
 $curso = new CursoEmpresa();
 $controladorContratista = new ControladorContratista();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_contratista'])) {
-    $nombre_contratista = $_POST['nombre_contratista'];
-    $resultadoContratista = $controladorContratista->crear($nombre_contratista);
-    if ($resultadoContratista) {
-        header("Location: CursosGestion.php?success_contratista=1");
-        exit();
-    } else {
-        header("Location: CursosGestion.php?error_contratista=1");
-        exit();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['nombre_contratista']) && isset($_POST['correo_contratista'])) {
+        $nombre_contratista = $_POST['nombre_contratista'];
+        $correo_contratista = $_POST['correo_contratista'];
+        $resultadoContratista = $controladorContratista->crear($nombre_contratista, $correo_contratista);
+        if ($resultadoContratista) {
+            header("Location: CursosGestion.php?success_contratista=1");
+            exit();
+        } else {
+            header("Location: CursosGestion.php?error_contratista=1");
+            exit();
+        }
+    }
+
+    if (isset($_POST['nombre_curso_fk'])) {
+        $nombre_curso_fk = $_POST['nombre_curso_fk'];
+        $resultadoCurso = $controladorCurso->crear($nombre_curso_fk);
+        if ($resultadoCurso) {
+            header("Location: CursosGestion.php?success_curso=1");
+            exit();
+        } else {
+            header("Location: CursosGestion.php?error_curso=1");
+            exit();
+        }
+    }
+
+    if (isset($_POST['nombre_empresa'])) {
+        $nombre_empresa = $_POST['nombre_empresa'];
+        $resultado = $controladorEmpresa->crear($nombre_empresa);
+        if ($resultado) {
+            header("Location: CursosGestion.php?success_empresa=1");
+            exit();
+        } else {
+            header("Location: CursosGestion.php?error_empresa=1");
+            exit();
+        }
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_curso_fk'])) {
-    $nombre_curso_fk = $_POST['nombre_curso_fk'];
-    $resultadoCurso = $controladorCurso->crear($nombre_curso_fk);
-    if ($resultadoCurso) {
-        header("Location: CursosGestion.php?success_curso=1");
-        exit();
-    } else {
-        header("Location: CursosGestion.php?error_curso=1");
-        exit();
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre_empresa'])) {
-    $nombre_empresa = $_POST['nombre_empresa'];
-    $resultado = $controladorEmpresa->crear($nombre_empresa);
-    if ($resultado) {
-        header("Location: CursosGestion.php?success_empresa=1");
-        exit();
-    } else {
-        header("Location: CursosGestion.php?error_empresa=1");
-        exit();
-    }
-}
 include 'incluirNavegacion.php';
-
 $empresas = $empresa->obtenerTodos();
 $contratistas = $contratista->obtenerTodos();
 $cursos = $curso->obtenerTodos();
@@ -60,7 +63,6 @@ $cursos = $curso->obtenerTodos();
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Cursos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         .nav-tabs {
             justify-content: center;
@@ -98,7 +100,7 @@ $cursos = $curso->obtenerTodos();
     </style>
 </head>
 <body>
-
+<br><br><br>
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
 
     <div class="container mt-4">
@@ -114,7 +116,6 @@ $cursos = $curso->obtenerTodos();
             </li>
             <li class="nav-item"><a class="nav-link" href="ListaEmpresaAsociadas.php">Lista de Frecuencias</a></li>
             <li class="nav-item"><a class="nav-link " href="ListaCorreoUsuario.php">Historial</a></li>
-
         </ul>
 
         <div class="row mt-4">
@@ -184,6 +185,9 @@ $cursos = $curso->obtenerTodos();
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="nombre_contratista" name="nombre_contratista" placeholder="Nombre del Contratista" required>
                             </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="correo_contratista" name="correo_contratista" placeholder="Correo Electrónico" required>
+                            </div>
                             <button type="submit" class="btn btn-primary">Añadir Contratista</button>
                         </form>
                     </div>
@@ -192,6 +196,10 @@ $cursos = $curso->obtenerTodos();
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Cargar jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Luego Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <!-- Luego Bootstrap -->
 </body>
 </html>

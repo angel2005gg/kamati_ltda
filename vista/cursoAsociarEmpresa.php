@@ -18,6 +18,7 @@ $controladorEmpresa = new ControladorEmpresaCliente();
 $usuarios = $controladorUsuario->obtenerTodosUsuarios();
 $empresas = $controladorEmpresa->obtenerTodos();
 $cursoUsuarioModel = new CursoUsuario();
+
 // Manejo de solicitud AJAX para obtener cursos
 if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['empresa_id'])) {
     try {
@@ -39,10 +40,46 @@ if (isset($_GET['action']) && $_GET['action'] === 'getCursos' && isset($_GET['em
     }
     exit();
 }
+
+if (isset($_GET['term'])) {
+    header('Content-Type: application/json');
+    
+    try {
+        $termino = trim($_GET['term']);
+        $tipoBusqueda = isset($_GET['tipo']) ? $_GET['tipo'] : 'usuarios';
+        
+        error_log("Término de búsqueda recibido: " . $termino);
+        error_log("Tipo de búsqueda: " . $tipoBusqueda);
+
+        if ($tipoBusqueda === 'usuarios') {
+            $resultados = $controladorUsuario->buscarUsuarios($termino);
+        } elseif ($tipoBusqueda === 'contratistas') {
+            $resultados = $controladorUsuario->buscarContratistas($termino);
+        }
+
+        error_log("Resultados de búsqueda: " . json_encode($resultados));
+        echo json_encode($resultados);
+        
+    } catch (Exception $e) {
+        error_log("Error en la búsqueda: " . $e->getMessage());
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Obtener los datos del formulario
-        $id_usuario = $_POST['id_usuario'];
+        $id_usuario_con_prefijo = $_POST['id_usuario'];
+        // Extraer el ID real (numérico) si existe un prefijo
+        if (strpos($id_usuario_con_prefijo, '_') !== false) {
+            list($tipo_del_id, $real_id) = explode('_', $id_usuario_con_prefijo, 2);
+            $id_usuario = $real_id;
+        } else {
+            $id_usuario = $id_usuario_con_prefijo;
+        }
+
+        $tipo_usuario = $_POST['tipo_usuario'] ?? 'usuario';
         $id_curso_empresa = $_POST['id_curso_empresa'];
         $fecha_inicio = $_POST['fecha_inicio'];
         $dias_notificacion = $_POST['dias_notificacion'] ?? 0;
@@ -50,6 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validación de datos requeridos
         if (!$id_usuario || !$id_curso_empresa || !$fecha_inicio) {
             throw new Exception("Faltan datos requeridos");
+        }
+
+        // (Opcional) Procesar según el tipo de usuario
+        if ($tipo_usuario === 'contratista') {
+            error_log("Procesando contratista con ID: " . $id_usuario);
+            // Aquí podrías agregar lógica especial para contratistas.
+        } else {
+            error_log("Procesando usuario con ID: " . $id_usuario);
         }
 
         // Obtener la duración del curso y calcular fecha fin
@@ -69,12 +114,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("Fecha Fin: " . $fecha_fin);
         error_log("Días de Notificación: " . $dias_notificacion);
 
-        // Crear el curso usuario
-        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion);
+        // Crear el curso usuario (usa la lógica adecuada)
+        $resultado = $controladorUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion, $tipo_usuario);
         
         if (!$resultado) {
             throw new Exception("Error al crear el curso usuario");
         }
+
         // Redirigir en caso de éxito
         header("Location: ListaCursos.php?success=1");
         exit();
@@ -83,22 +129,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: cursoAsociarEmpresa.php?error=1&message=" . urlencode("Error al asociar el curso: " . $e->getMessage()));
         exit();
     }
-    
 }
+
+
+
 include 'incluirNavegacion.php';
-
-
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignación de Curso</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .form-container {
@@ -153,6 +195,8 @@ include 'incluirNavegacion.php';
             vertical-align: middle; 
 }
     </style>
+   
+
 </head>
 <body>
 <br><br>
@@ -170,19 +214,34 @@ include 'incluirNavegacion.php';
             </div>
         <?php endif; ?>
         <form method="POST" action="" class="needs-validation" novalidate>
-            <!-- Campo Usuario -->
-            <div class="mb-3">
-                <label for="id_usuario" class="form-label">Nombre:</label>
-                <select class="form-select select2" id="id_usuario" name="id_usuario" required>
-                    <option value="">Buscar usuario...</option>
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <option value="<?php echo htmlspecialchars($usuario['id_Usuarios']); ?>">
-                            <?php echo htmlspecialchars(trim($usuario['nombre_completo'])); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <div class="invalid-feedback">Por favor seleccione un usuario.</div>
-            </div>
+        <div class="mb-3">
+    <label for="tipo_busqueda" class="form-label">Buscar en:</label>
+    <select class="form-select" id="tipo_busqueda" name="tipo_busqueda" required>
+         <option value="usuarios">Usuarios</option>
+         <option value="contratistas">Contratistas</option>
+    </select>
+</div>
+   
+        
+        <!-- Campo Usuario -->
+<div class="mb-3">
+    <label for="id_usuario" class="form-label">Nombre:</label>
+    <select class="form-select select2" id="id_usuario" name="id_usuario" required>
+        <option value="">Buscar usuario...</option>
+        <?php foreach ($usuarios as $usuario): ?>
+            <option value="usuario_<?php echo htmlspecialchars($usuario['id_Usuarios']); ?>">
+    <?php echo htmlspecialchars(trim($usuario['nombre_completo'])); ?>
+</option>
+
+        <?php endforeach; ?>
+    </select>
+    <div class="invalid-feedback">Por favor seleccione un usuario.</div>
+</div>
+
+<!-- Campo oculto para almacenar el tipo (usuario o contratista) -->
+<input type="hidden" id="tipo_usuario" name="tipo_usuario" value="">
+
+            
             <!-- Campo Área (nuevo) -->
             <div class="mb-3">
               <label for="area_usuario" class="form-label">Área:</label>
@@ -244,152 +303,23 @@ include 'incluirNavegacion.php';
     </div>
 
 
-<!-- Primero jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Luego jQuery UI -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<!-- Después Select2 -->
+<!-- 2. Luego Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+ <!-- Cargar jQuery primero -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Luego Bootstrap -->
+<!-- 4. jQuery UI -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<!-- 5. Select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-   $('.select2').select2();
+<!-- 6. Tu script personalizado al final -->
+<script src="../js/cursoAsociarEmpresa.js"></script>
 
-   $('#fecha_inicio').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '-100:+10',
-                showOn: 'both',  // Mostrar tanto en el input como en un icono
-                buttonImage: '../img/calendario.png',
-                buttonImageOnly: true,
-                beforeShow: function(input, inst) {
-                    setTimeout(function() {
-                        var buttonPane = $(input)
-                            .datepicker("widget")
-                            .find(".ui-datepicker-buttonpane");
-
-                        $("<button>", {
-                            text: "Hoy",
-                            click: function() {
-                                $.datepicker._selectDate(input);
-                            }
-                        }).appendTo(buttonPane)
-                          .addClass("ui-datepicker-current ui-state-default ui-priority-primary ui-corner-all");
-                    }, 1);
-                }
-            });
-   $('#selectEmpresa').on('change', function() {
-       const empresaId = $(this).val();
-       if (empresaId) {
-           $.ajax({
-               url: 'cursoAsociarEmpresa.php',
-               type: 'GET',
-               data: { action: 'getCursos', empresa_id: empresaId },
-               dataType: 'json',
-               success: function(data) {
-    $('#selectCurso').empty();
-    $('#selectCurso').append('<option value="">Seleccione un curso...</option>');
-    if (data && data.length > 0) {
-        data.forEach(function(curso) {
-            if (curso && curso.nombre_curso_fk) {
-                $('#selectCurso').append(
-                    '<option value="' + curso.id_curso_empresa + '" data-duracion="' + curso.duracion + '">' +
-                    curso.nombre_curso_fk + ' (' + curso.duracion + ' meses)' +
-                    '</option>'
-                );
-            }
-        });
-    }
-},
-               error: function(xhr, status, error) {
-                   console.error('Error al obtener los cursos:', xhr.responseText);
-               }
-           });
-       } else {
-           $('#selectCurso').empty().append('<option value="">Seleccione un curso...</option>');
-       }
-   });
-
-   $('#selectCurso, #fecha_inicio').on('change', function() {
-       const selectedCurso = $('#selectCurso').find('option:selected');
-       const duracion = selectedCurso.data('duracion');
-       const fechaInicio = $('#fecha_inicio').val();
-
-       if (fechaInicio && duracion) {
-           const fechaFin = new Date(fechaInicio);
-           fechaFin.setMonth(fechaFin.getMonth() + parseInt(duracion));
-           $('#fecha_fin').val($.datepicker.formatDate('yy-mm-dd', fechaFin));
-       }
-   });
-
-   // Validación del formulario
-   const form = document.querySelector('.needs-validation');
-   form.addEventListener('submit', function(event) {
-       if (!form.checkValidity()) {
-           event.preventDefault();
-           event.stopPropagation();
-       }
-       form.classList.add('was-validated');
-   });
-
-   // Configuración de Select2 para días de notificación
-   $('#dias_notificacion').select2({
-       placeholder: "Seleccione días de notificación",
-       allowClear: true
-   });
-   $.datepicker.regional['es'] = {
-    closeText: 'Cerrar',
-    prevText: '< Ant ',
-    nextText: ' Sig >',
-    currentText: 'Actualiza la fecha',
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-    weekHeader: 'Sm',
-    dateFormat: 'yy-mm-dd',
-    firstDay: 1
-};
-$.datepicker.setDefaults($.datepicker.regional['es']);
-
-$('#id_usuario').on('change', function() {
-    const usuarioId = $(this).val();
-    if (usuarioId) {
-        const formData = new FormData();
-        formData.append('id', usuarioId);
-
-        $.ajax({
-            url: 'obtener_area_usuario.php',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log('Respuesta completa:', response); // Debug
-                if (response.area) {
-                    $('#area_usuario').val(response.area);
-                } else {
-                    $('#area_usuario').val('');
-                    console.error('Error al obtener el área:', response.error);
-                    console.log('Debug info:', response.debug); // Debug
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error en la petición AJAX:', error);
-                console.log('Estado de la respuesta:', xhr.status);
-                console.log('Respuesta:', xhr.responseText);
-                $('#area_usuario').val('');
-            }
-        });
-    } else {
-        $('#area_usuario').val('');
-    }
-});
-});
-    </script>
 </body>
 </html>

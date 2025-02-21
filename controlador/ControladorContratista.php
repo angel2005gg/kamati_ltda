@@ -8,8 +8,8 @@ class ControladorContratista {
         $this->contratista = new Contratista();
     }
 
-    public function crear($nombre_contratista) {
-        return $this->contratista->crear($nombre_contratista);
+    public function crear($nombre_contratista, $correo_contratista) {
+        return $this->contratista->crear($nombre_contratista, $correo_contratista);
     }
 
     public function obtenerPorId($id) {
@@ -20,8 +20,8 @@ class ControladorContratista {
         return $this->contratista->obtenerTodos();
     }
 
-    public function actualizar($id, $nombre_contratista) {
-        return $this->contratista->actualizar($id, $nombre_contratista);
+    public function actualizar($id, $nombre_contratista, $correo_contratista) {
+        return $this->contratista->actualizar($id, $nombre_contratista, $correo_contratista);
     }
 
     public function eliminar($id_contratista) {

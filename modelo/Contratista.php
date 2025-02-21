@@ -4,6 +4,7 @@ require_once '../configuracion/ConexionBD.php';
 class Contratista {
     private $id_contratista;
     private $nombre_contratista;
+    private $correo_contratista;
     private $conexion;
 
     public function __construct() {
@@ -23,12 +24,20 @@ class Contratista {
         $this->nombre_contratista = $nombre_contratista;
     }
 
+    public function getCorreoContratista() {
+        return $this->correo_contratista;
+    }
+
+    public function setCorreoContratista($correo_contratista) {
+        $this->correo_contratista = $correo_contratista;
+    }
+
     // Métodos CRUD
-    public function crear($nombre_contratista) {
+    public function crear($nombre_contratista, $correo_contratista) {
         $conn = $this->conexion->conectarBD();
-        $sql = "INSERT INTO contratista (nombre_contratista) VALUES (?)";
+        $sql = "INSERT INTO contratista (nombre_contratista, correo_contratista) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $nombre_contratista);
+        $stmt->bind_param("ss", $nombre_contratista, $correo_contratista);
         $resultado = $stmt->execute();
         $this->id_contratista = $stmt->insert_id;
         $this->conexion->desconectarBD();
@@ -55,11 +64,11 @@ class Contratista {
         return $contratistas;
     }
 
-    public function actualizar($id, $nombre_contratista) {
+    public function actualizar($id, $nombre_contratista, $correo_contratista) {
         $conn = $this->conexion->conectarBD();
-        $sql = "UPDATE contratista SET nombre_contratista = ? WHERE id_contratista = ?";
+        $sql = "UPDATE contratista SET nombre_contratista = ?, correo_contratista = ? WHERE id_contratista = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("si", $nombre_contratista, $id);
+        $stmt->bind_param("ssi", $nombre_contratista, $correo_contratista, $id);
         $resultado = $stmt->execute();
         $this->conexion->desconectarBD();
         return $resultado;

@@ -11,8 +11,8 @@ class ControladorCursoUsuario {
         $this->usuario = new Usuarios();
     }
 
-    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion) {
-        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion);
+    public function crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion, $tipo) {
+        return $this->cursoUsuario->crear($id_usuario, $id_curso_empresa, $fecha_inicio, $fecha_fin, $dias_notificacion, $tipo);
     }
 
     public function obtenerUltimoIdCursoUsuario() {
@@ -81,6 +81,8 @@ class ControladorCursoUsuario {
     public function buscarUsuarios($termino) {
         return $this->cursoUsuario->buscarUsuarios($termino);
     }
-    
+    public function buscarContratistas($termino) {
+        return $this->cursoUsuario->buscarContratistas($termino);
+    }
 }
 ?>

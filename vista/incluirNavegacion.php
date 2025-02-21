@@ -1,19 +1,17 @@
 <?php
-require_once '../modelo/Usuarios.php';
 
+require_once '../modelo/Usuarios.php';
 session_start();
 
 if (!isset($_SESSION['user'])) {
     die("Error: No se ha iniciado sesión.");
 }
-
 $usuario = $_SESSION['user'];
 $rolUsuario = $usuario->getId_Rol_Usuario();
 
 if ($rolUsuario === null) {
     die("Error: No se pudo determinar el rol del usuario.");
 }
-
 // Incluir el archivo de navegación correcto según el rol del usuario
 switch ($rolUsuario) {
     case 1: // Admin

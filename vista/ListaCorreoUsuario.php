@@ -19,7 +19,6 @@ include 'incluirNavegacion.php';
 <head>
     <meta charset="UTF-8">
     <title>Historial de Correos Enviados</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         .nav-tabs {
@@ -51,7 +50,7 @@ include 'incluirNavegacion.php';
     </style>
 </head>
 <body>
-   
+   <br><br><br>
     <div class="container mt-4">
         <!-- Mantener la sección de navegación -->
         <ul class="nav nav-tabs mb-4">
@@ -77,7 +76,7 @@ include 'incluirNavegacion.php';
                     <tr>
                         <td><?php echo htmlspecialchars($correo['destinatario']); ?></td>
                         <td><?php echo htmlspecialchars($correo['asunto']); ?></td>
-                        <td><?php echo htmlspecialchars($correo['mensaje']); ?></td>
+                        <td><?php echo htmlspecialchars_decode($correo['mensaje']); ?></td>
                         <td><?php echo htmlspecialchars($correo['fecha_envio']); ?></td>
                     </tr>
                 <?php endforeach; ?>

@@ -52,8 +52,7 @@ include 'incluirNavegacion.php';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Cursos de Usuarios</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Listado de Cursos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .filtro-container {
@@ -67,9 +66,7 @@ include 'incluirNavegacion.php';
             display: flex;
             gap: 10px;
         }
-        .estado-vigente { color: green; }
-        .estado-a-vencer { color: orange; }
-        .estado-vencido { color: red; }
+        
         .no-resultados {
             text-align: center;
             color: #6c757d;
@@ -101,11 +98,15 @@ include 'incluirNavegacion.php';
         .tabla-container {
             margin-top: 20px;
         }
+        tr.fila-vigente td { background-color:rgb(186, 255, 186) !important; } /* Verde claro */
+        tr.fila-a-vencer td { background-color:rgb(255, 255, 181) !important; } /* Amarillo claro */
+        tr.fila-vencido td { background-color:rgb(255, 189, 189) !important; } /* Rojo claro */
     </style>
 </head>
 <body>
+    <br><br><br>
     <div class="container mt-4">
-        <h2>Listado de Cursos de Usuarios</h2>
+        <h2>Listado de Cursos</h2>
         <!-- Botón para quitar todos los filtros -->
         <div class="mb-3">
             <a href="ListaCursos.php" class="btn btn-secondary">Quitar Filtros</a>
@@ -114,23 +115,20 @@ include 'incluirNavegacion.php';
     <!-- Reemplaza el input de búsqueda actual por este -->
 <div class="row mb-3">
     <div class="col-md-4">
-        <div class="busqueda-container">
-            <input type="text" 
-                   id="nombre_usuario" 
-                   class="form-control" 
-                   placeholder="Buscar usuario..." 
-                   value="<?php echo htmlspecialchars($filtros['nombre_usuario'] ?? ''); ?>">
-            <div id="sugerencias"></div>
-        </div>
+    <div class="busqueda-container">
+    <input type="text" id="nombre_usuario" class="form-control" placeholder="Buscar usuario..." value="<?php echo htmlspecialchars($filtros['nombre_usuario'] ?? ''); ?>">
+    <div id="sugerencias"></div>
+</div>
+
     </div>
 </div>
 
         <!-- Encabezados con iconos de filtro -->
-        <div class="tabla-container">
-            <table class="table table-bordered">
+        <div class="tabla-container" >
+            <table class="table table-bordered" id="tablaUsuarios">
                 <thead>
                     <tr>
-                        <th>Usuario</th>
+                        <th>Nombres</th>
                         <th>
                             Área 
                             <i class="fas fa-filter" onclick="toggleFiltro('area')"></i>
@@ -238,169 +236,42 @@ include 'incluirNavegacion.php';
                     
                 </thead>
                 <tbody>
-                    <?php if (empty($cursosUsuarios)): ?>
-                        <tr>
-                            <td colspan="7" class="no-resultados">
-                                No se encontraron resultados para los filtros seleccionados.
-                            </td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
-                            <tr>
-                                <td><?php echo isset($cursoUsuario['nombre_usuario']) ? htmlspecialchars($cursoUsuario['nombre_usuario']) : 'N/A'; ?></td>
-                                <td><?php echo isset($cursoUsuario['area']) ? htmlspecialchars($cursoUsuario['area']) : 'N/A'; ?></td>
-                                <td><?php echo isset($cursoUsuario['fecha_inicio']) ? htmlspecialchars($cursoUsuario['fecha_inicio']) : 'N/A'; ?></td>
-                                <td><?php echo isset($cursoUsuario['fecha_fin']) ? htmlspecialchars($cursoUsuario['fecha_fin']) : 'N/A'; ?></td>
-                                <td><?php echo isset($cursoUsuario['nombre_curso']) ? htmlspecialchars($cursoUsuario['nombre_curso']) : 'N/A'; ?></td>
-                                <td><?php echo isset($cursoUsuario['empresa']) ? htmlspecialchars($cursoUsuario['empresa']) : 'N/A'; ?></td>
-                                <?php
-                                if (isset($cursoUsuario['fecha_inicio']) && isset($cursoUsuario['fecha_fin'])) {
-                                    $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
-                                } else {
-                                    $estado = ['estado' => 'N/A', 'clase' => ''];
-                                }
-                                ?>
-                                <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
-                                <td>
-                    <a href="EditarCursoUsuario.php?id=<?php echo $cursoUsuario['id_curso_usuario']; ?>" class="edit-icon">
-                        <img src="../img/boton-editar.png" alt="Editar" width="20" height="20">
-                    </a>
-                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
+    <?php if (empty($cursosUsuarios)): ?>
+    <tr>
+        <td colspan="8" class="no-resultados">
+            No se encontraron resultados para los filtros seleccionados.
+        </td>
+    </tr>
+    <?php else: ?>
+    <?php foreach ($cursosUsuarios as $cursoUsuario): ?>
+    <?php
+    $estado = calcularEstado($cursoUsuario['fecha_inicio'], $cursoUsuario['fecha_fin']);
+    ?>
+    <tr class="fila-<?php echo strtolower(str_replace(' ', '-', $estado['estado'])); ?>">
+        <td><?php echo htmlspecialchars($cursoUsuario['nombre_usuario'] ?? 'N/A'); ?></td>
+        <td><?php echo htmlspecialchars($cursoUsuario['area'] ?? 'N/A'); ?></td>
+        <td><?php echo htmlspecialchars($cursoUsuario['fecha_inicio'] ?? 'N/A'); ?></td>
+        <td><?php echo htmlspecialchars($cursoUsuario['fecha_fin'] ?? 'N/A'); ?></td>
+        <td><?php echo htmlspecialchars($cursoUsuario['nombre_curso'] ?? 'N/A'); ?></td>
+        <td><?php echo htmlspecialchars($cursoUsuario['empresa'] ?? 'N/A'); ?></td>
+        <td class="<?php echo $estado['clase']; ?>"><?php echo $estado['estado']; ?></td>
+        <td>
+            <a href="EditarCursoUsuario.php?id=<?php echo $cursoUsuario['id_curso_usuario']; ?>" class="edit-icon">
+                <img src="../img/boton-editar.png" alt="Editar" width="20" height="20">
+            </a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    <?php endif; ?>
+</tbody>
+
+
             </table>
         </div>
     </div>
 
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // Manejadores de eventos cuando el documento está listo
-        $(document).ready(function() {
-            // Cerrar sugerencias al hacer clic fuera
-            $(document).click(function(e) {
-                if (!$(e.target).closest('.busqueda-container').length) {
-                    $('#sugerencias').empty();
-                }
-            });
-
-            // Búsqueda en vivo de usuarios
-            $('#nombre_usuario').on('input', function() {
-                const valor = $(this).val();
-                if (valor.length >= 2) {
-                    $.ajax({
-                        url: 'buscar_usuarios.php',
-                        method: 'GET',
-                        data: { term: valor },
-                        success: function(response) {
-                            const usuarios = JSON.parse(response);
-                            mostrarSugerencias(usuarios);
-                        }
-                    });
-                } else {
-                    $('#sugerencias').empty();
-                }
-            });
-
-            // Aplicar filtros automáticamente cuando cambian los selects
-            $('select').on('change', function() {
-                aplicarFiltros();
-            });
-        });
-
-        // Función para mostrar sugerencias de usuarios
-        function mostrarSugerencias(usuarios) {
-    const sugerencias = $('#sugerencias');
-    sugerencias.empty();
-
-    usuarios.forEach(usuario => {
-        const div = $('<div>')
-            .addClass('sugerencia-item')
-            .text(usuario.nombre_usuario)
-            .click(function() {
-                $('#nombre_usuario').val(usuario.nombre_usuario);
-                sugerencias.empty();
-                aplicarFiltros();
-            });
-        sugerencias.append(div);
-    });
-}
-
-        // Función para mostrar/ocultar filtros
-        function toggleFiltro(filtroId) {
-            // Cerrar todos los otros filtros primero
-            $('.filtro-container').not(`#filtro${filtroId.charAt(0).toUpperCase() + filtroId.slice(1)}`).removeClass('visible');
-            
-            // Toggle del filtro seleccionado
-            const contenedor = document.getElementById(`filtro${filtroId.charAt(0).toUpperCase() + filtroId.slice(1)}`);
-            contenedor.classList.toggle('visible');
-        }
-
-        // Función para aplicar todos los filtros
-        function aplicarFiltros() {
-            const filtros = {
-                nombre_usuario: $('#nombre_usuario').val(),
-                area: $('select[name="area"]').val(),
-                año_inicio: $('select[name="año_inicio"]').val(),
-                mes_inicio: $('select[name="mes_inicio"]').val(),
-                año_fin: $('select[name="año_fin"]').val(),
-                mes_fin: $('select[name="mes_fin"]').val(),
-                nombre_curso: $('select[name="nombre_curso"]').val(),
-                empresa: $('select[name="empresa"]').val(),
-                estado: $('select[name="estado"]').val()
-            };
-
-            // Eliminar parámetros vacíos
-            Object.keys(filtros).forEach(key => {
-                if (!filtros[key]) {
-                    delete filtros[key];
-                }
-            });
-
-            // Construir y redirigir a la URL con los filtros
-            const params = new URLSearchParams(filtros);
-            window.location.href = 'ListaCursos.php?' + params.toString();
-        }
-
-        // Evento para cerrar filtros al hacer clic fuera
-        $(document).click(function(e) {
-            if (!$(e.target).closest('.filtro-container').length && 
-                !$(e.target).hasClass('fa-filter')) {
-                $('.filtro-container').removeClass('visible');
-            }
-        });
-
-        // Prevenir que los clicks dentro de los filtros los cierren
-        $('.filtro-container').click(function(e) {
-            e.stopPropagation();
-        });
-        function filtrarUsuarios() {
-        const input = document.getElementById('nombre_usuario');
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById('tablaUsuarios');
-        const tr = table.getElementsByTagName('tr');
-
-        for (let i = 0; i < tr.length; i++) {
-            const td = tr[i].getElementsByTagName('td')[0];
-            if (td) {
-                const txtValue = td.textContent || td.innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    tr[i].style.display = '';
-                } else {
-                    tr[i].style.display = 'none';
-                }
-            }
-        }
-    }
-    function toggleFiltro(filtro) {
-    const filtroContainer = document.getElementById('filtro' + filtro.charAt(0).toUpperCase() + filtro.slice(1));
-    if (filtroContainer.style.display === 'none' || filtroContainer.style.display === '') {
-        filtroContainer.style.display = 'block';
-    } else {
-        filtroContainer.style.display = 'none';
-    }
-}
-    </script>
+    <script src="../js/ListaCursos.js"></script>
 </body>
 </html>

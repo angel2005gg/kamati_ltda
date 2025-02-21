@@ -18,7 +18,7 @@ $tieneCursosAsignados = !empty($cursosAsignados);
                 Gestión de Cursos
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="cursoAsociarEmpresa.php">Asociar Empresa</a></li>
+                <li><a class="dropdown-item" href="cursoAsociarEmpresa.php">Asignar Cursos</a></li>
                 <li><a class="dropdown-item" href="ListaCursos.php">Listado Completo</a></li>
                 <li><a class="dropdown-item" href="CursosGestion.php">Gestión de Datos</a></li>
                 <?php if ($tieneCursosAsignados) { ?>

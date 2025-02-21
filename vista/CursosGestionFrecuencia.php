@@ -56,7 +56,6 @@ include 'incluirNavegacion.php';
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Cursos - Frecuencia</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         .nav-tabs {
@@ -92,6 +91,7 @@ include 'incluirNavegacion.php';
     </style>
 </head>
 <body>
+    <br><br><br>
 
     <div id="alertMessage" class="alert alert-floating" role="alert"></div>
     <div class="container mt-4">
