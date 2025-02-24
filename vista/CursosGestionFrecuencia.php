@@ -166,7 +166,7 @@ include 'incluirNavegacion.php';
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
-
+<br><br><br>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

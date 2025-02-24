@@ -36,7 +36,9 @@ try {
     JOIN empresa_cliente ec ON ce.id_empresa_cliente = ec.id_empresa_cliente
     JOIN curso cr ON ce.id_curso = cr.id_curso
     WHERE DATEDIFF(cu.fecha_fin, CURRENT_DATE) <= cu.dias_notificacion
-    AND CURRENT_DATE <= cu.fecha_fin";
+    AND CURRENT_DATE <= cu.fecha_fin
+    AND cu.notificaciones_activas = 0";
+
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -50,10 +52,11 @@ try {
 
     foreach ($cursosUsuarios as $cursoUsuario) {
         // Si ya se envió notificación hoy, saltar este registro
-        if ($cursoUsuario['ultima_notificacion']) {
+        if (!empty($cursoUsuario['ultima_notificacion']) && date('Y-m-d', strtotime($cursoUsuario['ultima_notificacion'])) == date('Y-m-d')) {
             error_log("Ya se envió notificación hoy para el curso " . $cursoUsuario['id_curso_usuario']);
             continue;
         }
+        
         // No enviar notificaciones en fin de semana
         $dia_semana = date('N'); // 1=lunes ... 7=domingo
         if ($dia_semana >= 6) {

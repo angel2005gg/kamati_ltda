@@ -6,6 +6,8 @@ require_once '../controlador/ControladorCursoUsuario.php';
 require_once '../controlador/ControladorEmpresaCliente.php';
 require_once '../controlador/ControladorCursoEmpresa.php';
 require_once '../modelo/email/emailHelper.php';
+$conexion = new ConexionBD();
+$conn = $conexion->conectarBD();
 
 // Limpia el buffer de salida para evitar salidas no deseadas
 ob_clean();
@@ -101,14 +103,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     } elseif (isset($_POST['desactivar_notificaciones'])) {
-        $_SESSION['notificaciones_activas'] = false;
-        $mensajeNotificacion = 'Notificaciones desactivadas';
-        // No se llama a exit(), se deja continuar para que se muestre la vista completa.
+        // Actualizar el campo a 1 para desactivar (notificaciones NO se envían)
+        $sqlUpdate = "UPDATE curso_usuario SET notificaciones_activas = 1 WHERE id_curso_usuario = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("i", $id_curso_usuario);
+        if ($stmtUpdate->execute()) {
+            $mensajeNotificacion = 'Notificaciones desactivadas';
+            // Actualizamos la sesión para reflejar que ahora están desactivadas
+            $_SESSION['notificaciones_activas'] = false;
+        } else {
+            $mensajeNotificacion = 'Error al desactivar notificaciones';
+        }
     } elseif (isset($_POST['activar_notificaciones'])) {
-        $_SESSION['notificaciones_activas'] = true;
-        $mensajeNotificacion = 'Notificaciones activadas';
-        // No se llama a exit()
+        // Actualizar el campo a 0 para activar (notificaciones se enviarán)
+        $sqlUpdate = "UPDATE curso_usuario SET notificaciones_activas = 0 WHERE id_curso_usuario = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("i", $id_curso_usuario);
+        if ($stmtUpdate->execute()) {
+            $mensajeNotificacion = 'Notificaciones activadas';
+            // Actualizamos la sesión para reflejar que ahora están activadas
+            $_SESSION['notificaciones_activas'] = true;
+        } else {
+            $mensajeNotificacion = 'Error al activar notificaciones';
+        }
     }
+    
+    
     else {
         $fecha_inicio = $_POST['fecha_inicio'] ?? null;
         $id_empresa_cliente = $_POST['selectEmpresa'] ?? null;
@@ -223,14 +243,18 @@ include 'incluirNavegacion.php';
             <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursos.php'">Cancelar</button> 
         </form>
         <br>
-        <form method="post">
-            <button type="submit" name="notificar" class="btn btn-warning">Notificar Ahora</button>
-            <?php if ($notificaciones_activas): ?>
-                <button type="submit" name="desactivar_notificaciones" class="btn btn-secondary">Desactivar Notificaciones</button>
-            <?php else: ?>
-                <button type="submit" name="activar_notificaciones" class="btn btn-secondary">Activar Notificaciones </button>
-            <?php endif; ?>
-        </form>
+        <!-- Formulario de acciones de notificación -->
+<form method="post">
+    <button type="submit" name="notificar" class="btn btn-warning">Notificar Ahora</button>
+    <?php if ($cursoUsuario['notificaciones_activas'] == 0): ?>
+        <!-- Si el campo es 0, las notificaciones están activadas, por lo que se muestra la opción de desactivarlas -->
+        <button type="submit" name="desactivar_notificaciones" class="btn btn-secondary">Desactivar Notificaciones</button>
+    <?php else: ?>
+        <!-- Si el campo es 1, están desactivadas, se muestra la opción de activarlas -->
+        <button type="submit" name="activar_notificaciones" class="btn btn-secondary">Activar Notificaciones</button>
+    <?php endif; ?>
+</form>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
