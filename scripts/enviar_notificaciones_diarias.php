@@ -51,6 +51,8 @@ try {
     error_log("Procesando " . count($cursosUsuarios) . " cursos");
 
     foreach ($cursosUsuarios as $cursoUsuario) {
+        error_log("Procesando curso ID: " . $cursoUsuario['id_curso_usuario'] . " para usuario " . $cursoUsuario['nombre_usuario']);
+
         // Si ya se envió notificación hoy, saltar este registro
         if (!empty($cursoUsuario['ultima_notificacion']) && date('Y-m-d', strtotime($cursoUsuario['ultima_notificacion'])) == date('Y-m-d')) {
             error_log("Ya se envió notificación hoy para el curso " . $cursoUsuario['id_curso_usuario']);
@@ -89,11 +91,11 @@ try {
             // Enviar el correo; se pasa el id del usuario para que se añadan correos según área/sede
             if (enviarCorreo($destinatarios, $asunto, $mensaje, $cursoUsuario['id_Usuarios'])) {
                 // Registrar la notificación en historial
-                $sql_registro = "INSERT INTO historial_correos (destinatario, asunto, mensaje, fecha_envio) VALUES (?, ?, ?, NOW())";
-                $destinatarioRegistro = $cursoUsuario['correo'];
-                $stmt_registro = $conn->prepare($sql_registro);
-                $stmt_registro->bind_param('sss', $destinatarioRegistro, $asunto, $mensaje);
-                $stmt_registro->execute();
+                $sql_registro = "INSERT INTO historial_correos (id_curso_usuario, destinatario, asunto, mensaje, fecha_envio) VALUES (?, ?, ?, ?, NOW())";
+$destinatarioRegistro = $cursoUsuario['correo'];
+$stmt_registro = $conn->prepare($sql_registro);
+$stmt_registro->bind_param('isss', $cursoUsuario['id_curso_usuario'], $destinatarioRegistro, $asunto, $mensaje);
+$stmt_registro->execute();
                 error_log("Correo enviado exitosamente a: " . $cursoUsuario['correo']);
             } else {
                 error_log("Error al enviar correo a: " . $cursoUsuario['correo']);
