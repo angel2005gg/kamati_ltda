@@ -108,9 +108,9 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
-                                <a class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-user icon-user"></i> Ver datos
-                                </a>
+                            <a class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fas fa-user icon-user"></i> Ver datos
+</a> 
                             </li>
                             <li>
                                 <a class="dropdown-item" href="../configuracion/logout.php">
@@ -185,7 +185,7 @@ $usersModal = $usuariosDAOmodal->consultarUserModal($_SESSION['idUser']);
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
