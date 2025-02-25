@@ -225,35 +225,37 @@ class PermisosDao
    }
    //Método de consulta de permisos que ya han sido enviados como pendientes o negados por el jefe inmediato por medio de un fiultro de fecha
    public function consultarPermisosPendientesNegadoFiltroFecha($fecha, $id_usuario_per)
-   {
-      try {
-         $conn = $this->conexion->conectarBD();
-         $sql = "SELECT u.primer_nombre, u.segundo_nombre, u.primer_apellido, u.numero_identificacion, u.segundo_apellido, u.sede_laboral, p.fecha_elaboracion, p.tipo_permiso, 
-         p.tiempo, p.cantidad_tiempo, p.fecha_inicio_novedad, p.fecha_fin_novedad, p.dias_compensados, 
-         p.cantidad_dias_compensados, p.total_horas_permiso, p.motivo_novedad, p.remuneracion, 
-         p.estado_permiso, p.id_Permisos, c.nombre_cargo, a.nombre_area FROM permisos AS p inner join usuarios as u on p.id_Usuarios_permiso = u.id_Usuarios 
-         inner join cargo as c on u.id_Cargo_Usuario = c.id_Cargo inner join area as a on c.id_area_fk = a.id_Area 
-         WHERE (p.estado_permiso = 'Pendiente' OR p.estado_permiso = 'Negado') AND p.fecha_inicio_novedad = ? AND p.id_Usuarios_permiso != ?";
-         $statement = $conn->prepare($sql);
-         $statement->bind_param('si', $fecha, $id_usuario_per);
-         $statement->execute();
-         $result = $statement->get_result();
+{
+    try {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT u.primer_nombre, u.segundo_nombre, u.primer_apellido, u.numero_identificacion, u.segundo_apellido, u.sede_laboral, p.fecha_elaboracion, p.tipo_permiso, 
+        p.tiempo, p.cantidad_tiempo, p.fecha_inicio_novedad, p.fecha_fin_novedad, p.dias_compensados, 
+        p.cantidad_dias_compensados, p.total_horas_permiso, p.motivo_novedad, p.remuneracion, 
+        p.estado_permiso, p.id_Permisos, c.nombre_cargo, a.nombre_area FROM permisos AS p inner join usuarios as u on p.id_Usuarios_permiso = u.id_Usuarios 
+        inner join cargo as c on u.id_Cargo_Usuario = c.id_Cargo inner join area as a on c.id_area_fk = a.id_Area 
+        WHERE (p.estado_permiso = 'Pendiente' OR p.estado_permiso = 'Negado') AND p.fecha_inicio_novedad = ? AND p.id_Usuarios_permiso != ?";
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('si', $fecha, $id_usuario_per);
+        $statement->execute();
+        $result = $statement->get_result();
 
-         $data = [];
-         if ($result->num_rows > 0) {
+        $data = [];
+        if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-               $data[] = $row;
+                $data[] = $row;
             }
-         }
+        }
 
-         $statement->close();
-         $result->close();
-         return $data;
-      } catch (Exception $e) {
-      } finally {
-         $conn = $this->conexion->desconectarBD();
-      }
-   }
+        $statement->close();
+        $result->close();
+        return $data;
+    } catch (Exception $e) {
+        error_log("Error en consultarPermisosPendientesNegadoFiltroFecha: " . $e->getMessage());
+        return [];
+    } finally {
+        $conn = $this->conexion->desconectarBD();
+    }
+}
    //Metodo para ver cuales son los permisos aprobados
    public function consultarPermisosAprobados($id_usuario_per)
    {
@@ -543,42 +545,39 @@ class PermisosDao
    //Metodo de consaulta de todos los permisos pero por filtro de fechas
    public function consultarPermisosCompletosFiltroFecha($fecha)
 {
-   try {
-      $conn = $this->conexion->conectarBD();
-      $sql = "SELECT u.primer_nombre, u.segundo_nombre, u.primer_apellido, u.numero_identificacion, u.segundo_apellido, u.sede_laboral, p.fecha_elaboracion, p.tipo_permiso, 
-       p.tiempo, p.cantidad_tiempo, p.fecha_inicio_novedad, p.fecha_fin_novedad, p.dias_compensados, 
-       p.cantidad_dias_compensados, p.total_horas_permiso, p.motivo_novedad, p.remuneracion, 
-       p.estado_permiso, p.id_Permisos, c.nombre_cargo, a.nombre_area 
-       FROM permisos AS p 
-       INNER JOIN usuarios AS u ON p.id_Usuarios_permiso = u.id_Usuarios 
-       INNER JOIN cargo AS c ON u.id_Cargo_Usuario = c.id_Cargo 
-       INNER JOIN area AS a ON c.id_area_fk = a.id_Area 
-       WHERE p.fecha_elaboracion = ?
-       ORDER BY p.fecha_elaboracion DESC, p.id_Permisos DESC";
-      $statement = $conn->prepare($sql);
-      $statement->bind_param('s', $fecha);
-      $statement->execute();
-      $result = $statement->get_result();
+    try {
+        $conn = $this->conexion->conectarBD();
+        $sql = "SELECT u.primer_nombre, u.segundo_nombre, u.primer_apellido, u.numero_identificacion, u.segundo_apellido, u.sede_laboral, p.fecha_elaboracion, p.tipo_permiso, 
+        p.tiempo, p.cantidad_tiempo, p.fecha_inicio_novedad, p.fecha_fin_novedad, p.dias_compensados, 
+        p.cantidad_dias_compensados, p.total_horas_permiso, p.motivo_novedad, p.remuneracion, 
+        p.estado_permiso, p.id_Permisos, c.nombre_cargo, a.nombre_area 
+        FROM permisos AS p 
+        INNER JOIN usuarios AS u ON p.id_Usuarios_permiso = u.id_Usuarios 
+        INNER JOIN cargo AS c ON u.id_Cargo_Usuario = c.id_Cargo 
+        INNER JOIN area AS a ON c.id_area_fk = a.id_Area 
+        WHERE p.fecha_inicio_novedad = ?
+        ORDER BY p.fecha_elaboracion DESC, p.id_Permisos DESC";
+        $statement = $conn->prepare($sql);
+        $statement->bind_param('s', $fecha);
+        $statement->execute();
+        $result = $statement->get_result();
 
-      $data = [];
-      if ($result->num_rows > 0) {
-         while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-         }
-      }
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
 
-      $statement->close();
-      $result->close();
-      return $data;
-   } catch (Exception $e) {
-      // Manejar la excepción
-      error_log("Error en consultarPermisosCompletosFiltroFecha: " . $e->getMessage());
-      return [];
-   } finally {
-      if ($conn) {
-         $conn = $this->conexion->desconectarBD();
-      }
-   }
+        $statement->close();
+        $result->close();
+        return $data;
+    } catch (Exception $e) {
+        error_log("Error en consultarPermisosCompletosFiltroFecha: " . $e->getMessage());
+        return [];
+    } finally {
+        $conn = $this->conexion->desconectarBD();
+    }
 }
 
 

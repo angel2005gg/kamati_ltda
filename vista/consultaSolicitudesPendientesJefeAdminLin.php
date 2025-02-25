@@ -294,13 +294,18 @@ require_once '../modelo/dao/PermisosDao.php';
             <br><br><br>
             <h2>Listado de solicitudes aprobadas</h2>
             <br>
-
+            
             <form id="filter-form">
                 <div class="form-floating tma">
                     <input type="date" class="form-control" name="fechaAprobadas" id="fechaAprobadas" placeholder="" required>
-                    <label for="floatingInput">Elije la fecha</label>
+                    <label for="floatingInput">Elije la fecha inicio</label>
                 </div>
             </form>
+            <br>
+            <div class="form-floating tma">
+    <input type="text" class="form-control" id="buscarAprobadas" placeholder="Buscar...">
+    <label for="buscarAprobadas">Buscar...</label>
+</div>
             <div class="tabla_solicitudes">
                 <table class="table-responsive">
                     <thead>
@@ -354,9 +359,14 @@ require_once '../modelo/dao/PermisosDao.php';
             <form id="filter-form">
                 <div class="form-floating tma">
                     <input type="date" class="form-control" name="fecha" id="fecha" placeholder="" required>
-                    <label for="floatingInput">Elije la fecha</label>
+                    <label for="floatingInput">Elije la fecha de inicio</label>
                 </div>
             </form>
+            <br>
+            <div class="form-floating tma">
+    <input type="text" class="form-control" id="buscarTodas" placeholder="Buscar...">
+    <label for="buscarTodas">Buscar...</label>
+</div>
             <div class="tabla_solicitudes">
                 <table class="table-responsive">
                     <thead>
@@ -411,7 +421,25 @@ require_once '../modelo/dao/PermisosDao.php';
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Función de búsqueda para Listado de solicitudes aprobadas
+        $("#buscarAprobadas").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#table_body_select_Aprobadas tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
 
+        // Función de búsqueda para Listado de todas las solicitudes
+        $("#buscarTodas").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#table_permisos_completos tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

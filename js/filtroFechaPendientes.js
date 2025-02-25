@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('fechaPendientes').addEventListener('change', function() {
-        let nombrePermiso = this.value;
+        let fechaInicioPendiente = this.value;
     
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '../procesar/procesarFiltroFechasPendientes.php', true);
@@ -53,8 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
     
-        // Agregar una condición para manejar si nombrePermiso está vacío
-        let postData = nombrePermiso ? 'fechaPendiente=' + encodeURIComponent(nombrePermiso) : '';
+        let postData = fechaInicioPendiente ? 'fechaInicioPendiente=' + encodeURIComponent(fechaInicioPendiente) : '';
     
         xhr.send(postData);
     });
