@@ -144,53 +144,54 @@ include 'incluirNavegacion.php';
                             </div>
                         </th>
                         <th>
-                            Fecha Inicio
-                            <i class="fas fa-filter" onclick="toggleFiltro('fecha_inicio')"></i>
-                            <div id="filtroFechaInicio" class="filtro-container">
-                                <div class="filtro-fecha">
-                                    <select class="form-select" name="año_inicio">
-                                        <option value="">Año</option>
-                                        <?php foreach ($años as $año): ?>
-                                            <option value="<?php echo $año['año']; ?>">
-                                                <?php echo $año['año']; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <select class="form-select" name="mes_inicio">
-                                        <option value="">Mes</option>
-                                        <?php foreach ($meses as $numero => $nombre): ?>
-                                            <option value="<?php echo $numero; ?>">
-                                                <?php echo $nombre; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
-                            Fecha Fin
-                            <i class="fas fa-filter" onclick="toggleFiltro('fecha_fin')"></i>
-                            <div id="filtroFechaFin" class="filtro-container">
-                                <div class="filtro-fecha">
-                                    <select class="form-select" name="año_fin">
-                                        <option value="">Año</option>
-                                        <?php foreach ($años as $año): ?>
-                                            <option value="<?php echo $año['año']; ?>">
-                                                <?php echo $año['año']; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <select class="form-select" name="mes_fin">
-                                        <option value="">Mes</option>
-                                        <?php foreach ($meses as $numero => $nombre): ?>
-                                            <option value="<?php echo $numero; ?>">
-                                                <?php echo $nombre; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </th>
+    Fecha Inicio
+    <!-- Eliminado el icono de filtro -->
+    <div id="filtroFechaInicio" class="filtro-container">
+        <div class="filtro-fecha">
+            <select class="form-select" name="año_inicio">
+                <option value="">Año</option>
+                <?php foreach ($años as $año): ?>
+                    <option value="<?php echo $año['año']; ?>">
+                        <?php echo $año['año']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <select class="form-select" name="mes_inicio">
+                <option value="">Mes</option>
+                <?php foreach ($meses as $numero => $nombre): ?>
+                    <option value="<?php echo $numero; ?>">
+                        <?php echo $nombre; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+</th>
+<th>
+    Fecha Fin
+    <!-- Eliminado el icono de filtro -->
+    <div id="filtroFechaFin" class="filtro-container">
+        <div class="filtro-fecha">
+            <select class="form-select" name="año_fin">
+                <option value="">Año</option>
+                <?php foreach ($años as $año): ?>
+                    <option value="<?php echo $año['año']; ?>">
+                        <?php echo $año['año']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <select class="form-select" name="mes_fin">
+                <option value="">Mes</option>
+                <?php foreach ($meses as $numero => $nombre): ?>
+                    <option value="<?php echo $numero; ?>">
+                        <?php echo $nombre; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+</th>
+
                         <th>
                             Curso
                             <i class="fas fa-filter" onclick="toggleFiltro('curso')"></i>

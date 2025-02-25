@@ -268,10 +268,10 @@ include 'incluirNavegacion.php';
             </div>
 
             <!-- Campo Fecha de Inicio -->
-            <div class="mb-3">
-                <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
-                <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
-            </div>
+<div class="mb-3">
+    <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
+    <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" required autocomplete="off">
+</div>
 
             <!-- Campo Fecha de Fin -->
             <div class="mb-3">
