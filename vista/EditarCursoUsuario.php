@@ -56,7 +56,7 @@ function calcularEstado($fecha_inicio, $fecha_fin) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['eliminar'])) {
         $controladorCursoUsuario->eliminar($id_curso_usuario);
-        header("Location: /kamati_ltda/vista/ListaCursos.php?deleted=1");
+        header("Location: /vista/ListaCursos.php?deleted=1");
         exit();
     } elseif (isset($_POST['notificar'])) {
         // Seleccionar el correo según el tipo
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fecha_fin = date('Y-m-d', strtotime("+$duracion months", strtotime($fecha_inicio)));
     
             $controladorCursoUsuario->actualizar($id_curso_usuario, $cursoUsuario['id_Usuarios'], $id_curso_empresa, $fecha_inicio, $fecha_fin);
-            header("Location: /kamati_ltda/vista/ListaCursos.php?updated=1");
+            header("Location: /vista/ListaCursos.php?updated=1");
             exit();
         }
     }
@@ -240,7 +240,7 @@ include 'incluirNavegacion.php';
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <button type="submit" name="eliminar" class="btn btn-danger">Eliminar</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/kamati_ltda/vista/ListaCursos.php'">Cancelar</button> 
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/vista/ListaCursos.php'">Cancelar</button> 
         </form>
         <br>
         <!-- Formulario de acciones de notificación -->
